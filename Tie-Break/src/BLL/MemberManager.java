@@ -12,12 +12,11 @@ import BE.Member;
  */
 public class MemberManager
 {
-    private Member member;
+
     private static MemberManager instance = null;
 
     private MemberManager()
     {
-        
     }
 
     public static MemberManager getInstance()
@@ -29,23 +28,8 @@ public class MemberManager
         return instance;
     }
 
-    public void getID()
+    public Member addMember(Member m)
     {
-        member.getId();
-    }
-    
-    public void getName()
-    {
-        String name =  member.getFirstName() + " " + member.getLastName();
-    }
-    
-    public void setFirstName(String firstName)
-    {
-        member.setFirstName(firstName);
-    }
-    
-    public void setLastName(String lastName)
-    {
-        member.setLastName(lastName);
+        return m;
     }
 }

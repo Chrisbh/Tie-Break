@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import BE.Member;
 import BLL.MemberManager;
 
 /**
@@ -76,6 +77,13 @@ public class JFrameRegistrering extends javax.swing.JFrame
         });
 
         btnAdd.setText("Tilføj");
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Annuller");
 
@@ -185,19 +193,33 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
     {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-        String firstName;
-        firstName = txtFirstName.getText();
-        mManager.setFirstName(firstName);
+
     }//GEN-LAST:event_txtFirstNameActionPerformed
 
     private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
     {//GEN-HEADEREND:event_txtLastNameActionPerformed
-        String lastName;
-        lastName = txtLastName.getText();
-        mManager.setLastName(lastName);
+
     }//GEN-LAST:event_txtLastNameActionPerformed
 
-    
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
+    {//GEN-HEADEREND:event_btnAddActionPerformed
+        addMember();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    public void addMember()
+    {
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String address = txtAddress.getText();
+        int zipCode = Integer.parseInt(txtZipCode.getText()); 
+        String city = txtCity.getText();
+        String email = txtEmail.getText();
+        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+        String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+        
+        Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+        mManager.addMember(m); 
+    }
     /**
      * @param args the command line arguments
      */
