@@ -6,7 +6,7 @@ package BLL;
 
 /**
  *
- * @author Chris
+ * @author Chris, Lasse, Rasmus, Dennis
  */
 public class FillerClass
 {
