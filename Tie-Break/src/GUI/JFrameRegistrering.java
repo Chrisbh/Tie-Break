@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import BLL.MemberManager;
+
 /**
  *
  * @author Chris
@@ -11,12 +13,15 @@ package GUI;
 public class JFrameRegistrering extends javax.swing.JFrame
 {
 
+    private String name;
+    private MemberManager mManager;
     /**
      * Creates new form JFrameRegistrering
      */
     public JFrameRegistrering()
     {
         initComponents();
+        mManager = MemberManager.getInstance();
     }
 
     /**
@@ -34,7 +39,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
         lblZipCodeCity = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
         txtZipCode = new javax.swing.JTextField();
         txtCity = new javax.swing.JTextField();
@@ -48,6 +53,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
         txtCPR = new javax.swing.JTextField();
         lblCPRStreg = new javax.swing.JLabel();
         lblPostNrByAdskiller = new javax.swing.JLabel();
+        txtFirstName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +67,14 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
         lblPhoneNumber.setText("Telefonnr");
 
+        txtLastName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                txtLastNameActionPerformed(evt);
+            }
+        });
+
         btnAdd.setText("Tilføj");
 
         btnCancel.setText("Annuller");
@@ -73,6 +87,14 @@ public class JFrameRegistrering extends javax.swing.JFrame
         lblCPRStreg.setText("-");
 
         lblPostNrByAdskiller.setText("/");
+
+        txtFirstName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                txtFirstNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,20 +121,23 @@ public class JFrameRegistrering extends javax.swing.JFrame
                     .addComponent(txtPhoneNumber)
                     .addComponent(txtEmail)
                     .addComponent(txtAddress)
-                    .addComponent(txtName)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(lblPostNrByAdskiller)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCity))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCPRStreg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLastName)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +147,8 @@ public class JFrameRegistrering extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddress)
@@ -157,6 +183,21 @@ public class JFrameRegistrering extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
+    {//GEN-HEADEREND:event_txtFirstNameActionPerformed
+        String firstName;
+        firstName = txtFirstName.getText();
+        mManager.setFirstName(firstName);
+    }//GEN-LAST:event_txtFirstNameActionPerformed
+
+    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
+    {//GEN-HEADEREND:event_txtLastNameActionPerformed
+        String lastName;
+        lastName = txtLastName.getText();
+        mManager.setLastName(lastName);
+    }//GEN-LAST:event_txtLastNameActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -222,7 +263,8 @@ public class JFrameRegistrering extends javax.swing.JFrame
     private javax.swing.JTextField txtCPR;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
