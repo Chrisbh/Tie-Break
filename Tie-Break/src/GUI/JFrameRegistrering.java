@@ -29,44 +29,44 @@ public class JFrameRegistrering extends javax.swing.JFrame
     private void initComponents()
     {
 
-        lblNavn = new javax.swing.JLabel();
-        lblAdresse = new javax.swing.JLabel();
-        lblPostNrBy = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        lblZipCodeCity = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblTelefon = new javax.swing.JLabel();
-        txtNavn = new javax.swing.JTextField();
-        txtAdresse = new javax.swing.JTextField();
-        txtPostNr = new javax.swing.JTextField();
-        txtBy = new javax.swing.JTextField();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtZipCode = new javax.swing.JTextField();
+        txtCity = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtTelefon = new javax.swing.JTextField();
-        btnTilføj = new javax.swing.JButton();
-        btnAnnuller = new javax.swing.JButton();
-        lblTitel = new javax.swing.JLabel();
+        txtPhoneNumber = new javax.swing.JTextField();
+        btnAdd = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
         lblCPR = new javax.swing.JLabel();
-        txtFødselsdag = new javax.swing.JTextField();
+        txtBirthDay = new javax.swing.JTextField();
         txtCPR = new javax.swing.JTextField();
         lblCPRStreg = new javax.swing.JLabel();
         lblPostNrByAdskiller = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblNavn.setText("Navn");
+        lblName.setText("Navn");
 
-        lblAdresse.setText("Adresse");
+        lblAddress.setText("Adresse");
 
-        lblPostNrBy.setText("Postnr/By");
+        lblZipCodeCity.setText("Postnr/By");
 
         lblEmail.setText("Email");
 
-        lblTelefon.setText("Telefonnr");
+        lblPhoneNumber.setText("Telefonnr");
 
-        btnTilføj.setText("Tilføj");
+        btnAdd.setText("Tilføj");
 
-        btnAnnuller.setText("Annuller");
+        btnCancel.setText("Annuller");
 
-        lblTitel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitel.setText("Tilføjelse af nyt medlem");
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Tilføjelse af nyt medlem");
 
         lblCPR.setText("CPR");
 
@@ -80,34 +80,34 @@ public class JFrameRegistrering extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTilføj)
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnnuller)
+                .addComponent(btnCancel)
                 .addGap(10, 10, 10))
-            .addComponent(lblTitel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNavn)
-                    .addComponent(lblAdresse)
-                    .addComponent(lblPostNrBy)
+                    .addComponent(lblName)
+                    .addComponent(lblAddress)
+                    .addComponent(lblZipCodeCity)
                     .addComponent(lblEmail)
-                    .addComponent(lblTelefon)
+                    .addComponent(lblPhoneNumber)
                     .addComponent(lblCPR))
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTelefon)
+                    .addComponent(txtPhoneNumber)
                     .addComponent(txtEmail)
-                    .addComponent(txtAdresse)
-                    .addComponent(txtNavn)
+                    .addComponent(txtAddress)
+                    .addComponent(txtName)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPostNr, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(lblPostNrByAdskiller)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBy, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFødselsdag, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCPRStreg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,20 +118,20 @@ public class JFrameRegistrering extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(lblTitel)
+                .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNavn)
-                    .addComponent(txtNavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAdresse)
-                    .addComponent(txtAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAddress)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPostNrBy)
-                    .addComponent(txtPostNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblZipCodeCity)
+                    .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPostNrByAdskiller))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -139,18 +139,18 @@ public class JFrameRegistrering extends javax.swing.JFrame
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelefon)
-                    .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPhoneNumber)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCPR)
-                    .addComponent(txtFødselsdag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCPRStreg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTilføj)
-                    .addComponent(btnAnnuller))
+                    .addComponent(btnAdd)
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -206,24 +206,24 @@ public class JFrameRegistrering extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnnuller;
-    private javax.swing.JButton btnTilføj;
-    private javax.swing.JLabel lblAdresse;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCPR;
     private javax.swing.JLabel lblCPRStreg;
     private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblNavn;
-    private javax.swing.JLabel lblPostNrBy;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPostNrByAdskiller;
-    private javax.swing.JLabel lblTelefon;
-    private javax.swing.JLabel lblTitel;
-    private javax.swing.JTextField txtAdresse;
-    private javax.swing.JTextField txtBy;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblZipCodeCity;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtBirthDay;
     private javax.swing.JTextField txtCPR;
+    private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFødselsdag;
-    private javax.swing.JTextField txtNavn;
-    private javax.swing.JTextField txtPostNr;
-    private javax.swing.JTextField txtTelefon;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 }

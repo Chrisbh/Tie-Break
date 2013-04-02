@@ -8,7 +8,7 @@ package BE;
  *
  * @author Chris
  */
-public class Medlem
+public class Member
 {
     private int id;
     private String name;
@@ -19,7 +19,7 @@ public class Medlem
     private int phoneNumber;
     private String cpr;
     
-    public Medlem(int id, String name, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
+    public Member(int id, String name, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
     {
         this.id = id;
         this.name = name;
