@@ -24,11 +24,10 @@ public class MembersDBManager extends TieBreakDBManager
 
     public Member addMember(Member m) throws SQLException
     {
-        System.out.println(m.getAddress());
         try (Connection con = ds.getConnection())
         {
-            
-            String sql = "INSERT INTO Member VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+            String sql = "INSERT INTO Members VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getFirstName());
@@ -39,17 +38,16 @@ public class MembersDBManager extends TieBreakDBManager
             ps.setString(6, m.getEmail());
             ps.setInt(7, m.getPhoneNumber());
             ps.setString(8, m.getCpr());
-            
+
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
-                    {
-                        throw new SQLException("Unable to add Member");
-                    }
+            {
+                throw new SQLException("Unable to add Member");
+            }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
             int id = keys.getInt(1);
-            String cpr = keys.getString(9);
-            return new Member(id, m, cpr);
+            return new Member(id, m, m.getCpr());
         }
     }
 }

@@ -38,16 +38,8 @@ public class MemberManager
         return instance;
     }
 
-    public Member addMember(Member m)
+    public Member addMember(Member m) throws Exception
     {
-        try
-        {
-            return db.addMember(m);
-        }
-        catch (Exception e)
-        {
-            System.out.println("ERROR - " + e.getLocalizedMessage());
-        }
-        return null;
+        return db.addMember(m);
     }
 }

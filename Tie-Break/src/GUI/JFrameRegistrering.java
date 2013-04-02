@@ -218,7 +218,14 @@ public class JFrameRegistrering extends javax.swing.JFrame
         String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
         
         Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
-        mManager.addMember(m); 
+        try
+        {
+          mManager.addMember(m);   
+        }
+        catch(Exception e)
+        {
+            System.out.println("ERROR - " + e);
+        }
     }
     /**
      * @param args the command line arguments
