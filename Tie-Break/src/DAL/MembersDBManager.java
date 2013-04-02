@@ -24,9 +24,11 @@ public class MembersDBManager extends TieBreakDBManager
 
     public Member addMember(Member m) throws SQLException
     {
+        System.out.println(m.getAddress());
         try (Connection con = ds.getConnection())
         {
-            String sql = "INSERT INTO Member(FirstName, LastName, Address, ZipCode, City, Email, Phone, Cpr)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            String sql = "INSERT INTO Member VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getFirstName());
