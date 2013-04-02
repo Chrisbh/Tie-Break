@@ -11,7 +11,8 @@ package BE;
 public class Member
 {
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String address;
     private int zipCode;
     private String city;
@@ -19,16 +20,22 @@ public class Member
     private int phoneNumber;
     private String cpr;
     
-    public Member(int id, String name, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
+    public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
     {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
         this.zipCode = zipCode;
         this.city = city;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.cpr = cpr;
+    }
+    
+    public Member(int id, String name, String cpr)
+    {
+        
     }
 
     /**
@@ -42,17 +49,17 @@ public class Member
     /**
      * @return the name
      */
-    public String getName()
+    public String getFirstName()
     {
-        return name;
+        return firstName;
     }
 
     /**
      * @param name the name to set
      */
-    public void setName(String name)
+    public void setFirstName(String firstName)
     {
-        this.name = name;
+        this.firstName = firstName;
     }
 
     /**
@@ -149,5 +156,21 @@ public class Member
     public void setCpr(String cpr)
     {
         this.cpr = cpr;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
     }
 }
