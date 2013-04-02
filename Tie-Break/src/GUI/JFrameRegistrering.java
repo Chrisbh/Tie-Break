@@ -185,9 +185,10 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
     {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-        String firstName;
-        firstName = txtFirstName.getText();
-        mManager.setFirstName(firstName);
+        if(txtFirstName.getText().length()>=5)
+    {
+        txtFirstName.setText(txtFirstName.getText().substring(0, 4));
+    }
     }//GEN-LAST:event_txtFirstNameActionPerformed
 
     private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
@@ -197,6 +198,13 @@ public class JFrameRegistrering extends javax.swing.JFrame
         mManager.setLastName(lastName);
     }//GEN-LAST:event_txtLastNameActionPerformed
 
+    private void txtFirstNameKeyPressed(java.awt.event.KeyEvent evt)
+{
+    if(txtFirstName.getText().length()>=5)
+    {
+        txtFirstName.setText(txtFirstName.getText().substring(0, 4));
+    }
+}
     
     /**
      * @param args the command line arguments
