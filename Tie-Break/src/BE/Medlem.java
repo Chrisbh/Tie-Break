@@ -11,23 +11,23 @@ package BE;
 public class Medlem
 {
     private int id;
-    private String navn;
-    private String adresse;
-    private int postnr;
-    private String by;
+    private String name;
+    private String address;
+    private int zipCode;
+    private String city;
     private String email;
-    private int telefon;
+    private int phoneNumber;
     private String cpr;
     
-    public Medlem(int id, String navn, String adresse, int postnr, String by, String email, int telefon, String cpr)
+    public Medlem(int id, String name, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
     {
         this.id = id;
-        this.navn = navn;
-        this.adresse = adresse;
-        this.postnr = postnr;
-        this.by = by;
+        this.name = name;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
         this.email = email;
-        this.telefon = telefon;
+        this.phoneNumber = phoneNumber;
         this.cpr = cpr;
     }
 
@@ -40,67 +40,67 @@ public class Medlem
     }
 
     /**
-     * @return the navn
+     * @return the name
      */
-    public String getNavn()
+    public String getName()
     {
-        return navn;
+        return name;
     }
 
     /**
-     * @param navn the navn to set
+     * @param name the name to set
      */
-    public void setNavn(String navn)
+    public void setName(String name)
     {
-        this.navn = navn;
+        this.name = name;
     }
 
     /**
-     * @return the adresse
+     * @return the address
      */
-    public String getAdresse()
+    public String getAddress()
     {
-        return adresse;
+        return address;
     }
 
     /**
-     * @param adresse the adresse to set
+     * @param address the address to set
      */
-    public void setAdresse(String adresse)
+    public void setAddress(String address)
     {
-        this.adresse = adresse;
+        this.address = address;
     }
 
     /**
-     * @return the postnr
+     * @return the zipCode
      */
-    public int getPostnr()
+    public int getZipCode()
     {
-        return postnr;
+        return zipCode;
     }
 
     /**
-     * @param postnr the postnr to set
+     * @param zipCode the zipCode to set
      */
-    public void setPostnr(int postnr)
+    public void setZipCode(int zipCode)
     {
-        this.postnr = postnr;
+        this.zipCode = zipCode;
     }
 
     /**
-     * @return the by
+     * @return the city
      */
-    public String getBy()
+    public String getCity()
     {
-        return by;
+        return city;
     }
 
     /**
-     * @param by the by to set
+     * @param city the city to set
      */
-    public void setBy(String by)
+    public void setCity(String city)
     {
-        this.by = by;
+        this.city = city;
     }
 
     /**
@@ -120,19 +120,19 @@ public class Medlem
     }
 
     /**
-     * @return the telefon
+     * @return the phoneNumber
      */
-    public int getTelefon()
+    public int getPhoneNumber()
     {
-        return telefon;
+        return phoneNumber;
     }
 
     /**
-     * @param telefon the telefon to set
+     * @param phoneNumber the phoneNumber to set
      */
-    public void setTelefon(int telefon)
+    public void setPhoneNumber(int phoneNumber)
     {
-        this.telefon = telefon;
+        this.phoneNumber = phoneNumber;
     }
 
     /**
