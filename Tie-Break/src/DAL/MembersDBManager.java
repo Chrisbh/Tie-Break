@@ -26,16 +26,17 @@ public class MembersDBManager extends TieBreakDBManager
     {
         try (Connection con = ds.getConnection())
         {
-            String sql = "INSERT INTO Member(Cpr, Name, Address, ZipCode, City, Email, Phone)" + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Member(Cpr, FirstName, LastName, Address, ZipCode, City, Email, Phone)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getCpr());
-            ps.setString(2, m.getName());
-            ps.setString(3, m.getAddress());
-            ps.setInt(4, m.getZipCode());
-            ps.setString(5, m.getCity());
-            ps.setString(6, m.getEmail());
-            ps.setInt(7, m.getPhoneNumber());
+            ps.setString(2, m.getFirstName());
+            ps.setString(3, m.getLastName());
+            ps.setString(4, m.getAddress());
+            ps.setInt(5, m.getZipCode());
+            ps.setString(6, m.getCity());
+            ps.setString(7, m.getEmail());
+            ps.setInt(8, m.getPhoneNumber());
             
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
@@ -44,8 +45,9 @@ public class MembersDBManager extends TieBreakDBManager
                     }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
-            int cpr = keys.getInt(1);
-            return new Member(cpr, m);
+            int id = keys.getInt(1);
+            String cpr = keys.getString(9);
+            return new Member(id, m, cpr);
         }
     }
 }

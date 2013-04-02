@@ -33,11 +33,16 @@ public class Member
         this.cpr = cpr;
     }
     
-    public Member(int id, String name, String cpr)
+    public Member(String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
-        
+        this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber, "");
     }
-
+    
+    public Member(int id, Member m, String cpr)
+    {
+        this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, cpr);
+    }
+    
     /**
      * @return the id
      */
@@ -47,7 +52,7 @@ public class Member
     }
 
     /**
-     * @return the name
+     * @return the firstName
      */
     public String getFirstName()
     {
@@ -55,7 +60,7 @@ public class Member
     }
 
     /**
-     * @param name the name to set
+     * @param firstName the firstName to set
      */
     public void setFirstName(String firstName)
     {
