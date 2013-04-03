@@ -47,6 +47,13 @@ public class CourtBooking extends javax.swing.JFrame
         lblDate.setText("Dato:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00-8:00", "8:00-9:00", "9:00-10:00" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tidsrum");
 
@@ -90,6 +97,11 @@ public class CourtBooking extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
+    {//GEN-HEADEREND:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
