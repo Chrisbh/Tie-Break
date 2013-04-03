@@ -21,6 +21,7 @@ public class CourtBooking extends javax.swing.JFrame
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Banebooking");
     }
 
     /**
