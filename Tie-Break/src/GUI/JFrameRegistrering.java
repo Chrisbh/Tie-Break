@@ -7,6 +7,7 @@ package GUI;
 import BE.Member;
 import BLL.MemberManager;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -17,12 +18,15 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
     private String name;
     private MemberManager mManager;
+
     /**
      * Creates new form JFrameRegistrering
      */
     public JFrameRegistrering()
     {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mManager = MemberManager.getInstance();
     }
 
@@ -201,12 +205,10 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
     {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-
     }//GEN-LAST:event_txtFirstNameActionPerformed
 
     private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
     {//GEN-HEADEREND:event_txtLastNameActionPerformed
-
     }//GEN-LAST:event_txtLastNameActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
@@ -216,7 +218,6 @@ public class JFrameRegistrering extends javax.swing.JFrame
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
-        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     public void addMember()
@@ -224,23 +225,23 @@ public class JFrameRegistrering extends javax.swing.JFrame
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
         String address = txtAddress.getText();
-        int zipCode = Integer.parseInt(txtZipCode.getText()); 
+        int zipCode = Integer.parseInt(txtZipCode.getText());
         String city = txtCity.getText();
         String email = txtEmail.getText();
         int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
         String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
-        
+
         Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
         try
         {
-          mManager.addMember(m);   
+            mManager.addMember(m);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.out.println("ERROR - " + e);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

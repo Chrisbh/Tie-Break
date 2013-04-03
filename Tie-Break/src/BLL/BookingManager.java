@@ -5,6 +5,7 @@
 package BLL;
 
 import BE.Reservation;
+import DAL.ReservationDBManager;
 
 /**
  *
@@ -13,14 +14,14 @@ import BE.Reservation;
 public class BookingManager
 {
     
-    private BookingDBManager db = null;
+    private ReservationDBManager db = null;
     private static BookingManager instance = null;
     
     private BookingManager()
     {
         try
         {
-            db = new BookingManager();
+            db = new ReservationDBManager();
             
         }
         catch (Exception e)
@@ -38,9 +39,9 @@ public class BookingManager
         return instance;
     }
     
-    public Reservation addBooking(Reservation r) throws Exception
+    public Reservation reserveCourt(Reservation r) throws Exception
     {
-        return db.addBooking(r);
+        return db.reserveCourt(r);
     }
     
 }
