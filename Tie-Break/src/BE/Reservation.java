@@ -4,7 +4,7 @@
  */
 package BE;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 /**
  *
@@ -15,10 +15,10 @@ public class Reservation
     private int id;
     private int courtId;
     private int memberId;
-    private GregorianCalendar reservationTime;
+    private Calendar reservationTime;
     private boolean isReserved;
     
-    public Reservation(int id, int courtId, int memberId, GregorianCalendar reservationTime, boolean isReserved)
+    public Reservation(int id, int courtId, int memberId, Calendar reservationTime, boolean isReserved)
     {
         this.id = id;
         this.courtId = courtId;
@@ -70,7 +70,7 @@ public class Reservation
     /**
      * @return the reservationTime
      */
-    public GregorianCalendar getReservationTime()
+    public Calendar getReservationTime()
     {
         return reservationTime;
     }
@@ -78,7 +78,7 @@ public class Reservation
     /**
      * @param reservationTime the reservationTime to set
      */
-    public void setReservationTime(GregorianCalendar reservationTime)
+    public void setReservationTime(Calendar reservationTime)
     {
         this.reservationTime = reservationTime;
     }
