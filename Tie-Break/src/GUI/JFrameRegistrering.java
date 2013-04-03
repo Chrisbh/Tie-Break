@@ -227,6 +227,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
             System.out.println("ERROR - " + e);
         }
     }
+    
     /**
      * @param args the command line arguments
      */
