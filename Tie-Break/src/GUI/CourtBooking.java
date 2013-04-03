@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import javax.swing.UIManager;
+
 /**
  *
  * @author Dennis
@@ -115,30 +117,11 @@ public class CourtBooking extends javax.swing.JFrame
          */
         try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch (ClassNotFoundException ex)
+        catch (Exception e)
         {
-            java.util.logging.Logger.getLogger(CourtBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(CourtBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(CourtBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(CourtBooking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            //Do nothing
         }
         //</editor-fold>
 
