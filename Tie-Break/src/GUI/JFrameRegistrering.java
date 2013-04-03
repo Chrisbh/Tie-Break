@@ -87,6 +87,13 @@ public class JFrameRegistrering extends javax.swing.JFrame
         });
 
         btnCancel.setText("Annuller");
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Tilføjelse af nyt medlem");
@@ -146,7 +153,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
                         .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLastName)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,6 +213,11 @@ public class JFrameRegistrering extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnAddActionPerformed
         addMember();
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     public void addMember()
     {
