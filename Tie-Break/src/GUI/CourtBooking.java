@@ -17,18 +17,6 @@ public class CourtBooking extends javax.swing.JFrame
     public CourtBooking()
     {
         initComponents();
-        for (Object i = cmbxDate.getEditor().getItem(); i != 13;)
-        {
-            Object month = cmbxMonth.getEditor().getItem();
-            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-            {
-                cmbxDate.setModel(new javax.swing.DefaultComboBoxModel(new String[]
-                {
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"
-                }));
-            }
-        }
-
     }
 
     /**
