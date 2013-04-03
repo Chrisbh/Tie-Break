@@ -132,7 +132,7 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
