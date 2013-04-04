@@ -13,22 +13,22 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  *
  * @author Chris
  */
-public class JFrameRegistrering extends javax.swing.JFrame
+public class Registration extends javax.swing.JFrame
 {
 
     private String name;
     private MemberManager mManager;
 
     /**
-     * Creates new form JFrameRegistrering
+     * Creates new form Registration
      */
-    public JFrameRegistrering()
+    public Registration()
     {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mManager = MemberManager.getInstance();
-        setTitle("Ny spiller");
+        setTitle("Registrering af medlem");
     }
 
     /**
@@ -269,7 +269,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
         {
             public void run()
             {
-                new JFrameRegistrering().setVisible(true);
+                new Registration().setVisible(true);
             }
         });
     }

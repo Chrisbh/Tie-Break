@@ -65,6 +65,13 @@ public class CourtBooking extends javax.swing.JFrame
         lblTime.setText("Tidsrum");
 
         btnAddBooking.setText("Tilføj booking");
+        btnAddBooking.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnAddBookingActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Annuller");
         btnCancel.addActionListener(new java.awt.event.ActionListener()
@@ -136,6 +143,11 @@ public class CourtBooking extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void btnAddBookingActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddBookingActionPerformed
+    {//GEN-HEADEREND:event_btnAddBookingActionPerformed
+        addBooking();
+    }//GEN-LAST:event_btnAddBookingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,4 +188,10 @@ public class CourtBooking extends javax.swing.JFrame
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtMonth;
     // End of variables declaration//GEN-END:variables
+
+    private void addBooking()
+    {
+        Registration r = new Registration();
+        System.out.println(r);
+    }
 }
