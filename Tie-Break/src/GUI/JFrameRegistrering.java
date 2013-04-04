@@ -28,7 +28,7 @@ public class JFrameRegistrering extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mManager = MemberManager.getInstance();
-        setTitle("Ny spiller");
+        setTitle("Registrering af medlem");
     }
 
     /**
