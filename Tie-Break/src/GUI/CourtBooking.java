@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.UIManager;
 
 /**
@@ -34,21 +36,26 @@ public class CourtBooking extends javax.swing.JFrame
     private void initComponents()
     {
 
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         lblHeader = new javax.swing.JLabel();
         cmbxTime = new javax.swing.JComboBox();
         lblTime = new javax.swing.JLabel();
         btnAddBooking = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        jCalendar2 = new com.toedter.calendar.JCalendar();
-        cboxOutdoor = new javax.swing.JCheckBox();
+        spMonth = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        lblMonth = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        spDay = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList();
+        spCourt = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
 
-        cmbxTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00-8:00", "8:00-9:00", "9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00" }));
         cmbxTime.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -77,7 +84,23 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
 
-        cboxOutdoor.setText("Outdoor Court");
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
+            String[] strings = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        spMonth.setViewportView(jList1);
+
+        lblMonth.setText("Måned");
+
+        jLabel1.setText("Dag");
+
+        spDay.setViewportView(jList2);
+
+        spCourt.setViewportView(jList3);
+
+        jLabel2.setText("Bane");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,22 +108,28 @@ public class CourtBooking extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMonth)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(spDay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(spCourt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAddBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)
-                        .addContainerGap(75, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboxOutdoor))
-                            .addComponent(lblTime))
-                        .addGap(0, 45, Short.MAX_VALUE))))
+                        .addComponent(btnCancel))
+                    .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTime))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -109,18 +138,22 @@ public class CourtBooking extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(lblHeader)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTime)
+                    .addComponent(lblMonth)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTime)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboxOutdoor))
-                        .addGap(31, 31, 31)
+                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddBooking)
                             .addComponent(btnCancel)))
-                    .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spMonth)
+                    .addComponent(spCourt)
+                    .addComponent(spDay))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,19 +207,35 @@ public class CourtBooking extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBooking;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JCheckBox cboxOutdoor;
     private javax.swing.JComboBox cmbxTime;
-    private com.toedter.calendar.JCalendar jCalendar1;
-    private com.toedter.calendar.JCalendar jCalendar2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JList jList1;
+    private javax.swing.JList jList2;
+    private javax.swing.JList jList3;
     private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblMonth;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JScrollPane spCourt;
+    private javax.swing.JScrollPane spDay;
+    private javax.swing.JScrollPane spMonth;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void updateDay()
+    {
+        
+    }
+    
+    
     private void addBooking()
     {
-        int CourtID = 1;
-        int MemberID = 1;
         
+        Calendar booking = new GregorianCalendar();
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        
+//        booking.set(year, month, date);
+
 
     }
 }
