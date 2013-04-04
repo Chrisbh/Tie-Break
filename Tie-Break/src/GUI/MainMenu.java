@@ -92,7 +92,7 @@ public class MainMenu extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        JFrameRegistrering jFrameRegistrering = new JFrameRegistrering();
+        Registration jFrameRegistrering = new Registration();
         jFrameRegistrering.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
