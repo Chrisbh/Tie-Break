@@ -45,7 +45,7 @@ public class ReservationDBManager extends TieBreakDBManager
             //ps.setInt(1, r.getId());
             ps.setInt(1, r.getCourtId());
             ps.setInt(2, r.getMemberId());
-            ps.setTimestamp(3, new java.sql.Timestamp(r.getReservationTime().getTime().getTime()));
+            ps.setTimestamp(3, new java.sql.Timestamp(r.getReservationTime().getTimeInMillis()));
             ps.setBoolean(4, r.isIsReserved());
 
             int affectedRows = ps.executeUpdate();
