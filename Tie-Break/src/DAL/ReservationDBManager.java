@@ -4,11 +4,14 @@
  */
 package DAL;
 
+import BE.Court;
 import BE.Reservation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,7 +28,7 @@ public class ReservationDBManager extends TieBreakDBManager
     {
         super();
     }
-    
+
     /**
      *
      * @param c
@@ -34,11 +37,8 @@ public class ReservationDBManager extends TieBreakDBManager
      */
     public Reservation reserveCourt(Reservation r) throws SQLException
     {
-         try (Connection con = ds.getConnection())
+        try (Connection con = ds.getConnection())
         {
-            
-            
-            
             String sql = "INSERT INTO Reservation VALUES(?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -57,6 +57,25 @@ public class ReservationDBManager extends TieBreakDBManager
             keys.next();
             int id = keys.getInt(1);
             return new Reservation(id, r);
+        }
+    }
+
+    public ArrayList<Court> getCourtsName() throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT CourtName FROM Courts");
+
+            ArrayList courts = new ArrayList<>();
+            while (rs.next())
+            {
+                String CourtName = rs.getString("CourtName");
+
+
+                courts.add(CourtName);
+            }
+            return courts;
         }
     }
 }

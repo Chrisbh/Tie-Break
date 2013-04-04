@@ -4,9 +4,15 @@
  */
 package GUI;
 
+import BLL.BookingManager;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
+import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -24,6 +30,38 @@ public class CourtBooking extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Banebooking");
+        
+        try
+        {
+            DefaultListModel modelB = new DefaultListModel();
+            ArrayList alB = new ArrayList(BookingManager.getInstance().getCourtsName());
+            
+            for (Object i : alB)
+            {
+                modelB.addElement(i.toString());
+            }
+            splCourt.setModel(modelB);
+            System.out.println(alB);
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("ERROR - " + e.getMessage());
+        }
+
+        splMonth.addListSelectionListener(
+                new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent lse)
+            {
+                if (!(lse.getValueIsAdjusting() || splMonth.isSelectionEmpty()))
+                {
+                    dayList();
+                }
+
+            }
+        });
     }
 
     /**
@@ -42,13 +80,13 @@ public class CourtBooking extends javax.swing.JFrame
         btnAddBooking = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         spMonth = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        splMonth = new javax.swing.JList();
         lblMonth = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         spDay = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        splDay = new javax.swing.JList();
         spCourt = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        splCourt = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +94,7 @@ public class CourtBooking extends javax.swing.JFrame
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
 
+        cmbxTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
         cmbxTime.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -84,21 +123,21 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel()
+        splMonth.setModel(new javax.swing.AbstractListModel()
         {
             String[] strings = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        spMonth.setViewportView(jList1);
+        spMonth.setViewportView(splMonth);
 
         lblMonth.setText("Måned");
 
         jLabel1.setText("Dag");
 
-        spDay.setViewportView(jList2);
+        spDay.setViewportView(splDay);
 
-        spCourt.setViewportView(jList3);
+        spCourt.setViewportView(splCourt);
 
         jLabel2.setText("Bane");
 
@@ -153,8 +192,7 @@ public class CourtBooking extends javax.swing.JFrame
                             .addComponent(btnCancel)))
                     .addComponent(spMonth)
                     .addComponent(spCourt)
-                    .addComponent(spDay))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(spDay)))
         );
 
         pack();
@@ -210,32 +248,61 @@ public class CourtBooking extends javax.swing.JFrame
     private javax.swing.JComboBox cmbxTime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblMonth;
     private javax.swing.JLabel lblTime;
     private javax.swing.JScrollPane spCourt;
     private javax.swing.JScrollPane spDay;
     private javax.swing.JScrollPane spMonth;
+    private javax.swing.JList splCourt;
+    private javax.swing.JList splDay;
+    private javax.swing.JList splMonth;
     // End of variables declaration//GEN-END:variables
 
-    
-    private void updateDay()
+    private void dayList()
     {
-        
+        int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
+
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 31; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
+        if (month == 2)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 28; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
+        if (month == 4 || month == 6 || month == 9 || month == 11)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 30; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
     }
-    
-    
+
     private void addBooking()
     {
-        
         Calendar booking = new GregorianCalendar();
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        
-//        booking.set(year, month, date);
+        int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
+        int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
 
-
+        booking.set(year, month, date);
+        System.out.println("WINNER");
     }
 }

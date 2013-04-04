@@ -97,7 +97,23 @@
     <Component class="javax.swing.JComboBox" name="cmbxTime">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="15">
+            <StringItem index="0" value="7:00"/>
+            <StringItem index="1" value="8:00"/>
+            <StringItem index="2" value="9:00"/>
+            <StringItem index="3" value="10:00"/>
+            <StringItem index="4" value="11:00"/>
+            <StringItem index="5" value="12:00"/>
+            <StringItem index="6" value="13:00"/>
+            <StringItem index="7" value="14:00"/>
+            <StringItem index="8" value="15:00"/>
+            <StringItem index="9" value="16:00"/>
+            <StringItem index="10" value="17:00"/>
+            <StringItem index="11" value="18:00"/>
+            <StringItem index="12" value="19:00"/>
+            <StringItem index="13" value="20:00"/>
+            <StringItem index="14" value="21:00"/>
+          </StringArray>
         </Property>
       </Properties>
       <Events>
@@ -132,7 +148,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="splMonth">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="12">
@@ -171,7 +187,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList2">
+        <Component class="javax.swing.JList" name="splDay">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="0"/>
@@ -187,7 +203,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList3">
+        <Component class="javax.swing.JList" name="splCourt">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="0"/>
