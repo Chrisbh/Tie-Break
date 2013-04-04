@@ -4,16 +4,11 @@
  */
 package DAL;
 
-import BE.Court;
 import BE.Reservation;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  *
@@ -39,30 +34,29 @@ public class ReservationDBManager extends TieBreakDBManager
      */
     public Reservation reserveCourt(Reservation r) throws SQLException
     {
-        System.out.println((Time) r.getReservationTime().getTime());
          try (Connection con = ds.getConnection())
         {
             
             
             
-            String sql = "INSERT INTO Reservation VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Reservation VALUES(?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, r.getId());
-            ps.setInt(2, r.getCourtId());
-            ps.setInt(3, r.getMemberId());
-            ps.setTime(4, (Time) r.getReservationTime().getTime(), r.getReservationTime());
-            ps.setBoolean(5, r.isIsReserved());
+            //ps.setInt(1, r.getId());
+            ps.setInt(1, r.getCourtId());
+            ps.setInt(2, r.getMemberId());
+            ps.setTimestamp(3, new java.sql.Timestamp(r.getReservationTime().getTime().getTime()));
+            ps.setBoolean(4, r.isIsReserved());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
             {
-                throw new SQLException("Unable to add Member");
+                throw new SQLException("Unable to book court.");
             }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
             int id = keys.getInt(1);
-            return null;
+            return new Reservation(id, r);
         }
     }
 }

@@ -26,6 +26,16 @@ public class Reservation
         this.reservationTime = reservationTime;
         this.isReserved = isReserved;
     }
+    
+    public Reservation(int courtId, int memberId, Calendar reservationTime, boolean isReserved)
+    {
+        this(-1, courtId, memberId, reservationTime, isReserved);
+    }
+    
+    public Reservation(int id, Reservation r)
+    {
+        this(id, r.courtId, r.memberId, r.reservationTime, r.isReserved);
+    }
 
     /**
      * @return the id
