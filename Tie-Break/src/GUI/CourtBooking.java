@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import java.util.Calendar;
 import javax.swing.UIManager;
 
 /**
@@ -42,6 +41,7 @@ public class CourtBooking extends javax.swing.JFrame
         btnAddBooking = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jCalendar2 = new com.toedter.calendar.JCalendar();
+        cboxOutdoor = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +77,8 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
 
+        cboxOutdoor.setText("Outdoor Court");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,9 +95,12 @@ public class CourtBooking extends javax.swing.JFrame
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboxOutdoor))
                             .addComponent(lblTime))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 45, Short.MAX_VALUE))))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -108,8 +113,10 @@ public class CourtBooking extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboxOutdoor))
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddBooking)
                             .addComponent(btnCancel)))
@@ -166,6 +173,7 @@ public class CourtBooking extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBooking;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JCheckBox cboxOutdoor;
     private javax.swing.JComboBox cmbxTime;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
