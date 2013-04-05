@@ -313,7 +313,7 @@ public class CourtBooking extends javax.swing.JFrame
         int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
         int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
         int minute = 0;
-        booking.set(year, month, date, time, minute);
+        booking.set(year, month, date, time, minute, 0);
         System.out.println(booking.getTime());
         
         booking.clear();
