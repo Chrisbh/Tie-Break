@@ -20,6 +20,8 @@ public class Registration extends javax.swing.JFrame
 
     private String name;
     private MemberManager mManager;
+    private boolean zipCancelled = false;
+    private boolean phoneCancelled = false;
 
     /**
      * Creates new form Registration
@@ -227,45 +229,52 @@ public class Registration extends javax.swing.JFrame
     @SuppressWarnings("empty-statement")
     public void addMember()
     {
-        
-        if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0 &&
-                txtAddress.getText().length() != 0 && txtCity.getText().length() != 0 &&
-                txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0 &&
-                txtCPR.getText().length() != 0)
+
+        if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
+                && txtAddress.getText().length() != 0 && txtCity.getText().length() != 0
+                && txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0
+                && txtCPR.getText().length() != 0)
         {
             Scanner zipCodeSc = new Scanner(txtZipCode.getText());
             Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
 
             checkInt(zipCodeSc, phoneSc);
 
-            zipCodeSc = new Scanner(txtZipCode.getText());
-            int lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
-            while (lengthZip != 4)
+            if (!zipCancelled)
             {
-                String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være på 4 cifre, intast det rigtige!");
-                txtZipCode.setText(correctedZipCode);
+                zipCodeSc = new Scanner(txtZipCode.getText());
+                int lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
+                while (lengthZip != 4)
+                {
+                    String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være på 4 cifre, intast det rigtige!");
+                    txtZipCode.setText(correctedZipCode);
 
-                zipCodeSc = new Scanner(txtZipCode.getText());
-                checkInt(zipCodeSc, phoneSc);
-                zipCodeSc = new Scanner(txtZipCode.getText());
-                lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
+                    zipCodeSc = new Scanner(txtZipCode.getText());
+                    checkInt(zipCodeSc, phoneSc);
+                    zipCodeSc = new Scanner(txtZipCode.getText());
+                    lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
+                }
             }
 
-            checkInt(zipCodeSc, phoneSc);
-            phoneSc = new Scanner(txtPhoneNumber.getText());
-            int lengthPhone = String.valueOf(phoneSc.nextInt()).length();
-
-            while (lengthPhone != 8)
+            if (!phoneCancelled)
             {
-                String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
-                txtPhoneNumber.setText(correctedPhone);
-
-                phoneSc = new Scanner(txtPhoneNumber.getText());
                 checkInt(zipCodeSc, phoneSc);
                 phoneSc = new Scanner(txtPhoneNumber.getText());
-                lengthPhone = String.valueOf(phoneSc.nextInt()).length();
-            }
+                int lengthPhone = String.valueOf(phoneSc.nextInt()).length();
 
+                while (lengthPhone != 8)
+                {
+                    String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
+                    txtPhoneNumber.setText(correctedPhone);
+
+                    phoneSc = new Scanner(txtPhoneNumber.getText());
+                    checkInt(zipCodeSc, phoneSc);
+                    phoneSc = new Scanner(txtPhoneNumber.getText());
+                    lengthPhone = String.valueOf(phoneSc.nextInt()).length();
+                }
+            }
+            if (!zipCancelled || !phoneCancelled)
+            {
             if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                     == JOptionPane.YES_OPTION)
@@ -290,6 +299,12 @@ public class Registration extends javax.swing.JFrame
 
                 dispose();
             }
+            }
+            else
+            {
+                zipCancelled = false;
+                phoneCancelled = false;
+            }
         }
         else
         {
@@ -303,6 +318,11 @@ public class Registration extends javax.swing.JFrame
         while (!zipCodeSc.hasNextInt())
         {
             String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være et nummer, intast det rigtige!");
+            if (correctedZipCode == null)
+            {
+                zipCancelled = true;
+                break;
+            }
             txtZipCode.setText(correctedZipCode);
 
             zipCodeSc = new Scanner(txtZipCode.getText());
@@ -312,6 +332,11 @@ public class Registration extends javax.swing.JFrame
         while (!phoneSc.hasNextInt())
         {
             String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være et nummer, intast det rigtige!");
+            if (correctedPhone == null)
+            {
+                phoneCancelled = true;
+                break;
+            }
             txtPhoneNumber.setText(correctedPhone);
 
             phoneSc = new Scanner(txtPhoneNumber.getText());
