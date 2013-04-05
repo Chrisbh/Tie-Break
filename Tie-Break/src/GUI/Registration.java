@@ -6,6 +6,8 @@ package GUI;
 
 import BE.Member;
 import BLL.MemberManager;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -222,25 +224,86 @@ public class Registration extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    @SuppressWarnings("empty-statement")
     public void addMember()
     {
-        String firstName = txtFirstName.getText();
-        String lastName = txtLastName.getText();
-        String address = txtAddress.getText();
-        int zipCode = Integer.parseInt(txtZipCode.getText());
-        String city = txtCity.getText();
-        String email = txtEmail.getText();
-        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-        String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+        Scanner zipCodeSc = new Scanner(txtZipCode.getText());
+        Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
 
-        Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
-        try
+        checkInt(zipCodeSc, phoneSc);
+
+            zipCodeSc = new Scanner(txtZipCode.getText());
+            int lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
+            while (lengthZip != 4)
+            {
+                String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være på 4 cifre, intast det rigtige!");
+                txtZipCode.setText(correctedZipCode);
+
+                zipCodeSc = new Scanner(txtZipCode.getText());
+                checkInt(zipCodeSc, phoneSc);
+                zipCodeSc = new Scanner(txtZipCode.getText());
+                lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
+            }
+
+        checkInt(zipCodeSc, phoneSc);
+        phoneSc = new Scanner(txtPhoneNumber.getText());
+        int lengthPhone = String.valueOf(phoneSc.nextInt()).length();
+
+        while (lengthPhone != 8)
         {
-            mManager.addMember(m);
+            String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
+            txtPhoneNumber.setText(correctedPhone);
+
+            phoneSc = new Scanner(txtPhoneNumber.getText());
+            checkInt(zipCodeSc, phoneSc);
+            phoneSc = new Scanner(txtPhoneNumber.getText());
+            lengthPhone = String.valueOf(phoneSc.nextInt()).length();
         }
-        catch (Exception e)
+
+        if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                == JOptionPane.YES_OPTION)
         {
-            System.out.println("ERROR - " + e);
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String address = txtAddress.getText();
+            int zipCode = Integer.parseInt(txtZipCode.getText());
+            String city = txtCity.getText();
+            String email = txtEmail.getText();
+            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+            String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+            Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+            try
+            {
+                mManager.addMember(m);
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR - " + e);
+            }
+
+            dispose();
+        }
+    }
+
+    private void checkInt(Scanner zipCodeSc, Scanner phoneSc)
+    {
+        zipCodeSc = new Scanner(txtZipCode.getText());
+        while (!zipCodeSc.hasNextInt())
+        {
+            String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være et nummer, intast det rigtige!");
+            txtZipCode.setText(correctedZipCode);
+
+            zipCodeSc = new Scanner(txtZipCode.getText());
+        }
+
+        phoneSc = new Scanner(txtPhoneNumber.getText());
+        while (!phoneSc.hasNextInt())
+        {
+            String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være et nummer, intast det rigtige!");
+            txtPhoneNumber.setText(correctedPhone);
+            
+            phoneSc = new Scanner(txtPhoneNumber.getText());
         }
     }
 
