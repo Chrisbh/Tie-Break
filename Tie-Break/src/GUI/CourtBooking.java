@@ -4,13 +4,14 @@
  */
 package GUI;
 
+import BE.Reservation;
 import BLL.BookingManager;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -308,14 +309,43 @@ public class CourtBooking extends javax.swing.JFrame
     private void addBooking()
     {
         Calendar booking = new GregorianCalendar();
+
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
         int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
         int minute = 0;
         booking.set(year, month, date, time, minute, 0);
-        System.out.println(booking.getTime());
         
+        // Makes the year go to the next year, if the date and time chosen is before the current date and time.
+        if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
+        {
+            booking.add(Calendar.YEAR, +1);
+        }
+
+        
+        System.out.println(booking.getTime());
+
+        String court = splCourt.getSelectedValue().toString();
+        
+        if (JOptionPane.showConfirmDialog(null, "Den valgte dato: "+booking.getTime()+". Vil du bestille denne tid?" , "Reservation",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                == JOptionPane.YES_OPTION)
+        {
+        try
+        {
+            int courtId = BookingManager.getInstance().getIdByName(court);
+            Reservation r = new Reservation(courtId, 1, booking, true);
+//            BookingManager.getInstance().reserveCourt(r);
+        }
+        catch (Exception e)
+        {
+            System.out.println("ERROR - " + e.getMessage());
+        }
         booking.clear();
+        }
     }
 }
