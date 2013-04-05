@@ -10,6 +10,7 @@ package BE;
  */
 public class Member
 {
+
     private int id;
     private String firstName;
     private String lastName;
@@ -19,7 +20,7 @@ public class Member
     private String email;
     private int phoneNumber;
     private String cpr;
-    
+
     public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
     {
         this.id = id;
@@ -32,17 +33,17 @@ public class Member
         this.phoneNumber = phoneNumber;
         this.cpr = cpr;
     }
-    
+
     public Member(String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
         this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber, "");
     }
-    
+
     public Member(int id, Member m, String cpr)
     {
         this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, cpr);
     }
-    
+
     /**
      * @return the id
      */

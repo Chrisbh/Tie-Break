@@ -10,11 +10,12 @@ package BE;
  */
 public class MembershipFee
 {
+
     private int id;
     private int memberId;
     private int membershipId;
     private boolean isPaid;
-    
+
     public MembershipFee(int id, int memberId, int membershipId, boolean isPaid)
     {
         this.id = id;
@@ -22,12 +23,12 @@ public class MembershipFee
         this.membershipId = membershipId;
         this.isPaid = isPaid;
     }
-    
+
     public MembershipFee(int memberId, int membershipId, boolean isPaid)
     {
         this(-1, memberId, membershipId, isPaid);
     }
-    
+
     public MembershipFee(int id, MembershipFee m)
     {
         this(id, m.memberId, m.membershipId, m.isPaid);
@@ -88,5 +89,4 @@ public class MembershipFee
     {
         this.isPaid = isPaid;
     }
-    
 }

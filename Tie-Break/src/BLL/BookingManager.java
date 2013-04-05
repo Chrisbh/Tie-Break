@@ -51,7 +51,7 @@ public class BookingManager
     {
         return db.getCourtsName();
     }
-    
+
     public int getIdByName(String name) throws SQLException
     {
         return db.getIdByName(name);

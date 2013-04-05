@@ -10,11 +10,13 @@ package BE;
  */
 public class Court
 {
+
     private int id;
     private String courtName;
-    
+
     /**
      * Constructor for Court
+     *
      * @param id
      * @param courtName
      */

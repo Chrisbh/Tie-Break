@@ -12,12 +12,13 @@ import java.util.Calendar;
  */
 public class Reservation
 {
+
     private int id;
     private int courtId;
     private int memberId;
     private Calendar reservationTime;
     private boolean isReserved;
-    
+
     public Reservation(int id, int courtId, int memberId, Calendar reservationTime, boolean isReserved)
     {
         this.id = id;
@@ -26,12 +27,12 @@ public class Reservation
         this.reservationTime = reservationTime;
         this.isReserved = isReserved;
     }
-    
+
     public Reservation(int courtId, int memberId, Calendar reservationTime, boolean isReserved)
     {
         this(-1, courtId, memberId, reservationTime, isReserved);
     }
-    
+
     public Reservation(int id, Reservation r)
     {
         this(id, r.courtId, r.memberId, r.reservationTime, r.isReserved);

@@ -275,30 +275,30 @@ public class Registration extends javax.swing.JFrame
             }
             if (!zipCancelled || !phoneCancelled)
             {
-            if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
-                    == JOptionPane.YES_OPTION)
-            {
-                String firstName = txtFirstName.getText();
-                String lastName = txtLastName.getText();
-                String address = txtAddress.getText();
-                int zipCode = Integer.parseInt(txtZipCode.getText());
-                String city = txtCity.getText();
-                String email = txtEmail.getText();
-                int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
-                Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
-                try
+                if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                        == JOptionPane.YES_OPTION)
                 {
-                    mManager.addMember(m);
-                }
-                catch (Exception e)
-                {
-                    System.out.println("ERROR - " + e);
-                }
+                    String firstName = txtFirstName.getText();
+                    String lastName = txtLastName.getText();
+                    String address = txtAddress.getText();
+                    int zipCode = Integer.parseInt(txtZipCode.getText());
+                    String city = txtCity.getText();
+                    String email = txtEmail.getText();
+                    int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+                    String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+                    try
+                    {
+                        mManager.addMember(m);
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("ERROR - " + e);
+                    }
 
-                dispose();
-            }
+                    dispose();
+                }
             }
             else
             {

@@ -42,6 +42,4 @@ public class MemberManager
     {
         return db.addMember(m);
     }
-    
-    
 }

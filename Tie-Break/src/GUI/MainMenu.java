@@ -107,7 +107,7 @@ public class MainMenu extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        
+
         /*
          * Get system look and feel
          */
