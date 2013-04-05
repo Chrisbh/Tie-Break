@@ -5,6 +5,7 @@
 package GUI;
 
 import BLL.BookingManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -30,21 +31,21 @@ public class CourtBooking extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Banebooking");
-        
+
         try
         {
             DefaultListModel modelB = new DefaultListModel();
             ArrayList alB = new ArrayList(BookingManager.getInstance().getCourtsName());
-            
+
             for (Object i : alB)
             {
                 modelB.addElement(i.toString());
             }
             splCourt.setModel(modelB);
             System.out.println(alB);
-            
+
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.out.println("ERROR - " + e.getMessage());
         }
@@ -95,7 +96,7 @@ public class CourtBooking extends javax.swing.JFrame
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
 
-        cmbxTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
+        cmbxTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
         cmbxTime.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -308,10 +309,13 @@ public class CourtBooking extends javax.swing.JFrame
     {
         Calendar booking = new GregorianCalendar();
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
+        int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
         int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
-
-        booking.set(year, month, date);
-        System.out.println("WINNER");
+        int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
+        int minute = 0;
+        booking.set(year, month, date, time, minute);
+        System.out.println(booking.getTime());
+        
+        booking.clear();
     }
 }
