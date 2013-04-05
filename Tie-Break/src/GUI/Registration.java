@@ -326,6 +326,7 @@ public class Registration extends javax.swing.JFrame
             txtZipCode.setText(correctedZipCode);
 
             zipCodeSc = new Scanner(txtZipCode.getText());
+            zipCancelled = false;
         }
 
         phoneSc = new Scanner(txtPhoneNumber.getText());
@@ -340,6 +341,7 @@ public class Registration extends javax.swing.JFrame
             txtPhoneNumber.setText(correctedPhone);
 
             phoneSc = new Scanner(txtPhoneNumber.getText());
+            phoneCancelled = false;
         }
     }
 
