@@ -340,7 +340,7 @@ public class CourtBooking extends javax.swing.JFrame
                 {
                     int courtId = BookingManager.getInstance().getIdByName(court);
                     Reservation r = new Reservation(courtId, 1, booking, true);
-//            BookingManager.getInstance().reserveCourt(r);
+                    BookingManager.getInstance().reserveCourt(r);
                 }
                 catch (Exception e)
                 {

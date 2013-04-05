@@ -227,10 +227,16 @@ public class Registration extends javax.swing.JFrame
     @SuppressWarnings("empty-statement")
     public void addMember()
     {
-        Scanner zipCodeSc = new Scanner(txtZipCode.getText());
-        Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
+        
+        if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0 &&
+                txtAddress.getText().length() != 0 && txtCity.getText().length() != 0 &&
+                txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0 &&
+                txtCPR.getText().length() != 0)
+        {
+            Scanner zipCodeSc = new Scanner(txtZipCode.getText());
+            Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
 
-        checkInt(zipCodeSc, phoneSc);
+            checkInt(zipCodeSc, phoneSc);
 
             zipCodeSc = new Scanner(txtZipCode.getText());
             int lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
@@ -245,44 +251,49 @@ public class Registration extends javax.swing.JFrame
                 lengthZip = String.valueOf(zipCodeSc.nextInt()).length();
             }
 
-        checkInt(zipCodeSc, phoneSc);
-        phoneSc = new Scanner(txtPhoneNumber.getText());
-        int lengthPhone = String.valueOf(phoneSc.nextInt()).length();
-
-        while (lengthPhone != 8)
-        {
-            String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
-            txtPhoneNumber.setText(correctedPhone);
-
-            phoneSc = new Scanner(txtPhoneNumber.getText());
             checkInt(zipCodeSc, phoneSc);
             phoneSc = new Scanner(txtPhoneNumber.getText());
-            lengthPhone = String.valueOf(phoneSc.nextInt()).length();
+            int lengthPhone = String.valueOf(phoneSc.nextInt()).length();
+
+            while (lengthPhone != 8)
+            {
+                String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
+                txtPhoneNumber.setText(correctedPhone);
+
+                phoneSc = new Scanner(txtPhoneNumber.getText());
+                checkInt(zipCodeSc, phoneSc);
+                phoneSc = new Scanner(txtPhoneNumber.getText());
+                lengthPhone = String.valueOf(phoneSc.nextInt()).length();
+            }
+
+            if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION)
+            {
+                String firstName = txtFirstName.getText();
+                String lastName = txtLastName.getText();
+                String address = txtAddress.getText();
+                int zipCode = Integer.parseInt(txtZipCode.getText());
+                String city = txtCity.getText();
+                String email = txtEmail.getText();
+                int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+                String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+                Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+                try
+                {
+                    mManager.addMember(m);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("ERROR - " + e);
+                }
+
+                dispose();
+            }
         }
-
-        if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
-                == JOptionPane.YES_OPTION)
+        else
         {
-            String firstName = txtFirstName.getText();
-            String lastName = txtLastName.getText();
-            String address = txtAddress.getText();
-            int zipCode = Integer.parseInt(txtZipCode.getText());
-            String city = txtCity.getText();
-            String email = txtEmail.getText();
-            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
-            Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
-            try
-            {
-                mManager.addMember(m);
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR - " + e);
-            }
-
-            dispose();
+            JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -302,7 +313,7 @@ public class Registration extends javax.swing.JFrame
         {
             String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være et nummer, intast det rigtige!");
             txtPhoneNumber.setText(correctedPhone);
-            
+
             phoneSc = new Scanner(txtPhoneNumber.getText());
         }
     }
