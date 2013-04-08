@@ -344,10 +344,11 @@ public class CourtBooking extends javax.swing.JFrame
             int year = Calendar.getInstance().get(Calendar.YEAR);
             int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
             int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
+            int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
+
             booking.set(year, month, date, time, 0, 0);
 
             // Makes the year go to the next year, if the date and time chosen is before the current date and time.
