@@ -27,7 +27,7 @@ public class CourtBooking extends javax.swing.JFrame
     /**
      * Creates new form CourtBooking
      */
-    public CourtBooking()
+    private CourtBooking()
     {
         initComponents();
         setLocationRelativeTo(null);
@@ -240,11 +240,13 @@ public class CourtBooking extends javax.swing.JFrame
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         dispose();
+        MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddBookingActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddBookingActionPerformed
     {//GEN-HEADEREND:event_btnAddBookingActionPerformed
         addBooking();
+        MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
 
     private void txtMemberIdActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtMemberIdActionPerformed

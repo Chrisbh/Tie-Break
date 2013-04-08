@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 /**
@@ -12,15 +13,25 @@ import javax.swing.UIManager;
  */
 public class MainMenu extends javax.swing.JFrame
 {
+    private static MainMenu instance = null;
 
     /**
      * Creates new form MainMenu
      */
-    public MainMenu()
+    private MainMenu()
     {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Main Menu");
+    }
+    
+    public static MainMenu getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new MainMenu();
+        }
+        return instance;
     }
 
     /**
@@ -90,15 +101,17 @@ public class MainMenu extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnRegisterMemberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterMemberActionPerformed
     {//GEN-HEADEREND:event_btnRegisterMemberActionPerformed
-           Registration.getInstance().setVisible(true);
+        Registration.getInstance().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnRegisterMemberActionPerformed
 
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
     {//GEN-HEADEREND:event_btnBookCourtActionPerformed
         CourtBooking.getInstance().setVisible(true);
+        MainMenu.getInstance().setVisible(false);
     }//GEN-LAST:event_btnBookCourtActionPerformed
 
     /**
