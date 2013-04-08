@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class CourtBooking extends javax.swing.JFrame
 {
-
+    private static CourtBooking instance = null;
     /**
      * Creates new form CourtBooking
      */
@@ -65,6 +65,15 @@ public class CourtBooking extends javax.swing.JFrame
 
             }
         });
+    }
+    
+    public static CourtBooking getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new CourtBooking();
+        }
+        return instance;
     }
 
     /**

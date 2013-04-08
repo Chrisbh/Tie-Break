@@ -97,8 +97,7 @@ public class MainMenu extends javax.swing.JFrame
 
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
     {//GEN-HEADEREND:event_btnBookCourtActionPerformed
-        CourtBooking courtBooking = new CourtBooking();
-        courtBooking.setVisible(true);
+        CourtBooking.getInstance().setVisible(true);
     }//GEN-LAST:event_btnBookCourtActionPerformed
 
     /**
