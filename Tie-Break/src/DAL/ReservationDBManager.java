@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -126,15 +128,18 @@ public class ReservationDBManager extends TieBreakDBManager
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT CourtID, ReservationDate FROM Reservation");
 
-            ArrayList reservations = new ArrayList<>();
+            ArrayList<Reservation> reservations = new ArrayList<>();
             while (rs.next())
             {
                 int CourtID = rs.getInt("CourtID");
-                Timestamp ReservationDate = rs.getTimestamp("ReservationDate");
-
-
-                reservations.add(CourtID);
-                reservations.add(ReservationDate);
+                Timestamp rd = rs.getTimestamp("ReservationDate");
+                
+                Calendar time = new GregorianCalendar();
+                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), rd.getMinutes(), rd.getSeconds());
+                
+                Reservation res = new Reservation(CourtID, time);
+                
+                reservations.add(res);
             }
             return reservations;
         }
