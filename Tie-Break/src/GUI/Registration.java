@@ -286,7 +286,7 @@ public class Registration extends javax.swing.JFrame
                     String city = txtCity.getText();
                     String email = txtEmail.getText();
                     int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                    String cpr = txtBirthDay.getText() + " " + txtCPR.getText();
+                    String cpr = txtBirthDay.getText() + "-" + txtCPR.getText();
                     Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
                     try
                     {
