@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -48,6 +50,24 @@ public class MembersDBManager extends TieBreakDBManager
             keys.next();
             int id = keys.getInt(1);
             return new Member(id, m, m.getCpr());
+        }
+    }
+
+    public ArrayList getIds() throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT ID FROM Members");
+
+            ArrayList members = new ArrayList<>();
+            while (rs.next())
+            {
+                int id = rs.getInt("Id");
+
+                members.add(id);
+            }
+            return members;
         }
     }
 }

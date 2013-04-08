@@ -6,6 +6,8 @@ package BLL;
 
 import BE.Member;
 import DAL.MembersDBManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,5 +43,10 @@ public class MemberManager
     public Member addMember(Member m) throws Exception
     {
         return db.addMember(m);
+    }
+
+    public ArrayList getIds() throws SQLException
+    {
+        return db.getIds();
     }
 }

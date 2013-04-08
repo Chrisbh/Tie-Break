@@ -40,14 +40,13 @@ public class ReservationDBManager extends TieBreakDBManager
     {
         try (Connection con = ds.getConnection())
         {
-            String sql = "INSERT INTO Reservation VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO Reservation VALUES(?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             //ps.setInt(1, r.getId());
             ps.setInt(1, r.getCourtId());
             ps.setInt(2, r.getMemberId());
             ps.setTimestamp(3, new java.sql.Timestamp(r.getReservationTime().getTimeInMillis()));
-            ps.setBoolean(4, r.isIsReserved());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
