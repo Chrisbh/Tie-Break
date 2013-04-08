@@ -328,21 +328,9 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void addBooking()
     {
-        try
-        {
-            ArrayList ids = MemberManager.getInstance().getIds();
-            for (Object i : ids)
-            {
-                if (txtMemberId == i)
-                {
-                    System.out.println("YES");
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println("ERRRRRORROR" + e);
-        }
+
+
+
         if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null && txtMemberId.getText().length() != 0)
         {
             Calendar booking = new GregorianCalendar();
@@ -354,7 +342,6 @@ public class CourtBooking extends javax.swing.JFrame
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
-            int memberId = new Scanner(txtMemberId.getText()).nextInt();
             booking.set(year, month, date, time, 0, 0);
 
             // Makes the year go to the next year, if the date and time chosen is before the current date and time.
@@ -363,32 +350,54 @@ public class CourtBooking extends javax.swing.JFrame
                 booking.add(Calendar.YEAR, +1);
             }
 
-
-
-
-            String court = splCourt.getSelectedValue().toString();
-
-            if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
-                    == JOptionPane.YES_OPTION)
+            try
             {
-                try
-                {
-                    int courtId = BookingManager.getInstance().getIdByName(court);
+                Scanner sc = new Scanner(txtMemberId.getText());
 
-                    Reservation r = new Reservation(courtId, memberId, booking);
-                    BookingManager.getInstance().reserveCourt(r);
-                }
-                catch (Exception e)
+                if (sc.hasNextInt())
                 {
-                    System.out.println("ERROR - " + e.getMessage());
+                    ArrayList ids = MemberManager.getInstance().getIds();
+                    int memberId = new Scanner(txtMemberId.getText()).nextInt();
+
+                    if (ids.contains(memberId))
+                    {
+                        String court = splCourt.getSelectedValue().toString();
+
+                        if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                                == JOptionPane.YES_OPTION)
+                        {
+
+                            int courtId = BookingManager.getInstance().getIdByName(court);
+                            
+
+                            Reservation r = new Reservation(courtId, memberId, booking);
+                            BookingManager.getInstance().reserveCourt(r);
+
+                            booking.clear();
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Medlemsnummer eksisterer ikke!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                booking.clear();
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Medlemsnummer skal være et tal!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
+            catch (Exception e)
+            {
+                System.out.println("ERROR - " + e);
+            }
+
+
+
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Dato eller bane ikke valgt!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Dato, bane eller medlem ikke valgt!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
