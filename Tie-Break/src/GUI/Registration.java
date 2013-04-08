@@ -79,6 +79,7 @@ public class Registration extends javax.swing.JFrame
         txtFirstName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblName.setText("Navn");
 

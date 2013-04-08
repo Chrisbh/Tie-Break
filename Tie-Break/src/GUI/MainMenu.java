@@ -38,6 +38,7 @@ public class MainMenu extends javax.swing.JFrame
         lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         btnRegisterMember.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         btnRegisterMember.setText("Registrer som medlem");
