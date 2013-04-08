@@ -24,6 +24,7 @@ public class Registration extends javax.swing.JFrame
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
     private boolean cprCancelled = false;
+    private static Registration instance = null;
 
     /**
      * Creates new form Registration
@@ -35,6 +36,15 @@ public class Registration extends javax.swing.JFrame
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mManager = MemberManager.getInstance();
         setTitle("Registrering af medlem");
+    }
+    
+     public static Registration getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Registration();
+        }
+        return instance;
     }
 
     /**

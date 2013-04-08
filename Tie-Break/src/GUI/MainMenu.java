@@ -89,11 +89,10 @@ public class MainMenu extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnRegisterMemberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterMemberActionPerformed
     {//GEN-HEADEREND:event_btnRegisterMemberActionPerformed
-        Registration jFrameRegistrering = new Registration();
-        jFrameRegistrering.setVisible(true);
+           Registration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnRegisterMemberActionPerformed
 
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
