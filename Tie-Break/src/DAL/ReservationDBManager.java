@@ -99,6 +99,26 @@ public class ReservationDBManager extends TieBreakDBManager
         return 0;
     }
     
+     public String getNameById(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT Name FROM Courts WHERE ID = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String name = rs.getString("Name");
+
+                return name;
+            }
+        }
+        return null;
+    }
+     
     public ArrayList<Reservation> getReservations() throws SQLException
     {
         try (Connection con = ds.getConnection())
