@@ -38,6 +38,7 @@ public class MainMenu extends javax.swing.JFrame
         lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         btnRegisterMember.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         btnRegisterMember.setText("Registrer som medlem");
@@ -89,17 +90,15 @@ public class MainMenu extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnRegisterMemberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterMemberActionPerformed
     {//GEN-HEADEREND:event_btnRegisterMemberActionPerformed
-        Registration jFrameRegistrering = new Registration();
-        jFrameRegistrering.setVisible(true);
+           Registration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnRegisterMemberActionPerformed
 
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
     {//GEN-HEADEREND:event_btnBookCourtActionPerformed
-        CourtBooking courtBooking = new CourtBooking();
-        courtBooking.setVisible(true);
+        CourtBooking.getInstance().setVisible(true);
     }//GEN-LAST:event_btnBookCourtActionPerformed
 
     /**

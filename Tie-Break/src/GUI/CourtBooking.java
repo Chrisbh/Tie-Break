@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class CourtBooking extends javax.swing.JFrame
 {
-
+    private static CourtBooking instance = null;
     /**
      * Creates new form CourtBooking
      */
@@ -66,6 +66,15 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
     }
+    
+    public static CourtBooking getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new CourtBooking();
+        }
+        return instance;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,6 +104,7 @@ public class CourtBooking extends javax.swing.JFrame
         lblMemberId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
@@ -344,10 +354,11 @@ public class CourtBooking extends javax.swing.JFrame
             int year = Calendar.getInstance().get(Calendar.YEAR);
             int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
             int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
+            int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
+
             booking.set(year, month, date, time, 0, 0);
 
             // Makes the year go to the next year, if the date and time chosen is before the current date and time.

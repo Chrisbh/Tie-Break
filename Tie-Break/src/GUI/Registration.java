@@ -24,6 +24,7 @@ public class Registration extends javax.swing.JFrame
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
     private boolean cprCancelled = false;
+    private static Registration instance = null;
 
     /**
      * Creates new form Registration
@@ -35,6 +36,15 @@ public class Registration extends javax.swing.JFrame
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         mManager = MemberManager.getInstance();
         setTitle("Registrering af medlem");
+    }
+
+    public static Registration getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Registration();
+        }
+        return instance;
     }
 
     /**
@@ -69,6 +79,7 @@ public class Registration extends javax.swing.JFrame
         txtFirstName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblName.setText("Navn");
 
@@ -289,7 +300,7 @@ public class Registration extends javax.swing.JFrame
             if (!bdCancelled)
             {
                 checkInt(zipCodeSc, phoneSc);
-                
+
                 while (txtBirthDay.getText().length() != 8)
                 {
                     String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 8 cifre i det første af CPR, intast det rigtige!");
@@ -393,9 +404,9 @@ public class Registration extends javax.swing.JFrame
             phoneSc = new Scanner(txtPhoneNumber.getText());
             phoneCancelled = false;
         }
-        
+
         Scanner bdSc = new Scanner(txtBirthDay.getText());
-        while(!bdSc.hasNextInt())
+        while (!bdSc.hasNextInt())
         {
             String correctedBD = JOptionPane.showInputDialog(null, "Det første af CPR skal være et nummer, intast det rigtige!");
             if (correctedBD == null)
@@ -404,13 +415,13 @@ public class Registration extends javax.swing.JFrame
                 break;
             }
             txtBirthDay.setText(correctedBD);
-            
+
             bdSc = new Scanner(txtBirthDay.getText());
             bdCancelled = false;
         }
-        
+
         Scanner cprSc = new Scanner(txtCPR.getText());
-        while(!cprSc.hasNextInt())
+        while (!cprSc.hasNextInt())
         {
             String correctedCPR = JOptionPane.showInputDialog(null, "Det sidste af CPR skal være et nummer, intast det rigtige!");
             if (correctedCPR == null)
@@ -419,7 +430,7 @@ public class Registration extends javax.swing.JFrame
                 break;
             }
             txtCPR.setText(correctedCPR);
-            
+
             cprSc = new Scanner(txtBirthDay.getText());
             cprCancelled = false;
         }
