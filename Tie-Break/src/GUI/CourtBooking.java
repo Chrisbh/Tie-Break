@@ -323,6 +323,12 @@ public class CourtBooking extends javax.swing.JFrame
             }
             splDay.setModel(model);
         }
+        try
+        {
+        }
+        catch (Exception e)
+        {
+        }
 
     }
 
@@ -369,7 +375,6 @@ public class CourtBooking extends javax.swing.JFrame
                         {
 
                             int courtId = BookingManager.getInstance().getIdByName(court);
-                            
 
                             Reservation r = new Reservation(courtId, memberId, booking);
                             BookingManager.getInstance().reserveCourt(r);
