@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -97,5 +98,26 @@ public class ReservationDBManager extends TieBreakDBManager
             }
         }
         return 0;
+    }
+    
+    public ArrayList<Reservation> getReservations() throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT CourtID, ReservationDate FROM Reservation");
+
+            ArrayList reservations = new ArrayList<>();
+            while (rs.next())
+            {
+                int CourtID = rs.getInt("CourtID");
+                Timestamp ReservationDate = rs.getTimestamp("ReservationDate");
+
+
+                reservations.add(CourtID);
+                reservations.add(ReservationDate);
+            }
+            return reservations;
+        }
     }
 }
