@@ -9,9 +9,12 @@ import BLL.BookingManager;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -47,6 +50,20 @@ public class CourtBooking extends javax.swing.JFrame
         {
             System.out.println("ERROR - " + e.getMessage());
         }
+
+        splMonth.addListSelectionListener(
+                new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent lse)
+            {
+                if (!(lse.getValueIsAdjusting() || splMonth.isSelectionEmpty()))
+                {
+                    dayList();
+                }
+
+            }
+        });
     }
 
     /**
@@ -64,10 +81,16 @@ public class CourtBooking extends javax.swing.JFrame
         lblTime = new javax.swing.JLabel();
         btnAddBooking = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        spMonth = new javax.swing.JScrollPane();
+        splMonth = new javax.swing.JList();
+        lblMonth = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        spDay = new javax.swing.JScrollPane();
+        splDay = new javax.swing.JList();
         spCourt = new javax.swing.JScrollPane();
         splCourt = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
-        jcal = new com.toedter.calendar.JCalendar();
+        chbxOutdoorCourt = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,9 +126,25 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
 
+        splMonth.setModel(new javax.swing.AbstractListModel()
+        {
+            String[] strings = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        spMonth.setViewportView(splMonth);
+
+        lblMonth.setText("Måned");
+
+        jLabel1.setText("Dag");
+
+        spDay.setViewportView(splDay);
+
         spCourt.setViewportView(splCourt);
 
         jLabel2.setText("Bane");
+
+        chbxOutdoorCourt.setText("Udendørs bane");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,7 +152,15 @@ public class CourtBooking extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jcal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMonth)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(spDay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -126,7 +173,8 @@ public class CourtBooking extends javax.swing.JFrame
                         .addComponent(btnCancel))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chbxOutdoorCourt))
                     .addComponent(lblTime))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,25 +184,25 @@ public class CourtBooking extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblHeader)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTime)
+                    .addComponent(lblMonth)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTime)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chbxOutdoorCourt))
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddBooking)
                             .addComponent(btnCancel)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spCourt, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                    .addComponent(spMonth)
+                    .addComponent(spCourt)
+                    .addComponent(spDay)))
         );
 
         pack();
@@ -207,56 +255,102 @@ public class CourtBooking extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBooking;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JCheckBox chbxOutdoorCourt;
     private javax.swing.JComboBox cmbxTime;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private com.toedter.calendar.JCalendar jcal;
     private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblMonth;
     private javax.swing.JLabel lblTime;
     private javax.swing.JScrollPane spCourt;
+    private javax.swing.JScrollPane spDay;
+    private javax.swing.JScrollPane spMonth;
     private javax.swing.JList splCourt;
+    private javax.swing.JList splDay;
+    private javax.swing.JList splMonth;
     // End of variables declaration//GEN-END:variables
+
+    private void dayList()
+    {
+        int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
+
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 31; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
+        if (month == 2)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 28; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
+        if (month == 4 || month == 6 || month == 9 || month == 11)
+        {
+            DefaultListModel model = new DefaultListModel();
+            for (int i = 1; i <= 30; i++)
+            {
+                model.addElement(i);
+            }
+            splDay.setModel(model);
+        }
+
+    }
 
     private void addBooking()
     {
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.setTime(jcal.getDate());
-
-        int year = gc.get(Calendar.YEAR);
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-        int month = gc.get(Calendar.MONTH);
-        int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int date = gc.get(Calendar.DAY_OF_MONTH);
-        int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
-        gc.set(year, month, date, time, 0, 0);
-
-        // Skips to next year, if the date and time chosen is before the current date and time.
-        if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
+        if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null)
         {
-            JOptionPane.showMessageDialog(null, "Du har valgt en date tidligere end dags dato, vælg et tidspunkt efter dags dato og klokkeslet.", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else
-        {
-            System.out.println(gc.getTime());
+            Calendar booking = new GregorianCalendar();
+
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
+            int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
+            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+            int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+            int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
+            booking.set(year, month, date, time, 0, 0);
+
+            // Makes the year go to the next year, if the date and time chosen is before the current date and time.
+            if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
+            {
+                booking.add(Calendar.YEAR, +1);
+            }
+
+
 
             String court = splCourt.getSelectedValue().toString();
 
-            if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + gc.getTime() + ". Vil du bestille denne tid?", "Reservation",
+            if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                     == JOptionPane.YES_OPTION)
             {
                 try
                 {
                     int courtId = BookingManager.getInstance().getIdByName(court);
-                    Reservation r = new Reservation(courtId, 1, gc, true);
+                    Reservation r = new Reservation(courtId, 1, booking, true);
                     BookingManager.getInstance().reserveCourt(r);
                 }
                 catch (Exception e)
                 {
                     System.out.println("ERROR - " + e.getMessage());
                 }
-                gc.clear();
+                booking.clear();
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Dato eller bane ikke valgt!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
