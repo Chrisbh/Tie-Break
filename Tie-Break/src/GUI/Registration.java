@@ -22,6 +22,8 @@ public class Registration extends javax.swing.JFrame
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
+    private boolean bdCancelled = false;
+    private boolean cprCancelled = false;
 
     /**
      * Creates new form Registration
@@ -247,6 +249,11 @@ public class Registration extends javax.swing.JFrame
                 while (lengthZip != 4)
                 {
                     String correctedZipCode = JOptionPane.showInputDialog(null, "Postnummer skal være på 4 cifre, intast det rigtige!");
+                    if (correctedZipCode == null)
+                    {
+                        zipCancelled = true;
+                        break;
+                    }
                     txtZipCode.setText(correctedZipCode);
 
                     zipCodeSc = new Scanner(txtZipCode.getText());
@@ -265,6 +272,11 @@ public class Registration extends javax.swing.JFrame
                 while (lengthPhone != 8)
                 {
                     String correctedPhone = JOptionPane.showInputDialog(null, "TelefonNummer skal være på 8 cifre, intast det rigtige!");
+                    if (correctedPhone == null)
+                    {
+                        phoneCancelled = true;
+                        break;
+                    }
                     txtPhoneNumber.setText(correctedPhone);
 
                     phoneSc = new Scanner(txtPhoneNumber.getText());
@@ -273,7 +285,43 @@ public class Registration extends javax.swing.JFrame
                     lengthPhone = String.valueOf(phoneSc.nextInt()).length();
                 }
             }
-            if (!zipCancelled && !phoneCancelled)
+
+            if (!bdCancelled)
+            {
+                checkInt(zipCodeSc, phoneSc);
+                
+                while (txtBirthDay.getText().length() != 8)
+                {
+                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 8 cifre i det første af CPR, intast det rigtige!");
+                    if (corredtedBD == null)
+                    {
+                        bdCancelled = true;
+                        break;
+                    }
+                    txtBirthDay.setText(corredtedBD);
+                    bdCancelled = false;
+                    checkInt(zipCodeSc, phoneSc);
+                }
+            }
+
+            if (!cprCancelled)
+            {
+                checkInt(zipCodeSc, phoneSc);
+                while (txtCPR.getText().length() != 4)
+                {
+                    String corredtedCPR = JOptionPane.showInputDialog(null, "Der skal være 4 cifre i det sidste af CPR, intast det rigtige!");
+                    if (corredtedCPR == null)
+                    {
+                        cprCancelled = true;
+                        break;
+                    }
+                    txtCPR.setText(corredtedCPR);
+                    cprCancelled = false;
+                    checkInt(zipCodeSc, phoneSc);
+                }
+            }
+
+            if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled)
             {
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
@@ -304,6 +352,8 @@ public class Registration extends javax.swing.JFrame
             {
                 zipCancelled = false;
                 phoneCancelled = false;
+                bdCancelled = false;
+                cprCancelled = false;
             }
         }
         else
@@ -342,6 +392,36 @@ public class Registration extends javax.swing.JFrame
 
             phoneSc = new Scanner(txtPhoneNumber.getText());
             phoneCancelled = false;
+        }
+        
+        Scanner bdSc = new Scanner(txtBirthDay.getText());
+        while(!bdSc.hasNextInt())
+        {
+            String correctedBD = JOptionPane.showInputDialog(null, "Det første af CPR skal være et nummer, intast det rigtige!");
+            if (correctedBD == null)
+            {
+                bdCancelled = true;
+                break;
+            }
+            txtBirthDay.setText(correctedBD);
+            
+            bdSc = new Scanner(txtBirthDay.getText());
+            bdCancelled = false;
+        }
+        
+        Scanner cprSc = new Scanner(txtCPR.getText());
+        while(!cprSc.hasNextInt())
+        {
+            String correctedCPR = JOptionPane.showInputDialog(null, "Det sidste af CPR skal være et nummer, intast det rigtige!");
+            if (correctedCPR == null)
+            {
+                cprCancelled = true;
+                break;
+            }
+            txtCPR.setText(correctedCPR);
+            
+            cprSc = new Scanner(txtBirthDay.getText());
+            cprCancelled = false;
         }
     }
 
