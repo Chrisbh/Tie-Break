@@ -37,6 +37,11 @@ public class Reservation
     {
         this(id, r.courtId, r.memberId, r.reservationTime);
     }
+    
+    public Reservation(int courtId, Calendar reservationTime)
+    {
+        this(-1, courtId, -1, reservationTime);
+    }
 
     /**
      * @return the id
