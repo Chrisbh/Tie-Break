@@ -308,7 +308,7 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void addBooking()
     {
-        if (splMonth.getSelectedValue() != null || splDay.getSelectedValue() != null)
+        if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null)
         {
             Calendar booking = new GregorianCalendar();
 
@@ -351,7 +351,7 @@ public class CourtBooking extends javax.swing.JFrame
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Dato ikke valgt!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Dato eller bane ikke valgt!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

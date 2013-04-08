@@ -273,7 +273,7 @@ public class Registration extends javax.swing.JFrame
                     lengthPhone = String.valueOf(phoneSc.nextInt()).length();
                 }
             }
-            if (!zipCancelled || !phoneCancelled)
+            if (!zipCancelled && !phoneCancelled)
             {
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
