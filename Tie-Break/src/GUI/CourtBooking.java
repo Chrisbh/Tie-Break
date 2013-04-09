@@ -7,6 +7,8 @@ package GUI;
 import BE.Reservation;
 import BLL.BookingManager;
 import BLL.MemberManager;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -23,7 +25,9 @@ import javax.swing.event.ListSelectionListener;
  */
 public class CourtBooking extends javax.swing.JFrame
 {
+
     private static CourtBooking instance = null;
+
     /**
      * Creates new form CourtBooking
      */
@@ -31,7 +35,7 @@ public class CourtBooking extends javax.swing.JFrame
     {
         initComponents();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Banebooking");
 
         try
@@ -65,8 +69,29 @@ public class CourtBooking extends javax.swing.JFrame
 
             }
         });
+
+        cmbxTime.addItemListener(
+                new ItemListener()
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                try
+                {   
+                ArrayList<Reservation> reservations = BookingManager.getInstance().getReservations();
+                if(reservations.contains(e))
+                {
+                    System.out.println(e);
+                }
+                }
+                catch (Exception e1)
+                {
+                    System.out.println("ERROR");
+                }
+            }
+        });
     }
-    
+
     public static CourtBooking getInstance()
     {
         if (instance == null)

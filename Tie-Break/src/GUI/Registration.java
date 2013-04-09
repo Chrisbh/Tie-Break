@@ -33,7 +33,7 @@ public class Registration extends javax.swing.JFrame
     {
         initComponents();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         mManager = MemberManager.getInstance();
         setTitle("Registrering af medlem");
     }

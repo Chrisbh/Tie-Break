@@ -135,7 +135,7 @@ public class ReservationDBManager extends TieBreakDBManager
                 Timestamp rd = rs.getTimestamp("ReservationDate");
                 
                 Calendar time = new GregorianCalendar();
-                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), rd.getMinutes(), rd.getSeconds());
+                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
                 
                 Reservation res = new Reservation(CourtID, time);
                 

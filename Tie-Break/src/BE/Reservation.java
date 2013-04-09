@@ -98,4 +98,12 @@ public class Reservation
     {
         this.reservationTime = reservationTime;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (! (obj instanceof Reservation)) return false;
+        Reservation r = (Reservation) obj;
+        return this.reservationTime.equals(r.reservationTime) && this.courtId == r.courtId;
+    }
 }
