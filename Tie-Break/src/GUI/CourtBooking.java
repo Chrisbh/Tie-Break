@@ -39,25 +39,7 @@ public class CourtBooking extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Banebooking");
-        
-        try
-        {
-            DefaultListModel modelB = new DefaultListModel();
-            ArrayList alB = new ArrayList(BookingManager.getInstance().getCourtsName());
-            
-            for (Object i : alB)
-            {
-                modelB.addElement(i.toString());
-            }
-            splCourt.setModel(modelB);
-            System.out.println(alB);
-            
-        }
-        catch (Exception e)
-        {
-            System.out.println("ERROR - " + e.getMessage());
-        }
-        
+
         splMonth.addListSelectionListener(
                 new ListSelectionListener()
         {
@@ -78,15 +60,16 @@ public class CourtBooking extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null && txtMemberId.getText().length() != 0)
+                if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && txtMemberId.getText().length() != 0)
                 {
+                    DefaultListModel model = new DefaultListModel();
+                    model.clear();
                     Calendar booking = new GregorianCalendar();
                     
                     int year = Calendar.getInstance().get(Calendar.YEAR);
                     int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
                     int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
                     int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
-                    String court = splCourt.getSelectedValue().toString();
                     int memberId = new Scanner(txtMemberId.getText()).nextInt();
                     booking.set(year, month, date, time, 0, 0);
                     
@@ -97,17 +80,17 @@ public class CourtBooking extends javax.swing.JFrame
                         ArrayList<Reservation> rs = BookingManager.getInstance().getReservations();
                         Reservation r = new Reservation(courtId, memberId, booking);
                         
-                        DefaultListModel model = new DefaultListModel();
+                        
                         
                         for (int i = 0; i <= rs.size() - 1; i++)
                         {
                             if (!r.equals(rs.get(i)))
                             {
-                                String courtNames = BookingManager.getInstance().getNameById(courtId);
-                                model.addElement(courtNames);
+                                String courtName = BookingManager.getInstance().getNameById(courtId);
+                                model.addElement(courtName);
                                 System.out.println("Mojn");
                             }
-                            r.setCourtId(courtId + 1);
+                            courtId += 1;
                         }
                         splCourt.setModel(model);
                         

@@ -106,14 +106,14 @@ public class ReservationDBManager extends TieBreakDBManager
         try (Connection con = ds.getConnection())
         {
             Statement st = con.createStatement();
-            String sql = ("SELECT Name FROM Courts WHERE ID = ?");
+            String sql = ("SELECT CourtName FROM Courts WHERE ID = ?");
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next())
             {
-                String name = rs.getString("Name");
+                String name = rs.getString("CourtName");
 
                 return name;
             }
