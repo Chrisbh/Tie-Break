@@ -9,7 +9,6 @@ import BLL.MemberManager;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
