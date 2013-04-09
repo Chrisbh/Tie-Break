@@ -386,9 +386,6 @@ public class CourtBooking extends javax.swing.JFrame
     
     private void addBooking()
     {
-        
-        
-        
         if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null && txtMemberId.getText().length() != 0)
         {
             Calendar booking = new GregorianCalendar();
