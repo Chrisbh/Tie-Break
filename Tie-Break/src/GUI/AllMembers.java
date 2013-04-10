@@ -8,9 +8,8 @@ import BE.Member;
 import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -32,11 +31,12 @@ public class AllMembers extends javax.swing.JFrame
     {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         mManager = MemberManager.getInstance();
         allMembers();
-        
-        spNames.addListSelectionListener(new ListSelectionListener() {
 
+        spNames.addListSelectionListener(new ListSelectionListener()
+        {
             @Override
             public void valueChanged(ListSelectionEvent lse)
             {
@@ -216,7 +216,7 @@ public class AllMembers extends javax.swing.JFrame
         try
         {
             ArrayList names = mManager.getByName();
-            for(int i = 0; i < names.size(); i++)
+            for (int i = 0; i < names.size(); i++)
             {
                 String name = names.get(i).toString();
                 i++;
@@ -230,7 +230,7 @@ public class AllMembers extends javax.swing.JFrame
         }
         spNames.setModel(model);
     }
-    
+
     public void compareStrings()
     {
         String name = (String) spNames.getSelectedValue();
@@ -250,8 +250,9 @@ public class AllMembers extends javax.swing.JFrame
         {
             System.out.println("ERROR - " + e.getMessage());
         }
-        
+
     }
+
     /**
      * @param args the command line arguments
      */
