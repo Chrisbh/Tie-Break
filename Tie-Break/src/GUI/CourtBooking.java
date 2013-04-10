@@ -9,8 +9,6 @@ import BLL.BookingManager;
 import BLL.MemberManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -27,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class CourtBooking extends javax.swing.JFrame
 {
-    
+
     private static CourtBooking instance = null;
 
     /**
@@ -50,10 +48,10 @@ public class CourtBooking extends javax.swing.JFrame
                 {
                     dayList();
                 }
-                
+
             }
         });
-        
+
         cmbxTime.addActionListener(
                 new ActionListener()
         {
@@ -65,48 +63,66 @@ public class CourtBooking extends javax.swing.JFrame
                     DefaultListModel model = new DefaultListModel();
                     model.clear();
                     Calendar booking = new GregorianCalendar();
-                    
+
                     int year = Calendar.getInstance().get(Calendar.YEAR);
                     int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
                     int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
                     int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
+                    int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+                    int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                    int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                     booking.set(year, month, date, time, 0, 0);
-                    
-                    
+
+                    if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
+                    {
+                        booking.add(Calendar.YEAR, +1);
+                    }
+
                     try
                     {
                         int courtId = 1;
                         int memberId = 1;
                         ArrayList<Reservation> rs = BookingManager.getInstance().getReservations();
-                        Reservation r = new Reservation(courtId, memberId, booking);
-                        
-                        for (int i = 0; i <= rs.size() - 1; i++)
+
+                        for (int i = 0; i < rs.size(); i++)
                         {
-                            if (!r.equals(rs.get(i)))
+                            Reservation r = new Reservation(courtId, memberId, booking);
+                            rs.get(i).getReservationTime().set(Calendar.YEAR, r.getReservationTime().get(Calendar.YEAR));
+
+                            r.getReservationTime().clear(Calendar.MILLISECOND);
+                            rs.get(i).getReservationTime().clear(Calendar.MILLISECOND);
+
+                            for (int iC = courtId; iC <= BookingManager.getInstance().getCourtsName().size(); iC++)
                             {
-                                String courtName = BookingManager.getInstance().getNameById(courtId);
-                                model.addElement(courtName);
+                                r.setCourtId(iC);
+                                for (int iM = memberId; iM <= MemberManager.getInstance().getIds().size(); iM++)
+                                {
+                                    r.setMemberId(iM);
+                                    
+                                    if (!r.equals(rs.get(i)))
+                                    {
+                                        String courtName = BookingManager.getInstance().getNameById(r.getCourtId());
+                                        model.addElement(courtName);
+                                    }
+                                }
                             }
-                            courtId += 1;
-                            memberId += 1;
-                            r.setCourtId(courtId);
-                            r.setMemberId(memberId);
                         }
                         splCourt.setModel(model);
-                        
-                        
-                        
+
+
+
                     }
                     catch (Exception e1)
                     {
                         System.out.println("ERROR - " + e1.getMessage());
+                        e1.printStackTrace();
                     }
-                    
+
                 }
             }
         });
     }
-    
+
     public static CourtBooking getInstance()
     {
         if (instance == null)
@@ -276,19 +292,19 @@ public class CourtBooking extends javax.swing.JFrame
     {//GEN-HEADEREND:event_cmbxTimeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbxTimeActionPerformed
-    
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         dispose();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
-    
+
     private void btnAddBookingActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddBookingActionPerformed
     {//GEN-HEADEREND:event_btnAddBookingActionPerformed
         addBooking();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
-    
+
     private void txtMemberIdActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtMemberIdActionPerformed
     {//GEN-HEADEREND:event_txtMemberIdActionPerformed
         // TODO add your handling code here:
@@ -345,7 +361,7 @@ public class CourtBooking extends javax.swing.JFrame
     private void dayList()
     {
         int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
-        
+
         if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
         {
             DefaultListModel model = new DefaultListModel();
@@ -355,7 +371,7 @@ public class CourtBooking extends javax.swing.JFrame
             }
             splDay.setModel(model);
         }
-        
+
         if (month == 2)
         {
             DefaultListModel model = new DefaultListModel();
@@ -365,7 +381,7 @@ public class CourtBooking extends javax.swing.JFrame
             }
             splDay.setModel(model);
         }
-        
+
         if (month == 4 || month == 6 || month == 9 || month == 11)
         {
             DefaultListModel model = new DefaultListModel();
@@ -381,15 +397,15 @@ public class CourtBooking extends javax.swing.JFrame
         catch (Exception e)
         {
         }
-        
+
     }
-    
+
     private void addBooking()
     {
         if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && splCourt.getSelectedValue() != null && txtMemberId.getText().length() != 0)
         {
             Calendar booking = new GregorianCalendar();
-            
+
             int year = Calendar.getInstance().get(Calendar.YEAR);
             int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
             int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
@@ -397,7 +413,7 @@ public class CourtBooking extends javax.swing.JFrame
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            
+
             booking.set(year, month, date, time, 0, 0);
 
             // Makes the year go to the next year, if the date and time chosen is before the current date and time.
@@ -405,30 +421,30 @@ public class CourtBooking extends javax.swing.JFrame
             {
                 booking.add(Calendar.YEAR, +1);
             }
-            
+
             try
             {
                 Scanner sc = new Scanner(txtMemberId.getText());
-                
+
                 if (sc.hasNextInt())
                 {
                     ArrayList ids = MemberManager.getInstance().getIds();
                     int memberId = new Scanner(txtMemberId.getText()).nextInt();
-                    
+
                     if (ids.contains(memberId))
                     {
-                        
-                        
+
+
                         if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                                 == JOptionPane.YES_OPTION)
                         {
                             String court = splCourt.getSelectedValue().toString();
                             int courtId = BookingManager.getInstance().getIdByName(court);
-                            
+
                             Reservation r = new Reservation(courtId, memberId, booking);
                             BookingManager.getInstance().reserveCourt(r);
-                            
+
                             booking.clear();
                         }
                     }
@@ -446,9 +462,9 @@ public class CourtBooking extends javax.swing.JFrame
             {
                 System.out.println("ERROR - " + e);
             }
-            
-            
-            
+
+
+
         }
         else
         {

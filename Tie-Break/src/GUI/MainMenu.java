@@ -23,6 +23,7 @@ public class MainMenu extends javax.swing.JFrame
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Main Menu");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
     public static MainMenu getInstance()

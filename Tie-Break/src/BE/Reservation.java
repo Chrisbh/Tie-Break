@@ -104,6 +104,7 @@ public class Reservation
     {
         if (! (obj instanceof Reservation)) return false;
         Reservation r = (Reservation) obj;
-        return this.reservationTime.equals(r.reservationTime) && this.courtId == r.courtId;
+        return this.reservationTime.getTime().equals(r.reservationTime.getTime()) && this.courtId == r.courtId;
+                
     }
 }
