@@ -60,7 +60,7 @@ public class CourtBooking extends javax.swing.JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null && txtMemberId.getText().length() != 0)
+                if (splMonth.getSelectedValue() != null && splDay.getSelectedValue() != null)
                 {
                     DefaultListModel model = new DefaultListModel();
                     model.clear();
@@ -70,17 +70,15 @@ public class CourtBooking extends javax.swing.JFrame
                     int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
                     int date = new Scanner(splDay.getSelectedValue().toString()).nextInt();
                     int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
-                    int memberId = new Scanner(txtMemberId.getText()).nextInt();
                     booking.set(year, month, date, time, 0, 0);
                     
                     
                     try
                     {
                         int courtId = 1;
+                        int memberId = 1;
                         ArrayList<Reservation> rs = BookingManager.getInstance().getReservations();
                         Reservation r = new Reservation(courtId, memberId, booking);
-                        
-                        
                         
                         for (int i = 0; i <= rs.size() - 1; i++)
                         {
@@ -88,9 +86,11 @@ public class CourtBooking extends javax.swing.JFrame
                             {
                                 String courtName = BookingManager.getInstance().getNameById(courtId);
                                 model.addElement(courtName);
-                                System.out.println("Mojn");
                             }
                             courtId += 1;
+                            memberId += 1;
+                            r.setCourtId(courtId);
+                            r.setMemberId(memberId);
                         }
                         splCourt.setModel(model);
                         
