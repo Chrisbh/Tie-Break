@@ -70,4 +70,53 @@ public class MembersDBManager extends TieBreakDBManager
             return members;
         }
     }
+    
+    public ArrayList getByName() throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT ID, FirstName, LastName FROM Members");
+
+            ArrayList memberNames = new ArrayList();
+            while (rs.next())
+            {
+                int id = rs.getInt("ID");
+                String memberName = rs.getString("FirstName") + " " + rs.getString("LastName");
+
+                memberNames.add(id);
+                memberNames.add(memberName);
+            }
+            return memberNames;
+        }
+    }
+    
+    public ArrayList getAllMembers() throws SQLException
+ {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Members");
+
+            ArrayList<Member> members = new ArrayList<>();
+            while (rs.next())
+            {
+                int id = rs.getInt("ID");
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                String address = rs.getString("Address");
+                int zipCode = rs.getInt("ZipCode");
+                String city = rs.getString("City");
+                String email = rs.getString("Email");
+                int phoneNumber = rs.getInt("PhoneNumber");
+                String cpr = rs.getString("Cpr");
+                
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+
+                
+                members.add(m);
+            }
+            return members;
+        }
+    }
 }
