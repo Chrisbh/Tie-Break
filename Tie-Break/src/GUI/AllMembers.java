@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import BE.Member;
 import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class AllMembers extends javax.swing.JFrame
 
     private static AllMembers instance = null;
     private MemberManager mManager;
+    private String MemberName;
 
     /**
      * Creates new form AllMembers
@@ -38,7 +40,7 @@ public class AllMembers extends javax.swing.JFrame
             @Override
             public void valueChanged(ListSelectionEvent lse)
             {
-                
+                compareStrings();
             }
         });
     }
@@ -69,11 +71,17 @@ public class AllMembers extends javax.swing.JFrame
         lblListInfo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNametext = new javax.swing.JLabel();
+        lblMemberIDtext = new javax.swing.JLabel();
         lblAddresstext = new javax.swing.JLabel();
         lblZipCitytext = new javax.swing.JLabel();
         lblEmailtext = new javax.swing.JLabel();
         lblPhoneNumbertext = new javax.swing.JLabel();
-        lblMedlemsIDtext = new javax.swing.JLabel();
+        lblMemberID = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        lblZipCity = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblPhoneNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +106,8 @@ public class AllMembers extends javax.swing.JFrame
 
         lblNametext.setText("Navn:");
 
+        lblMemberIDtext.setText("Medlems ID:");
+
         lblAddresstext.setText("Adresse:");
 
         lblZipCitytext.setText("Postnr/by:");
@@ -106,8 +116,6 @@ public class AllMembers extends javax.swing.JFrame
 
         lblPhoneNumbertext.setText("Telefonnr:");
 
-        lblMedlemsIDtext.setText("Medlems ID:");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -115,68 +123,90 @@ public class AllMembers extends javax.swing.JFrame
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMemberIDtext)
                     .addComponent(lblNametext)
+                    .addComponent(lblPhoneNumbertext)
                     .addComponent(lblAddresstext)
                     .addComponent(lblZipCitytext)
-                    .addComponent(lblEmailtext)
-                    .addComponent(lblPhoneNumbertext)
-                    .addComponent(lblMedlemsIDtext))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblEmailtext))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEmail)
+                    .addComponent(lblZipCity)
+                    .addComponent(lblAddress)
+                    .addComponent(lblMemberID)
+                    .addComponent(lblName)
+                    .addComponent(lblPhoneNumber))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblMedlemsIDtext)
-                .addGap(18, 18, 18)
-                .addComponent(lblNametext)
-                .addGap(18, 18, 18)
-                .addComponent(lblAddresstext)
-                .addGap(18, 18, 18)
-                .addComponent(lblZipCitytext)
-                .addGap(18, 18, 18)
-                .addComponent(lblEmailtext)
-                .addGap(18, 18, 18)
-                .addComponent(lblPhoneNumbertext)
-                .addGap(0, 13, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMemberIDtext)
+                    .addComponent(lblMemberID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNametext)
+                    .addComponent(lblName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAddresstext)
+                    .addComponent(lblAddress))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblZipCitytext)
+                    .addComponent(lblZipCity))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailtext)
+                    .addComponent(lblEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNumbertext)
+                    .addComponent(lblPhoneNumber))
+                .addGap(72, 72, 72))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblListInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jButton1)))
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblListInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblListInfo)))
-                .addGap(22, 22, 22))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(lblListInfo))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -212,6 +242,23 @@ public class AllMembers extends javax.swing.JFrame
     
     public void compareStrings()
     {
+        String name = (String) spNames.getSelectedValue();
+        String parts[] = name.split(" : ");
+        int id = Integer.parseInt(parts[0]);
+        try
+        {
+            Member m = mManager.getMemberByID(id);
+            lblMemberID.setText(Integer.toString(m.getId()));
+            lblName.setText(m.getFirstName() + " " + m.getLastName());
+            lblAddress.setText(m.getAddress());
+            lblZipCity.setText(m.getZipCode() + "  /  " + m.getCity());
+            lblEmail.setText(m.getEmail());
+            lblPhoneNumber.setText(Integer.toString(m.getPhoneNumber()));
+        }
+        catch (SQLException e)
+        {
+            System.out.println("ERROR - " + e.getMessage());
+        }
         
     }
     /**
@@ -267,12 +314,18 @@ public class AllMembers extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddresstext;
+    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailtext;
     private javax.swing.JLabel lblListInfo;
-    private javax.swing.JLabel lblMedlemsIDtext;
+    private javax.swing.JLabel lblMemberID;
+    private javax.swing.JLabel lblMemberIDtext;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNametext;
+    private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPhoneNumbertext;
+    private javax.swing.JLabel lblZipCity;
     private javax.swing.JLabel lblZipCitytext;
     private javax.swing.JList spNames;
     // End of variables declaration//GEN-END:variables

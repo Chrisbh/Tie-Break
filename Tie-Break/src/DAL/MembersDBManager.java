@@ -5,6 +5,7 @@
 package DAL;
 
 import BE.Member;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +71,7 @@ public class MembersDBManager extends TieBreakDBManager
             return members;
         }
     }
-    
+
     public ArrayList getByName() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -90,9 +91,9 @@ public class MembersDBManager extends TieBreakDBManager
             return memberNames;
         }
     }
-    
+
     public ArrayList getAllMembers() throws SQLException
- {
+    {
         try (Connection con = ds.getConnection())
         {
             Statement st = con.createStatement();
@@ -108,15 +109,44 @@ public class MembersDBManager extends TieBreakDBManager
                 int zipCode = rs.getInt("ZipCode");
                 String city = rs.getString("City");
                 String email = rs.getString("Email");
-                int phoneNumber = rs.getInt("PhoneNumber");
+                int phoneNumber = rs.getInt("Phone");
                 String cpr = rs.getString("Cpr");
-                
+
                 Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
 
-                
+
                 members.add(m);
             }
             return members;
         }
+    }
+
+    public Member getMemberByID(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT * FROM Members WHERE ID = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                String address = rs.getString("Address");
+                int zipCode = rs.getInt("ZipCode");
+                String city = rs.getString("City");
+                String email = rs.getString("Email");
+                int phoneNumber = rs.getInt("Phone");
+                String cpr = rs.getString("Cpr");
+
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+
+                return m;
+            }
+        }
+        return null;
     }
 }

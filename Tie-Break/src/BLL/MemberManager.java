@@ -59,4 +59,9 @@ public class MemberManager
     {
         return db.getAllMembers();
     }
+    
+    public Member getMemberByID(int id) throws SQLException
+    {
+        return db.getMemberByID(id);
+    }
 }
