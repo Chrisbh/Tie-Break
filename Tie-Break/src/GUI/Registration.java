@@ -23,7 +23,9 @@ public class Registration extends javax.swing.JFrame
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
     private boolean cprCancelled = false;
+    private boolean passwordCancelled = false;
     private static Registration instance = null;
+    private String password;
 
     /**
      * Creates new form Registration
@@ -76,6 +78,10 @@ public class Registration extends javax.swing.JFrame
         lblCPRStreg = new javax.swing.JLabel();
         lblPostNrByAdskiller = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        lblRepeatPassword = new javax.swing.JLabel();
+        pfPassword = new javax.swing.JPasswordField();
+        pfRepeatPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -133,48 +139,65 @@ public class Registration extends javax.swing.JFrame
             }
         });
 
+        lblPassword.setText("Kodeord");
+
+        lblRepeatPassword.setText("Gentag kodeord");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel)
-                .addGap(10, 10, 10))
             .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblName)
-                    .addComponent(lblAddress)
-                    .addComponent(lblZipCodeCity)
-                    .addComponent(lblEmail)
-                    .addComponent(lblPhoneNumber)
-                    .addComponent(lblCPR))
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPhoneNumber)
-                    .addComponent(txtEmail)
-                    .addComponent(txtAddress)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPassword)
+                            .addComponent(lblRepeatPassword))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancel)
+                                .addGap(10, 10, 10))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pfRepeatPassword)
+                                    .addComponent(pfPassword))
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(lblPostNrByAdskiller)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCity))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCPRStreg)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLastName)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblName)
+                            .addComponent(lblAddress)
+                            .addComponent(lblZipCodeCity)
+                            .addComponent(lblEmail)
+                            .addComponent(lblPhoneNumber)
+                            .addComponent(lblCPR))
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPhoneNumber)
+                            .addComponent(txtEmail)
+                            .addComponent(txtAddress)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(lblPostNrByAdskiller)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCity))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCPRStreg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLastName)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,11 +233,23 @@ public class Registration extends javax.swing.JFrame
                     .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCPRStreg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnCancel))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(btnCancel))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPassword)
+                            .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRepeatPassword)
+                            .addComponent(pfRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -332,7 +367,20 @@ public class Registration extends javax.swing.JFrame
                 }
             }
 
-            if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled)
+            if (!passwordCancelled)
+            {
+                if (pfPassword.getPassword() == pfRepeatPassword.getPassword())
+                {
+                    String password = new Scanner(pfPassword.getText()).nextLine();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Din kode er forkert");
+                    passwordCancelled = true;
+                }
+            }
+
+            if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled && !passwordCancelled)
             {
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
@@ -346,7 +394,7 @@ public class Registration extends javax.swing.JFrame
                     String email = txtEmail.getText();
                     int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
                     String cpr = txtBirthDay.getText() + "-" + txtCPR.getText();
-                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
                     try
                     {
                         mManager.addMember(m);
@@ -473,10 +521,14 @@ public class Registration extends javax.swing.JFrame
     private javax.swing.JLabel lblCPRStreg;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPostNrByAdskiller;
+    private javax.swing.JLabel lblRepeatPassword;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblZipCodeCity;
+    private javax.swing.JPasswordField pfPassword;
+    private javax.swing.JPasswordField pfRepeatPassword;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtBirthDay;
     private javax.swing.JTextField txtCPR;
