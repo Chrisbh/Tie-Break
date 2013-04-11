@@ -23,18 +23,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="lblImage" alignment="1" min="-2" max="-2" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="txtPassword" max="32767" attributes="0"/>
                   <Component id="lblPassword" max="32767" attributes="0"/>
                   <Component id="btnLogIn" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblMemberNr" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtPassword" alignment="1" max="32767" attributes="0"/>
                   <Component id="txtMemberNr" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
           </Group>
-          <Component id="lblImage" alignment="1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -50,7 +50,7 @@
               <Component id="lblPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="btnLogIn" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
@@ -67,8 +67,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMemberNrActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtPassword">
     </Component>
     <Component class="javax.swing.JLabel" name="lblPassword">
       <Properties>
@@ -92,6 +90,8 @@
           <Image iconType="3" name="/GUI/titelogin.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="txtPassword">
     </Component>
   </SubComponents>
 </Form>
