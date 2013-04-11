@@ -30,7 +30,7 @@ public class MembersDBManager extends TieBreakDBManager
         try (Connection con = ds.getConnection())
         {
 
-            String sql = "INSERT INTO Members VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Members VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getFirstName());
@@ -41,6 +41,7 @@ public class MembersDBManager extends TieBreakDBManager
             ps.setString(6, m.getEmail());
             ps.setInt(7, m.getPhoneNumber());
             ps.setString(8, m.getCpr());
+            ps.setString(9, m.getPassword());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
@@ -111,8 +112,9 @@ public class MembersDBManager extends TieBreakDBManager
                 String email = rs.getString("Email");
                 int phoneNumber = rs.getInt("Phone");
                 String cpr = rs.getString("Cpr");
+                String password = rs.getString("Password");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
 
 
                 members.add(m);
@@ -141,8 +143,9 @@ public class MembersDBManager extends TieBreakDBManager
                 String email = rs.getString("Email");
                 int phoneNumber = rs.getInt("Phone");
                 String cpr = rs.getString("Cpr");
+                String password = rs.getString("Password");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
 
                 return m;
             }
