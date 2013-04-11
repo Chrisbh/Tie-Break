@@ -231,7 +231,6 @@ public class Registration extends javax.swing.JFrame
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
         addMember();
-        MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -356,7 +355,7 @@ public class Registration extends javax.swing.JFrame
                     {
                         System.out.println("ERROR - " + e);
                     }
-
+                    MainMenu.getInstance().setVisible(true);
                     dispose();
                 }
             }
