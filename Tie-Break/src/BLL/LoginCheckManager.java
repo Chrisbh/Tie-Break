@@ -39,6 +39,6 @@ public class LoginCheckManager
 
     public boolean checkUserNameAndPassword(int MemberID, String Password) throws Exception
     {
-        return checkUserNameAndPassword(MemberID, Password);
+        return db.checkUserNameAndPassword(MemberID, Password);
     }
 }

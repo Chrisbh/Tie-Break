@@ -190,13 +190,18 @@ public class Login extends javax.swing.JFrame
             {
                 if (lm.checkUserNameAndPassword(MemberID, Password) == true)
                 {
-                    System.out.println("WINNER");
+                    MainMenu.getInstance().setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Forkerte oplysninger intastet, prøv igen!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             catch (Exception ex)
             {
-                System.out.println("LOOSER" + ex);
+                System.out.println("ERROR" + ex);
             }
+
         }
         else
         {
