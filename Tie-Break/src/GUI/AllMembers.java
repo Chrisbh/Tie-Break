@@ -22,7 +22,6 @@ public class AllMembers extends javax.swing.JFrame
 
     private static AllMembers instance = null;
     private MemberManager mManager;
-    private String MemberName;
 
     /**
      * Creates new form AllMembers
@@ -40,7 +39,7 @@ public class AllMembers extends javax.swing.JFrame
             @Override
             public void valueChanged(ListSelectionEvent lse)
             {
-                compareStrings();
+                insertMember();
             }
         });
     }
@@ -231,7 +230,7 @@ public class AllMembers extends javax.swing.JFrame
         spNames.setModel(model);
     }
 
-    public void compareStrings()
+    public void insertMember()
     {
         String name = (String) spNames.getSelectedValue();
         String parts[] = name.split(" : ");

@@ -20,8 +20,9 @@ public class Member
     private String email;
     private int phoneNumber;
     private String cpr;
+    private String password;
 
-    public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr)
+    public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr, String password)
     {
         this.id = id;
         this.firstName = firstName;
@@ -32,16 +33,17 @@ public class Member
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.cpr = cpr;
+        this.password = password;
     }
 
     public Member(String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
-        this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber, "");
+        this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber, "", "");
     }
 
     public Member(int id, Member m, String cpr)
     {
-        this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, cpr);
+        this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, m.password, cpr);
     }
 
     /**
@@ -178,6 +180,22 @@ public class Member
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword()
+    {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
     
 }
