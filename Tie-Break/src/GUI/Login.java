@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import BLL.LoginCheckManager;
+import BLL.MemberManager;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame
 {
 
     private static Login instance = null;
-    private LoginCheckManager lm;
+    private MemberManager mManager;
     private boolean MemberNrCancelled = false;
 
     /**
@@ -26,7 +26,7 @@ public class Login extends javax.swing.JFrame
     public Login()
     {
         initComponents();
-        lm = LoginCheckManager.getInstance();
+        mManager = MemberManager.getInstance();
         setLocationRelativeTo(null);
         setTitle("Log ind");
         getRootPane().setDefaultButton(btnLogIn);
@@ -123,6 +123,8 @@ public class Login extends javax.swing.JFrame
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLogInActionPerformed
     {//GEN-HEADEREND:event_btnLogInActionPerformed
         LoginCheck();
+        txtMemberNr.setText("");
+        txtPassword.setText("");
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void txtMemberNrActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtMemberNrActionPerformed
@@ -156,7 +158,6 @@ public class Login extends javax.swing.JFrame
         {
             public void run()
             {
-
                 new Login().setVisible(true);
             }
         });
@@ -206,7 +207,7 @@ public class Login extends javax.swing.JFrame
 
             try
             {
-                if (lm.checkUserNameAndPassword(MemberID, Password) == true)
+                if (mManager.checkUserNameAndPassword(MemberID, Password) == true)
                 {
                     MainMenu.getInstance().setVisible(true);
                     this.setVisible(false);

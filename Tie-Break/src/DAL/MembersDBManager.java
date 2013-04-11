@@ -152,4 +152,21 @@ public class MembersDBManager extends TieBreakDBManager
         }
         return null;
     }
+
+    public boolean checkUserNameAndPassword(int ID, String Password) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            String sql = "SELECT ID, Password FROM Members WHERE ID = ? AND Password = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ID);
+            ps.setString(2, Password);
+
+            ResultSet rs = ps.executeQuery();
+            return (rs.next());
+
+        }
+
+
+    }
 }

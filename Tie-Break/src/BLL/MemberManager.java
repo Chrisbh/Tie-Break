@@ -64,4 +64,9 @@ public class MemberManager
     {
         return db.getMemberByID(id);
     }
+    
+    public boolean checkUserNameAndPassword(int ID, String Password) throws Exception
+    {
+        return db.checkUserNameAndPassword(ID, Password);
+    }
 }

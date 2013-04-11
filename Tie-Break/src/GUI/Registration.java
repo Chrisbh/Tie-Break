@@ -6,9 +6,13 @@ package GUI;
 
 import BE.Member;
 import BLL.MemberManager;
+import java.awt.Component;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -25,7 +29,6 @@ public class Registration extends javax.swing.JFrame
     private boolean cprCancelled = false;
     private boolean passwordCancelled = false;
     private static Registration instance = null;
-    private String password;
 
     /**
      * Creates new form Registration
@@ -266,22 +269,25 @@ public class Registration extends javax.swing.JFrame
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
         addMember();
+        clearFields();
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
-        dispose();
+        clearFields();
         MainMenu.getInstance().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     @SuppressWarnings("empty-statement")
     public void addMember()
     {
-
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
                 && txtAddress.getText().length() != 0 && txtCity.getText().length() != 0
                 && txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0
-                && txtCPR.getText().length() != 0)
+                && txtCPR.getText().length() != 0 && pfPassword.getText().length() != 0
+                && pfRepeatPassword.getText().length() != 0)
         {
             Scanner zipCodeSc = new Scanner(txtZipCode.getText());
             Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
@@ -336,9 +342,9 @@ public class Registration extends javax.swing.JFrame
             {
                 checkInt(zipCodeSc, phoneSc);
 
-                while (txtBirthDay.getText().length() != 8)
+                while (txtBirthDay.getText().length() != 6)
                 {
-                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 8 cifre i det første af CPR, intast det rigtige!");
+                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 6 cifre i det første af CPR, intast det rigtige!");
                     if (corredtedBD == null)
                     {
                         bdCancelled = true;
@@ -369,15 +375,15 @@ public class Registration extends javax.swing.JFrame
 
             if (!passwordCancelled)
             {
-                if (pfPassword.getPassword() == pfRepeatPassword.getPassword())
+                if (!pfPassword.getText().equals(pfRepeatPassword.getText()))
                 {
-                    String password = new Scanner(pfPassword.getText()).nextLine();
+                    JOptionPane.showMessageDialog(null, "Kodeord skal være ens");
+                    passwordCancelled = true;
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Din kode er forkert");
-                    passwordCancelled = true;
-                }
+                    passwordCancelled = false;
+                } 
             }
 
             if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled && !passwordCancelled)
@@ -394,6 +400,7 @@ public class Registration extends javax.swing.JFrame
                     String email = txtEmail.getText();
                     int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
                     String cpr = txtBirthDay.getText() + "-" + txtCPR.getText();
+                    String password = new Scanner(pfPassword.getText()).nextLine();
                     Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
                     try
                     {
@@ -404,7 +411,6 @@ public class Registration extends javax.swing.JFrame
                         System.out.println("ERROR - " + e);
                     }
                     MainMenu.getInstance().setVisible(true);
-                    dispose();
                 }
             }
             else
@@ -413,12 +419,28 @@ public class Registration extends javax.swing.JFrame
                 phoneCancelled = false;
                 bdCancelled = false;
                 cprCancelled = false;
+                passwordCancelled = false;
             }
         }
         else
         {
             JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    
+    private void clearFields()
+    {
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtAddress.setText("");
+        txtZipCode.setText("");
+        txtCity.setText("");
+        txtEmail.setText("");
+        txtPhoneNumber.setText("");
+        txtCPR.setText("");
+        txtBirthDay.setText("");
+        pfPassword.setText("");
+        pfRepeatPassword.setText("");
     }
 
     private void checkInt(Scanner zipCodeSc, Scanner phoneSc)
