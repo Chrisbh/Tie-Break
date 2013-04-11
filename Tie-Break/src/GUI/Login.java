@@ -29,8 +29,16 @@ public class Login extends javax.swing.JFrame
         lm = LoginCheckManager.getInstance();
         setLocationRelativeTo(null);
         setTitle("Log ind");
-
-
+        getRootPane().setDefaultButton(btnLogIn);
+    }
+    
+    public static Login getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Login();
+        }
+        return instance;
     }
 
     /**
@@ -201,6 +209,7 @@ public class Login extends javax.swing.JFrame
                 if (lm.checkUserNameAndPassword(MemberID, Password) == true)
                 {
                     MainMenu.getInstance().setVisible(true);
+                    this.setVisible(false);
                 }
                 else
                 {
