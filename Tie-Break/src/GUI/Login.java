@@ -17,6 +17,7 @@ public class Login extends javax.swing.JFrame
 
     private static Login instance = null;
     private LoginCheckManager lm;
+    private boolean MemberNrCancelled = false;
 
     /**
      * Creates new form Login
@@ -183,8 +184,35 @@ public class Login extends javax.swing.JFrame
     {
         if (txtMemberNr.getText().length() != 0 && txtPassword.getText().length() != 0)
         {
+            Scanner MemberNrSC = new Scanner(txtMemberNr.getText());
+            checkInt(MemberNrSC);
             int MemberID = new Scanner(txtMemberNr.getText()).nextInt();
             String Password = new Scanner(txtPassword.getText()).nextLine();
+
+            if(!MemberNrCancelled)
+            {
+                MemberNrSC = new Scanner(txtMemberNr.getText());
+                int lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
+                while(lengthMember < 1)
+                {
+                    String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være tal og minimum ét tal");
+                    if(correctedMemberNr == null)
+                    {
+                        MemberNrCancelled = true;
+                        break;
+                    }
+                    txtMemberNr.setText(correctedMemberNr);
+                    
+                    MemberNrSC = new Scanner(txtMemberNr.getText());
+                    checkInt(MemberNrSC);
+                    MemberNrSC = new Scanner(txtMemberNr.getText());
+                    lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
+                }
+            }
+            else
+            {
+                MemberNrCancelled = false;
+            }
 
             try
             {
@@ -194,7 +222,7 @@ public class Login extends javax.swing.JFrame
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Forkerte oplysninger intastet, prøv igen!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Indtastede medlemdsoplysninger er forkerte, prøv igen!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             catch (Exception ex)
@@ -209,5 +237,24 @@ public class Login extends javax.swing.JFrame
         }
 
 
+    }
+
+    public void checkInt(Scanner MemberNrSC)
+    {
+        MemberNrSC = new Scanner(txtMemberNr.getText());
+        while (!MemberNrSC.hasNextInt())
+        {
+            String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være et nummer, indtast det rigtige");
+            if (correctedMemberNr == null)
+            {
+                MemberNrCancelled = true;
+                break;
+            }
+            txtMemberNr.setText(correctedMemberNr);
+
+            MemberNrSC = new Scanner(txtMemberNr.getText());
+            MemberNrCancelled = false;
+
+        }
     }
 }
