@@ -5,7 +5,6 @@
 package GUI;
 
 import javax.swing.UIManager;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
  *
@@ -23,7 +22,7 @@ public class MainMenu extends javax.swing.JFrame
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Main Menu");
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
     public static MainMenu getInstance()

@@ -62,7 +62,7 @@ public class ReservationDBManager extends TieBreakDBManager
         }
     }
 
-    public ArrayList<Court> getCourtsName() throws SQLException
+    public ArrayList<String> getCourtsName() throws SQLException
     {
         try (Connection con = ds.getConnection())
         {
@@ -126,18 +126,19 @@ public class ReservationDBManager extends TieBreakDBManager
         try (Connection con = ds.getConnection())
         {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT CourtID, ReservationDate FROM Reservation");
+            ResultSet rs = st.executeQuery("SELECT * FROM Reservation");
 
             ArrayList<Reservation> reservations = new ArrayList<>();
             while (rs.next())
             {
-                int CourtID = rs.getInt("CourtID");
+                int courtId = rs.getInt("CourtID");
+                int memberId = rs.getInt("MemberId");
                 Timestamp rd = rs.getTimestamp("ReservationDate");
                 
                 Calendar time = new GregorianCalendar();
                 time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
                 
-                Reservation res = new Reservation(CourtID, time);
+                Reservation res = new Reservation(courtId, memberId, time);
                 
                 reservations.add(res);
             }
