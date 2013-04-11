@@ -38,9 +38,9 @@ public class Reservation
         this(id, r.courtId, r.memberId, r.reservationTime);
     }
     
-    public Reservation(int courtId, Calendar reservationTime)
+    public Reservation(Calendar reservationTime)
     {
-        this(-1, courtId, -1, reservationTime);
+        this(-1, -1, -1, reservationTime);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Reservation
     {
         if (! (obj instanceof Reservation)) return false;
         Reservation r = (Reservation) obj;
-        return this.reservationTime.getTime().equals(r.reservationTime.getTime()) && this.courtId == r.courtId;
+        return this.reservationTime.getTime().equals(r.reservationTime.getTime());
                 
     }
 }

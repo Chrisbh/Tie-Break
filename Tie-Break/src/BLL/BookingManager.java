@@ -47,7 +47,7 @@ public class BookingManager
         return db.reserveCourt(r);
     }
 
-    public ArrayList<Court> getCourtsName() throws SQLException
+    public ArrayList<String> getCourtsName() throws SQLException
     {
         return db.getCourtsName();
     }
