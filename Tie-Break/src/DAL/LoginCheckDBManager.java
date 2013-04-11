@@ -24,7 +24,7 @@ public class LoginCheckDBManager extends TieBreakDBManager
     {
         try (Connection con = ds.getConnection())
         {
-            String sql = "SELECT * FROM Login WHERE MemberID = ? AND Password = ?";
+            String sql = "SELECT Login.MemberID, Login.Password, Members.ID FROM Login, Members WHERE Login.MemberID = Members.ID AND MemberID = ? AND Password = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, MemberID);
             ps.setString(2, Password);
