@@ -4,8 +4,8 @@
  */
 package GUI;
 
-import javax.swing.JFrame;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
  *
@@ -23,6 +23,7 @@ public class MainMenu extends javax.swing.JFrame
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Main Menu");
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
     
     public static MainMenu getInstance()
@@ -47,6 +48,8 @@ public class MainMenu extends javax.swing.JFrame
         btnRegisterMember = new javax.swing.JButton();
         btnBookCourt = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
+        btnShowAllMembers = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -75,6 +78,26 @@ public class MainMenu extends javax.swing.JFrame
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/tiebreak.png"))); // NOI18N
 
+        btnShowAllMembers.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnShowAllMembers.setText("Vis alle medlemmer");
+        btnShowAllMembers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnShowAllMembersActionPerformed(evt);
+            }
+        });
+
+        btnClose.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnClose.setText("Afslut program");
+        btnClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,9 +105,13 @@ public class MainMenu extends javax.swing.JFrame
             .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(btnRegisterMember)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRegisterMember)
+                    .addComponent(btnShowAllMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(114, 114, 114)
-                .addComponent(btnBookCourt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBookCourt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,7 +123,11 @@ public class MainMenu extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegisterMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBookCourt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnShowAllMembers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         pack();
@@ -111,8 +142,19 @@ public class MainMenu extends javax.swing.JFrame
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
     {//GEN-HEADEREND:event_btnBookCourtActionPerformed
         CourtBooking.getInstance().setVisible(true);
-        MainMenu.getInstance().setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnBookCourtActionPerformed
+
+    private void btnShowAllMembersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnShowAllMembersActionPerformed
+    {//GEN-HEADEREND:event_btnShowAllMembersActionPerformed
+        AllMembers.getInstance().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnShowAllMembersActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCloseActionPerformed
+    {//GEN-HEADEREND:event_btnCloseActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +177,7 @@ public class MainMenu extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
+            @Override
             public void run()
             {
                 new MainMenu().setVisible(true);
@@ -143,7 +186,9 @@ public class MainMenu extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBookCourt;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRegisterMember;
+    private javax.swing.JButton btnShowAllMembers;
     private javax.swing.JLabel lblImage;
     // End of variables declaration//GEN-END:variables
 }

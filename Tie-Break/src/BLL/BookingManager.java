@@ -57,6 +57,11 @@ public class BookingManager
         return db.getIdByName(name);
     }
     
+    public String getNameById(int id) throws SQLException
+    {
+        return db.getNameById(id);
+    }
+    
      public ArrayList<Reservation> getReservations() throws SQLException
     {
         return db.getReservations();

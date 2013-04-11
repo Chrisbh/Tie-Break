@@ -106,14 +106,14 @@ public class ReservationDBManager extends TieBreakDBManager
         try (Connection con = ds.getConnection())
         {
             Statement st = con.createStatement();
-            String sql = ("SELECT Name FROM Courts WHERE ID = ?");
+            String sql = ("SELECT CourtName FROM Courts WHERE ID = ?");
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next())
             {
-                String name = rs.getString("Name");
+                String name = rs.getString("CourtName");
 
                 return name;
             }
@@ -135,7 +135,7 @@ public class ReservationDBManager extends TieBreakDBManager
                 Timestamp rd = rs.getTimestamp("ReservationDate");
                 
                 Calendar time = new GregorianCalendar();
-                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), rd.getMinutes(), rd.getSeconds());
+                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
                 
                 Reservation res = new Reservation(CourtID, time);
                 

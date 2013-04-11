@@ -49,4 +49,19 @@ public class MemberManager
     {
         return db.getIds();
     }
+    
+    public ArrayList getByName() throws SQLException
+    {
+        return db.getByName();
+    }
+    
+    public ArrayList getAllMembers() throws SQLException
+    {
+        return db.getAllMembers();
+    }
+    
+    public Member getMemberByID(int id) throws SQLException
+    {
+        return db.getMemberByID(id);
+    }
 }
