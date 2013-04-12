@@ -147,7 +147,7 @@ public class CourtBooking extends javax.swing.JFrame
 
         splMonth.setModel(new javax.swing.AbstractListModel()
         {
-            String[] strings = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+            String[] strings = { "4", "5", "6", "7", "8", "9" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -435,7 +435,7 @@ public class CourtBooking extends javax.swing.JFrame
 
             if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
             {
-                booking.add(Calendar.YEAR, +1);
+                JOptionPane.showMessageDialog(null, "Den valgte dato er ikke tilgængelig for booking.", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
             }
 
             try
