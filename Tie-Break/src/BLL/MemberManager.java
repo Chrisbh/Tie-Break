@@ -71,12 +71,12 @@ public class MemberManager
         return db.checkUserNameAndPassword(ID, Password);
     }
     
-    public void getLoggedIn(int memberID)
+    public void setLoggedIn(int memberID)
     {
         this.memberID = memberID;
     }
     
-    public int whosLoggedIn()
+    public int getLoggedIn()
     {
         return this.memberID;
     }

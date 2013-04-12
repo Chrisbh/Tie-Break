@@ -342,7 +342,7 @@ public class CourtBooking extends javax.swing.JFrame
             try
             {
                 ArrayList ids = MemberManager.getInstance().getIds();
-                int memberId = MemberManager.getInstance().whosLoggedIn();
+                int memberId = MemberManager.getInstance().getLoggedIn();
 
 
                 if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",

@@ -211,7 +211,7 @@ public class Login extends javax.swing.JFrame
                 {
                     MainMenu.getInstance().setVisible(true);
                     this.setVisible(false);
-                    MemberManager.getInstance().getLoggedIn(MemberID);
+                    MemberManager.getInstance().setLoggedIn(MemberID);
                 }
                 else
                 {
