@@ -27,21 +27,21 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblMonth" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="spMonth" pref="53" max="32767" attributes="0"/>
+                  <Component id="lblMonth" min="-2" max="-2" attributes="0"/>
+                  <Component id="spMonth" linkSize="1" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="spDay" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="spDay" linkSize="1" min="-2" pref="61" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblCourt" min="-2" max="-2" attributes="0"/>
-                  <Component id="spCourt" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="spCourt" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lblCourt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -70,19 +70,19 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="lblHeader" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblCourt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblMemberId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCourt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cmbxTime" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtMemberId" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -95,8 +95,9 @@
                   </Group>
                   <Component id="spMonth" max="32767" attributes="0"/>
                   <Component id="spCourt" max="32767" attributes="0"/>
-                  <Component id="spDay" alignment="0" max="32767" attributes="0"/>
+                  <Component id="spDay" alignment="1" min="-2" pref="146" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
