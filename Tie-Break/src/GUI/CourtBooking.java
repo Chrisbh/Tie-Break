@@ -39,6 +39,10 @@ public class CourtBooking extends javax.swing.JFrame
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Banebooking");
 
+
+
+
+
         splMonth.addListSelectionListener(
                 new ListSelectionListener()
         {
@@ -53,6 +57,13 @@ public class CourtBooking extends javax.swing.JFrame
             }
         });
 
+        if (Calendar.getInstance().get(Calendar.MONTH) + 1 == 4 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 5
+                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 6 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 7
+                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 8 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 9)
+        {
+            splMonth.setSelectedIndex(Calendar.getInstance().get(Calendar.MONTH) - 3);
+        }
+
         splDate.addListSelectionListener(
                 new ListSelectionListener()
         {
@@ -62,6 +73,15 @@ public class CourtBooking extends javax.swing.JFrame
                 checkCourts();
             }
         });
+        if(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
+        {
+        splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        }
+        else
+        {
+           splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)-1); 
+        }
+        splDate.ensureIndexIsVisible(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         cmbxTime.addActionListener(
                 new ActionListener()
@@ -72,6 +92,11 @@ public class CourtBooking extends javax.swing.JFrame
                 checkCourts();
             }
         });
+        
+        if(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-6)
+        {
+        cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-6);
+        }
     }
 
     public static CourtBooking getInstance()
@@ -186,9 +211,8 @@ public class CourtBooking extends javax.swing.JFrame
                         .addComponent(btnAddBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblTime)
-                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblTime)
+                    .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -232,6 +256,7 @@ public class CourtBooking extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         dispose();
         splDate.clearSelection();
+        courtModel.clear();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -239,6 +264,7 @@ public class CourtBooking extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnAddBookingActionPerformed
         addBooking();
         splDate.clearSelection();
+        courtModel.clear();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
 
@@ -292,7 +318,7 @@ public class CourtBooking extends javax.swing.JFrame
     {
         int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
 
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+        if (month == 5 || month == 7 || month == 8)
         {
             DefaultListModel model = new DefaultListModel();
             for (int i = 1; i <= 31; i++)
@@ -312,7 +338,7 @@ public class CourtBooking extends javax.swing.JFrame
             splDate.setModel(model);
         }
 
-        if (month == 4 || month == 6 || month == 9 || month == 11)
+        if (month == 4 || month == 6 || month == 9)
         {
             DefaultListModel model = new DefaultListModel();
             for (int i = 1; i <= 30; i++)
@@ -336,7 +362,7 @@ public class CourtBooking extends javax.swing.JFrame
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-           
+
             booking.set(year, month, date, time, 0, 0);
 
             try

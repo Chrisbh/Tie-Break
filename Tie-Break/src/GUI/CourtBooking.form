@@ -50,10 +50,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbxTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbxTime" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
