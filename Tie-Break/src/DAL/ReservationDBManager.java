@@ -4,7 +4,6 @@
  */
 package DAL;
 
-import BE.Court;
 import BE.Reservation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -136,7 +135,7 @@ public class ReservationDBManager extends TieBreakDBManager
                 Timestamp rd = rs.getTimestamp("ReservationDate");
                 
                 Calendar time = new GregorianCalendar();
-                time.set(rd.getYear(), rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
+                time.set(rd.getYear() + 1900, rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
                 
                 Reservation res = new Reservation(courtId, memberId, time);
                 

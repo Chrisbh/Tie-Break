@@ -442,7 +442,6 @@ public class CourtBooking extends javax.swing.JFrame
                 
                 for(int i = 0; i < rs.size(); i++)
                 {
-                rs.get(i).getReservationTime().set(Calendar.YEAR, rs.get(i).getReservationTime().get(Calendar.YEAR) + 1900);
 
                 r.getReservationTime().clear(Calendar.MILLISECOND);
                 rs.get(i).getReservationTime().clear(Calendar.MILLISECOND);
