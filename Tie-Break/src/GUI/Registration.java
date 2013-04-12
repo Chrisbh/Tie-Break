@@ -269,8 +269,7 @@ public class Registration extends javax.swing.JFrame
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
         addMember();
-        clearFields();
-        dispose();
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -383,7 +382,7 @@ public class Registration extends javax.swing.JFrame
                 else
                 {
                     passwordCancelled = false;
-                } 
+                }
             }
 
             if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled && !passwordCancelled)
@@ -405,6 +404,9 @@ public class Registration extends javax.swing.JFrame
                     try
                     {
                         mManager.addMember(m);
+                        
+                        clearFields();
+                        dispose();
                     }
                     catch (Exception e)
                     {
@@ -427,7 +429,7 @@ public class Registration extends javax.swing.JFrame
             JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private void clearFields()
     {
         txtFirstName.setText("");
