@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane; 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -366,12 +366,6 @@ public class CourtBooking extends javax.swing.JFrame
 
             booking.set(year, month, date, time, 0, 0);
 
-            // Makes the year go to the next year, if the date and time chosen is before the current date and time.
-            if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
-            {
-                booking.add(Calendar.YEAR, +1);
-            }
-
             try
             {
                 Scanner sc = new Scanner(txtMemberId.getText());
@@ -379,7 +373,7 @@ public class CourtBooking extends javax.swing.JFrame
                 {
                     ArrayList ids = MemberManager.getInstance().getIds();
                     int memberId = new Scanner(txtMemberId.getText()).nextInt();
-                    
+
                     if (ids.contains(memberId))
                     {
                         if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
@@ -433,52 +427,55 @@ public class CourtBooking extends javax.swing.JFrame
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             booking.set(year, month, date, time, 0, 0);
 
-            if (month < currentMonth || (month == currentMonth && date < currentDate) || (month == currentMonth && date == currentDate && time < currentTime))
+            if (month > currentMonth || (month == currentMonth && date > currentDate) || (month == currentMonth && date == currentDate && time > currentTime))
             {
-                JOptionPane.showMessageDialog(null, "Den valgte dato er ikke tilgængelig for booking.", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-            }
 
-            try
-            {
-                ArrayList<Reservation> rs = BookingManager.getInstance().getReservations();
-                Reservation r = new Reservation(booking);
-                ArrayList<String> courtNames = BookingManager.getInstance().getCourtsName();
-                
-                for(int i = 0; i < rs.size(); i++)
+                try
                 {
+                    ArrayList<Reservation> rs = BookingManager.getInstance().getReservations();
+                    Reservation r = new Reservation(booking);
+                    ArrayList<String> courtNames = BookingManager.getInstance().getCourtsName();
 
-                r.getReservationTime().clear(Calendar.MILLISECOND);
-                rs.get(i).getReservationTime().clear(Calendar.MILLISECOND);
-                }
-
-                if (!rs.contains(r))
-                {
-                    for (String c : courtNames)
-                    {
-                        courtModel.addElement(c);
-                    }     
-                }
-                else
-                {
-                    for (String c : courtNames)
-                    {
-                        courtModel.addElement(c);
-                    } 
-                    
                     for (int i = 0; i < rs.size(); i++)
                     {
-                        if (r.getReservationTime().getTime().equals(rs.get(i).getReservationTime().getTime()))
+
+                        r.getReservationTime().clear(Calendar.MILLISECOND);
+                        rs.get(i).getReservationTime().clear(Calendar.MILLISECOND);
+                    }
+
+                    if (!rs.contains(r))
+                    {
+                        for (String c : courtNames)
                         {
-                            String courtName = BookingManager.getInstance().getNameById(rs.get(i).getCourtId());
-                            courtModel.removeElement(courtName);
+                            courtModel.addElement(c);
                         }
                     }
+                    else
+                    {
+                        for (String c : courtNames)
+                        {
+                            courtModel.addElement(c);
+                        }
+
+                        for (int i = 0; i < rs.size(); i++)
+                        {
+                            if (r.getReservationTime().getTime().equals(rs.get(i).getReservationTime().getTime()))
+                            {
+                                String courtName = BookingManager.getInstance().getNameById(rs.get(i).getCourtId());
+                                courtModel.removeElement(courtName);
+                            }
+                        }
+                    }
+                    splCourt.setModel(courtModel);
                 }
-                splCourt.setModel(courtModel);
+                catch (Exception e)
+                {
+                    System.out.println("ERROR - " + e.getMessage());
+                }
             }
-            catch (Exception e)
+            else
             {
-                System.out.println("ERROR - " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Den valgte dato er ikke tilgængelig for booking.", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
