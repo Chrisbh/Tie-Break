@@ -107,8 +107,6 @@ public class CourtBooking extends javax.swing.JFrame
         spCourt = new javax.swing.JScrollPane();
         splCourt = new javax.swing.JList();
         lblCourt = new javax.swing.JLabel();
-        txtMemberId = new javax.swing.JTextField();
-        lblMemberId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -163,16 +161,6 @@ public class CourtBooking extends javax.swing.JFrame
 
         lblCourt.setText("Bane");
 
-        txtMemberId.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtMemberIdActionPerformed(evt);
-            }
-        });
-
-        lblMemberId.setText("Medlemsnummer");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,14 +186,9 @@ public class CourtBooking extends javax.swing.JFrame
                         .addComponent(btnAddBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTime)
-                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblMemberId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTime)
+                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -222,14 +205,11 @@ public class CourtBooking extends javax.swing.JFrame
                     .addComponent(lblTime)
                     .addComponent(lblMonth)
                     .addComponent(jLabel1)
-                    .addComponent(lblMemberId)
                     .addComponent(lblCourt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddBooking)
@@ -261,11 +241,6 @@ public class CourtBooking extends javax.swing.JFrame
         splDate.clearSelection();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
-
-    private void txtMemberIdActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtMemberIdActionPerformed
-    {//GEN-HEADEREND:event_txtMemberIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMemberIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,7 +278,6 @@ public class CourtBooking extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCourt;
     private javax.swing.JLabel lblHeader;
-    private javax.swing.JLabel lblMemberId;
     private javax.swing.JLabel lblMonth;
     private javax.swing.JLabel lblTime;
     private javax.swing.JScrollPane spCourt;
@@ -312,7 +286,6 @@ public class CourtBooking extends javax.swing.JFrame
     private javax.swing.JList splCourt;
     private javax.swing.JList splDate;
     private javax.swing.JList splMonth;
-    private javax.swing.JTextField txtMemberId;
     // End of variables declaration//GEN-END:variables
 
     private void dayList()
@@ -352,7 +325,7 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void addBooking()
     {
-        if (splMonth.getSelectedValue() != null && splDate.getSelectedValue() != null && splCourt.getSelectedValue() != null && txtMemberId.getText().length() != 0)
+        if (splMonth.getSelectedValue() != null && splDate.getSelectedValue() != null && splCourt.getSelectedValue() != null)
         {
             Calendar booking = new GregorianCalendar();
 
@@ -363,40 +336,26 @@ public class CourtBooking extends javax.swing.JFrame
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-
+           
             booking.set(year, month, date, time, 0, 0);
 
             try
             {
-                Scanner sc = new Scanner(txtMemberId.getText());
-                if (sc.hasNextInt())
+                ArrayList ids = MemberManager.getInstance().getIds();
+                int memberId = MemberManager.getInstance().whosLoggedIn();
+
+
+                if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                        == JOptionPane.YES_OPTION)
                 {
-                    ArrayList ids = MemberManager.getInstance().getIds();
-                    int memberId = new Scanner(txtMemberId.getText()).nextInt();
+                    String court = splCourt.getSelectedValue().toString();
+                    int courtId = BookingManager.getInstance().getIdByName(court);
 
-                    if (ids.contains(memberId))
-                    {
-                        if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
-                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
-                                == JOptionPane.YES_OPTION)
-                        {
-                            String court = splCourt.getSelectedValue().toString();
-                            int courtId = BookingManager.getInstance().getIdByName(court);
+                    Reservation r = new Reservation(courtId, memberId, booking);
+                    BookingManager.getInstance().reserveCourt(r);
 
-                            Reservation r = new Reservation(courtId, memberId, booking);
-                            BookingManager.getInstance().reserveCourt(r);
-
-                            booking.clear();
-                        }
-                    }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(null, "Medlemsnummer eksisterer ikke!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Medlemsnummer skal være et tal!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+                    booking.clear();
                 }
             }
             catch (Exception e)

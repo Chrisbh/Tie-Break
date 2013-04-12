@@ -50,16 +50,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbxTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblMemberId" max="32767" attributes="0"/>
-                          <Component id="txtMemberId" min="-2" pref="99" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                      <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbxTime" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -77,16 +70,12 @@
                   <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblMemberId" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblCourt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cmbxTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtMemberId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="cmbxTime" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddBooking" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -224,16 +213,6 @@
     <Component class="javax.swing.JLabel" name="lblCourt">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bane"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtMemberId">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMemberIdActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblMemberId">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Medlemsnummer"/>
       </Properties>
     </Component>
   </SubComponents>

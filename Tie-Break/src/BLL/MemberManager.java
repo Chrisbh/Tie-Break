@@ -18,6 +18,7 @@ public class MemberManager
 
     private MembersDBManager db = null;
     private static MemberManager instance = null;
+    private int memberID;
 
     private MemberManager()
     {
@@ -68,5 +69,15 @@ public class MemberManager
     public boolean checkUserNameAndPassword(int ID, String Password) throws Exception
     {
         return db.checkUserNameAndPassword(ID, Password);
+    }
+    
+    public void getLoggedIn(int memberID)
+    {
+        this.memberID = memberID;
+    }
+    
+    public int whosLoggedIn()
+    {
+        return this.memberID;
     }
 }
