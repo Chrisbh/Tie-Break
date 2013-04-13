@@ -38,9 +38,9 @@ public class CourtBooking extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Banebooking");
-
-
-
+        thisMonth();
+        thisDay();
+        thisTime();
 
 
         splMonth.addListSelectionListener(
@@ -53,16 +53,8 @@ public class CourtBooking extends javax.swing.JFrame
                 {
                     dayList();
                 }
-
             }
         });
-
-        if (Calendar.getInstance().get(Calendar.MONTH) + 1 == 4 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 5
-                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 6 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 7
-                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 8 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 9)
-        {
-            splMonth.setSelectedIndex(Calendar.getInstance().get(Calendar.MONTH) - 3);
-        }
 
         splDate.addListSelectionListener(
                 new ListSelectionListener()
@@ -73,15 +65,6 @@ public class CourtBooking extends javax.swing.JFrame
                 checkCourts();
             }
         });
-        if(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
-        {
-        splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        }
-        else
-        {
-           splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)-1); 
-        }
-        splDate.ensureIndexIsVisible(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         cmbxTime.addActionListener(
                 new ActionListener()
@@ -92,10 +75,41 @@ public class CourtBooking extends javax.swing.JFrame
                 checkCourts();
             }
         });
-        
-        if(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-6)
+    }
+
+    private void thisMonth()
+    {
+        if (Calendar.getInstance().get(Calendar.MONTH) + 1 == 4 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 5
+                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 6 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 7
+                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 8 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 9)
         {
-        cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-6);
+            splMonth.setSelectedIndex(Calendar.getInstance().get(Calendar.MONTH) - 3);
+            dayList();
+        }
+    }
+
+    private void thisDay()
+    {
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
+        {
+            splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        }
+        else
+        {
+            splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
+        }
+        splDate.ensureIndexIsVisible(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void thisTime()
+    {
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 21)
+        {
+            cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
+        }
+        else
+        {
+            cmbxTime.setSelectedIndex(0);
         }
     }
 
