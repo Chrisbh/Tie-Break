@@ -51,7 +51,7 @@ public class UpdateMember extends javax.swing.JFrame
             {
                 if (!(lse.getValueIsAdjusting() || splMemberID.isSelectionEmpty()))
                 {
-                    insertMember();
+                    insertMemberToList();
                 }
             }
         });
@@ -205,10 +205,11 @@ public class UpdateMember extends javax.swing.JFrame
                         .addGap(0, 51, Short.MAX_VALUE))
                     .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblName)
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddress)
@@ -281,7 +282,7 @@ public class UpdateMember extends javax.swing.JFrame
         splMemberID.setModel(memberids);
     }
 
-    public void insertMember()
+    public void insertMemberToList()
     {
         String name = (String) splMemberID.getSelectedValue();
         String parts[] = name.split(" : ");

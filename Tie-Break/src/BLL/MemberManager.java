@@ -50,6 +50,11 @@ public class MemberManager
     {
         db.updateMember(m);
     }
+    
+    public void deleteMember (int id) throws SQLException
+    {
+        db.deleteMember(id);
+    }
 
     public ArrayList getIds() throws SQLException
     {

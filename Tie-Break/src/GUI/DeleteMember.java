@@ -4,27 +4,57 @@
  */
 package GUI;
 
+import BE.Member;
+import BLL.MemberManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author Rasmus
+ * @author Chris
  */
 public class DeleteMember extends javax.swing.JFrame
 {
 
+    private String name;
+    private MemberManager mManager;
+    private boolean zipCancelled = false;
+    private boolean phoneCancelled = false;
+    private boolean bdCancelled = false;
     private static DeleteMember instance = null;
-    private DefaultListModel DeleteMember = new DefaultListModel();
 
     /**
      * Creates new form DeleteMember
      */
-    public DeleteMember()
+    private DeleteMember()
     {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        mManager = MemberManager.getInstance();
+        setTitle("Sletning af medlem");
+        ShowMember();
+
+        splMemberID.addListSelectionListener(
+                new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent lse)
+            {
+                if (!(lse.getValueIsAdjusting() || splMemberID.isSelectionEmpty()))
+                {
+                    insertMemberToList();
+                }
+            }
+        });
+
     }
 
-        public static DeleteMember getInstance()
+    public static DeleteMember getInstance()
     {
         if (instance == null)
         {
@@ -32,7 +62,7 @@ public class DeleteMember extends javax.swing.JFrame
         }
         return instance;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,21 +73,263 @@ public class DeleteMember extends javax.swing.JFrame
     private void initComponents()
     {
 
+        lblName = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        lblZipCodeCity = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtLastName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtZipCode = new javax.swing.JTextField();
+        txtCity = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtPhoneNumber = new javax.swing.JTextField();
+        btnDelete = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        lblPostNrByAdskiller = new javax.swing.JLabel();
+        txtFirstName = new javax.swing.JTextField();
+        lblMemberID = new javax.swing.JLabel();
+        spMemberID = new javax.swing.JScrollPane();
+        splMemberID = new javax.swing.JList();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        lblName.setText("Navn");
+
+        lblAddress.setText("Adresse");
+
+        lblZipCodeCity.setText("Postnr/By");
+
+        lblEmail.setText("Email");
+
+        lblPhoneNumber.setText("Telefonnr");
+
+        txtLastName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                txtLastNameActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Slet medlem");
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setText("Annuller");
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Opdatering af medlem");
+
+        lblPostNrByAdskiller.setText("/");
+
+        txtFirstName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                txtFirstNameActionPerformed(evt);
+            }
+        });
+
+        lblMemberID.setText("MedlemsID:");
+
+        spMemberID.setViewportView(splMemberID);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblName)
+                            .addComponent(lblAddress)
+                            .addComponent(lblZipCodeCity)
+                            .addComponent(lblEmail)
+                            .addComponent(lblPhoneNumber)
+                            .addComponent(lblMemberID))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(txtPhoneNumber)
+                            .addComponent(txtEmail)
+                            .addComponent(txtAddress)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(lblPostNrByAdskiller)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCity))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMemberID)
+                        .addGap(0, 51, Short.MAX_VALUE))
+                    .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblName)
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAddress)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblZipCodeCity)
+                    .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPostNrByAdskiller))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNumber)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCancel))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
+    {//GEN-HEADEREND:event_txtFirstNameActionPerformed
+    }//GEN-LAST:event_txtFirstNameActionPerformed
+
+    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
+    {//GEN-HEADEREND:event_txtLastNameActionPerformed
+    }//GEN-LAST:event_txtLastNameActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDeleteActionPerformed
+    {//GEN-HEADEREND:event_btnDeleteActionPerformed
+        deleteMember();
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
+    {//GEN-HEADEREND:event_btnCancelActionPerformed
+        clearFields();
+        Administration.getInstance().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void ShowMember()
+    {
+
+        DefaultListModel memberids = new DefaultListModel();
+        memberids.clear();
+        try
+        {
+            ArrayList ids = mManager.getIds();
+            for (int i = 0; i < ids.size(); i++)
+            {
+                String id = ids.get(i).toString();
+                ids.get(i).toString();
+                memberids.addElement(id);
+            }
+
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("error");;
+        }
+        splMemberID.setModel(memberids);
+    }
+
+    public void insertMemberToList()
+    {
+        String name = (String) splMemberID.getSelectedValue();
+        String parts[] = name.split(" : ");
+        int id = Integer.parseInt(parts[0]);
+        try
+        {
+            Member m = mManager.getMemberByID(id);
+            txtFirstName.setText(m.getFirstName());
+            txtLastName.setText(m.getLastName());
+            txtAddress.setText(m.getAddress());
+            txtZipCode.setText(Integer.toString(m.getZipCode()));
+            txtCity.setText(m.getCity());
+            txtEmail.setText(m.getEmail());
+            txtPhoneNumber.setText(Integer.toString(m.getPhoneNumber()));
+        }
+        catch (SQLException e)
+        {
+            System.out.println("ERROR - " + e.getMessage());
+        }
+
+    }
+
+    @SuppressWarnings("empty-statement")
+    public void deleteMember()
+    {
+        String name = (String) splMemberID.getSelectedValue();
+        int id = Integer.parseInt(name);
+        try
+        {
+            mManager.deleteMember(id);
+            clearFields();
+            dispose();
+        }
+        catch (Exception e)
+        {
+            System.out.println("ERROR - " + e);
+        }
+        Administration.getInstance().setVisible(true);
+
+    }
+
+    private void clearFields()
+    {
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtAddress.setText("");
+        txtZipCode.setText("");
+        txtCity.setText("");
+        txtEmail.setText("");
+        txtPhoneNumber.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -71,30 +343,11 @@ public class DeleteMember extends javax.swing.JFrame
          */
         try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch (ClassNotFoundException ex)
+        catch (Exception e)
         {
-            java.util.logging.Logger.getLogger(DeleteMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(DeleteMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(DeleteMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(DeleteMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            //Do nothing
         }
         //</editor-fold>
 
@@ -108,5 +361,24 @@ public class DeleteMember extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblMemberID;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPhoneNumber;
+    private javax.swing.JLabel lblPostNrByAdskiller;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblZipCodeCity;
+    private javax.swing.JScrollPane spMemberID;
+    private javax.swing.JList splMemberID;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtCity;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 }

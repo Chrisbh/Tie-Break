@@ -46,7 +46,7 @@ public class MembersDBManager extends TieBreakDBManager
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
             {
-                throw new SQLException("Unable to add Member");
+                throw new SQLException("Kunne ikke oprette medlem");
             }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
@@ -54,29 +54,43 @@ public class MembersDBManager extends TieBreakDBManager
             return new Member(id, m, m.getCpr());
         }
     }
-    
-    public void updateMember (Member m) throws SQLException
+
+    public void updateMember(Member m) throws SQLException
     {
         String sql = "UPDATE Members SET FirstName = ?, LastName = ?, Address = ?, ZipCode = ?, City = ?, Email = ?, Phone = ? WHERE ID = ?";
         Connection con = ds.getConnection();
 
 
         PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, m.getFirstName());
-            ps.setString(2, m.getLastName());
-            ps.setString(3, m.getAddress());
-            ps.setInt(4, m.getZipCode());
-            ps.setString(5, m.getCity());
-            ps.setString(6, m.getEmail());
-            ps.setInt(7, m.getPhoneNumber());
-            ps.setInt(8, m.getId());
+        ps.setString(1, m.getFirstName());
+        ps.setString(2, m.getLastName());
+        ps.setString(3, m.getAddress());
+        ps.setInt(4, m.getZipCode());
+        ps.setString(5, m.getCity());
+        ps.setString(6, m.getEmail());
+        ps.setInt(7, m.getPhoneNumber());
+        ps.setInt(8, m.getId());
 
         int affectedRows = ps.executeUpdate();
         if (affectedRows == 0)
         {
-            throw new SQLException("Unable to update member");
+            throw new SQLException("Kunne ikke opdatere medlem");
         }
 
+    }
+
+    public void deleteMember(int id) throws SQLException
+    {
+        String sql = "DELETE FROM RESERVATION WHERE MemberID = ?";
+        String sql1 = "DELETE FROM Members WHERE ID = ?";
+        Connection con = ds.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps1 = con.prepareStatement(sql1);
+        ps.setInt(1, id);
+        ps1.setInt(1, id);
+        
+        int affectedRows = ps.executeUpdate();
+        int affectedRows1 = ps1.executeUpdate();
     }
 
     public ArrayList getIds() throws SQLException
