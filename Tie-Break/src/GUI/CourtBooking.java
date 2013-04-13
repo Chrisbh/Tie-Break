@@ -40,7 +40,7 @@ public class CourtBooking extends javax.swing.JFrame
         setTitle("Banebooking");
         thisMonth();
         thisDay();
-        thisTime();
+
 
 
         splMonth.addListSelectionListener(
