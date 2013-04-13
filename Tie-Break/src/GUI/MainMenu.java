@@ -44,7 +44,7 @@ public class MainMenu extends javax.swing.JFrame
     private void initComponents()
     {
 
-        btnRegisterMember = new javax.swing.JButton();
+        btnAdministration = new javax.swing.JButton();
         btnBookCourt = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
         btnShowAllMembers = new javax.swing.JButton();
@@ -53,13 +53,13 @@ public class MainMenu extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        btnRegisterMember.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        btnRegisterMember.setText("Registrer som medlem");
-        btnRegisterMember.addActionListener(new java.awt.event.ActionListener()
+        btnAdministration.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnAdministration.setText("Administration");
+        btnAdministration.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnRegisterMemberActionPerformed(evt);
+                btnAdministrationActionPerformed(evt);
             }
         });
 
@@ -104,9 +104,9 @@ public class MainMenu extends javax.swing.JFrame
             .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegisterMember)
-                    .addComponent(btnShowAllMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnShowAllMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                    .addComponent(btnAdministration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(114, 114, 114)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnBookCourt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -120,7 +120,7 @@ public class MainMenu extends javax.swing.JFrame
                 .addComponent(lblImage)
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegisterMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdministration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBookCourt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,11 +132,11 @@ public class MainMenu extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegisterMemberActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterMemberActionPerformed
-    {//GEN-HEADEREND:event_btnRegisterMemberActionPerformed
-        Registration.getInstance().setVisible(true);
+    private void btnAdministrationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAdministrationActionPerformed
+    {//GEN-HEADEREND:event_btnAdministrationActionPerformed
+        Administration.getInstance().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnRegisterMemberActionPerformed
+    }//GEN-LAST:event_btnAdministrationActionPerformed
 
     private void btnBookCourtActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBookCourtActionPerformed
     {//GEN-HEADEREND:event_btnBookCourtActionPerformed
@@ -185,9 +185,9 @@ public class MainMenu extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdministration;
     private javax.swing.JButton btnBookCourt;
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnRegisterMember;
     private javax.swing.JButton btnShowAllMembers;
     private javax.swing.JLabel lblImage;
     // End of variables declaration//GEN-END:variables

@@ -6,15 +6,22 @@ package GUI;
 
 import BE.Member;
 import BLL.MemberManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author Chris
  */
-public class Registration extends javax.swing.JFrame
+public class UpdateMember extends javax.swing.JFrame
 {
 
     private String name;
@@ -22,27 +29,40 @@ public class Registration extends javax.swing.JFrame
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
-    private boolean cprCancelled = false;
-    private boolean passwordCancelled = false;
-    private static Registration instance = null;
+    private static UpdateMember instance = null;
 
     /**
      * Creates new form Registration
      */
-    private Registration()
+    private UpdateMember()
     {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         mManager = MemberManager.getInstance();
-        setTitle("Registrering af medlem");
+        setTitle("Opdatering af medlem");
+        ShowMember();
+
+        splMemberID.addListSelectionListener(
+                new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent lse)
+            {
+                if (!(lse.getValueIsAdjusting() || splMemberID.isSelectionEmpty()))
+                {
+                    insertMember();
+                }
+            }
+        });
+
     }
 
-    public static Registration getInstance()
+    public static UpdateMember getInstance()
     {
         if (instance == null)
         {
-            instance = new Registration();
+            instance = new UpdateMember();
         }
         return instance;
     }
@@ -68,19 +88,14 @@ public class Registration extends javax.swing.JFrame
         txtCity = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        lblCPR = new javax.swing.JLabel();
-        txtBirthDay = new javax.swing.JTextField();
-        txtCPR = new javax.swing.JTextField();
-        lblCPRStreg = new javax.swing.JLabel();
         lblPostNrByAdskiller = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
-        lblPassword = new javax.swing.JLabel();
-        lblRepeatPassword = new javax.swing.JLabel();
-        pfPassword = new javax.swing.JPasswordField();
-        pfRepeatPassword = new javax.swing.JPasswordField();
+        lblMemberID = new javax.swing.JLabel();
+        spMemberID = new javax.swing.JScrollPane();
+        splMemberID = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -103,12 +118,12 @@ public class Registration extends javax.swing.JFrame
             }
         });
 
-        btnAdd.setText("Tilføj");
-        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        btnUpdate.setText("Opdater");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btnAddActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -122,11 +137,7 @@ public class Registration extends javax.swing.JFrame
         });
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Tilføjelse af nyt medlem");
-
-        lblCPR.setText("CPR");
-
-        lblCPRStreg.setText("-");
+        lblTitle.setText("Opdatering af medlem");
 
         lblPostNrByAdskiller.setText("/");
 
@@ -138,9 +149,9 @@ public class Registration extends javax.swing.JFrame
             }
         });
 
-        lblPassword.setText("Kodeord");
+        lblMemberID.setText("MedlemsID:");
 
-        lblRepeatPassword.setText("Gentag kodeord");
+        spMemberID.setViewportView(splMemberID);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,22 +162,10 @@ public class Registration extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPassword)
-                            .addComponent(lblRepeatPassword))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancel)
-                                .addGap(10, 10, 10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pfRepeatPassword)
-                                    .addComponent(pfPassword))
-                                .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblName)
@@ -174,9 +173,10 @@ public class Registration extends javax.swing.JFrame
                             .addComponent(lblZipCodeCity)
                             .addComponent(lblEmail)
                             .addComponent(lblPhoneNumber)
-                            .addComponent(lblCPR))
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblMemberID))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(txtPhoneNumber)
                             .addComponent(txtEmail)
                             .addComponent(txtAddress)
@@ -187,27 +187,28 @@ public class Registration extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCity))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCPRStreg)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLastName)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMemberID)
+                        .addGap(0, 51, Short.MAX_VALUE))
+                    .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddress)
@@ -228,27 +229,9 @@ public class Registration extends javax.swing.JFrame
                     .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPR)
-                    .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCPRStreg))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(btnCancel))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPassword)
-                            .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRepeatPassword)
-                            .addComponent(pfRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCancel))
+                .addContainerGap())
         );
 
         pack();
@@ -262,11 +245,11 @@ public class Registration extends javax.swing.JFrame
     {//GEN-HEADEREND:event_txtLastNameActionPerformed
     }//GEN-LAST:event_txtLastNameActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
-    {//GEN-HEADEREND:event_btnAddActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUpdateActionPerformed
+    {//GEN-HEADEREND:event_btnUpdateActionPerformed
         addMember();
 
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
@@ -275,14 +258,58 @@ public class Registration extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void ShowMember()
+    {
+
+        DefaultListModel memberids = new DefaultListModel();
+        memberids.clear();
+        try
+        {
+            ArrayList ids = mManager.getIds();
+            for (int i = 0; i < ids.size(); i++)
+            {
+                String id = ids.get(i).toString();
+                ids.get(i).toString();
+                memberids.addElement(id);
+            }
+
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("error");;
+        }
+        splMemberID.setModel(memberids);
+    }
+
+    public void insertMember()
+    {
+        String name = (String) splMemberID.getSelectedValue();
+        String parts[] = name.split(" : ");
+        int id = Integer.parseInt(parts[0]);
+        try
+        {
+            Member m = mManager.getMemberByID(id);
+            txtFirstName.setText(m.getFirstName());
+            txtLastName.setText(m.getLastName());
+            txtAddress.setText(m.getAddress());
+            txtZipCode.setText(Integer.toString(m.getZipCode()));
+            txtCity.setText(m.getCity());
+            txtEmail.setText(m.getEmail());
+            txtPhoneNumber.setText(Integer.toString(m.getPhoneNumber()));
+        }
+        catch (SQLException e)
+        {
+            System.out.println("ERROR - " + e.getMessage());
+        }
+
+    }
+
     @SuppressWarnings("empty-statement")
     public void addMember()
     {
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
                 && txtAddress.getText().length() != 0 && txtCity.getText().length() != 0
-                && txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0
-                && txtCPR.getText().length() != 0 && pfPassword.getText().length() != 0
-                && pfRepeatPassword.getText().length() != 0)
+                && txtEmail.getText().length() != 0)
         {
             Scanner zipCodeSc = new Scanner(txtZipCode.getText());
             Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
@@ -333,82 +360,42 @@ public class Registration extends javax.swing.JFrame
                 }
             }
 
-            if (!bdCancelled)
+            if (!zipCancelled && !phoneCancelled && !bdCancelled)
             {
-                checkInt(zipCodeSc, phoneSc);
-
-                while (txtBirthDay.getText().length() != 6)
-                {
-                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 6 cifre i det første af CPR, intast det rigtige!");
-                    if (corredtedBD == null)
-                    {
-                        bdCancelled = true;
-                        break;
-                    }
-                    txtBirthDay.setText(corredtedBD);
-                    bdCancelled = false;
-                    checkInt(zipCodeSc, phoneSc);
-                }
-            }
-
-            if (!cprCancelled)
-            {
-                checkInt(zipCodeSc, phoneSc);
-                while (txtCPR.getText().length() != 4)
-                {
-                    String corredtedCPR = JOptionPane.showInputDialog(null, "Der skal være 4 cifre i det sidste af CPR, intast det rigtige!");
-                    if (corredtedCPR == null)
-                    {
-                        cprCancelled = true;
-                        break;
-                    }
-                    txtCPR.setText(corredtedCPR);
-                    cprCancelled = false;
-                    checkInt(zipCodeSc, phoneSc);
-                }
-            }
-
-            if (!passwordCancelled)
-            {
-                if (!pfPassword.getText().equals(pfRepeatPassword.getText()))
-                {
-                    JOptionPane.showMessageDialog(null, "Kodeord skal være ens");
-                    passwordCancelled = true;
-                }
-                else
-                {
-                    passwordCancelled = false;
-                }
-            }
-
-            if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled && !passwordCancelled)
-            {
+                String name = (String) splMemberID.getSelectedValue();
+                String parts[] = name.split(" : ");
+                int id = Integer.parseInt(parts[0]);
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                         == JOptionPane.YES_OPTION)
                 {
-                    String firstName = txtFirstName.getText();
-                    String lastName = txtLastName.getText();
-                    String address = txtAddress.getText();
-                    int zipCode = Integer.parseInt(txtZipCode.getText());
-                    String city = txtCity.getText();
-                    String email = txtEmail.getText();
-                    int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                    String cpr = txtBirthDay.getText() + "-" + txtCPR.getText();
-                    String password = new Scanner(pfPassword.getText()).nextLine();
-                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
                     try
                     {
-                        mManager.addMember(m);
-                        
-                        clearFields();
-                        dispose();
+                        Member m = mManager.getMemberByID(id);
+                        String firstName = txtFirstName.getText();
+                        String lastName = txtLastName.getText();
+                        String address = txtAddress.getText();
+                        int zipCode = Integer.parseInt(txtZipCode.getText());
+                        String city = txtCity.getText();
+                        String email = txtEmail.getText();
+                        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+                        Member x = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber);
+                        try
+                        {
+                            mManager.updateMember(x);
+                            clearFields();
+                            dispose();
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("ERROR - " + e);
+                        }
+                        Administration.getInstance().setVisible(true);
                     }
-                    catch (Exception e)
+                    catch (SQLException ex)
                     {
-                        System.out.println("ERROR - " + e);
+                        Logger.getLogger(UpdateMember.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    Administration.getInstance().setVisible(true);
                 }
             }
             else
@@ -416,8 +403,7 @@ public class Registration extends javax.swing.JFrame
                 zipCancelled = false;
                 phoneCancelled = false;
                 bdCancelled = false;
-                cprCancelled = false;
-                passwordCancelled = false;
+
             }
         }
         else
@@ -435,10 +421,6 @@ public class Registration extends javax.swing.JFrame
         txtCity.setText("");
         txtEmail.setText("");
         txtPhoneNumber.setText("");
-        txtCPR.setText("");
-        txtBirthDay.setText("");
-        pfPassword.setText("");
-        pfRepeatPassword.setText("");
     }
 
     private void checkInt(Scanner zipCodeSc, Scanner phoneSc)
@@ -473,35 +455,7 @@ public class Registration extends javax.swing.JFrame
             phoneCancelled = false;
         }
 
-        Scanner bdSc = new Scanner(txtBirthDay.getText());
-        while (!bdSc.hasNextInt())
-        {
-            String correctedBD = JOptionPane.showInputDialog(null, "Det første af CPR skal være et nummer, intast det rigtige!");
-            if (correctedBD == null)
-            {
-                bdCancelled = true;
-                break;
-            }
-            txtBirthDay.setText(correctedBD);
 
-            bdSc = new Scanner(txtBirthDay.getText());
-            bdCancelled = false;
-        }
-
-        Scanner cprSc = new Scanner(txtCPR.getText());
-        while (!cprSc.hasNextInt())
-        {
-            String correctedCPR = JOptionPane.showInputDialog(null, "Det sidste af CPR skal være et nummer, intast det rigtige!");
-            if (correctedCPR == null)
-            {
-                cprCancelled = true;
-                break;
-            }
-            txtCPR.setText(correctedCPR);
-
-            cprSc = new Scanner(txtBirthDay.getText());
-            cprCancelled = false;
-        }
     }
 
     /**
@@ -529,29 +483,24 @@ public class Registration extends javax.swing.JFrame
         {
             public void run()
             {
-                new Registration().setVisible(true);
+                new UpdateMember().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblCPR;
-    private javax.swing.JLabel lblCPRStreg;
     private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblMemberID;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPostNrByAdskiller;
-    private javax.swing.JLabel lblRepeatPassword;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblZipCodeCity;
-    private javax.swing.JPasswordField pfPassword;
-    private javax.swing.JPasswordField pfRepeatPassword;
+    private javax.swing.JScrollPane spMemberID;
+    private javax.swing.JList splMemberID;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBirthDay;
-    private javax.swing.JTextField txtCPR;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;

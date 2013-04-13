@@ -21,6 +21,18 @@ public class Member
     private int phoneNumber;
     private String cpr;
     private String password;
+    
+        public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
+    {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr, String password)
     {

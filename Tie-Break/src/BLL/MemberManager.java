@@ -45,6 +45,11 @@ public class MemberManager
     {
         return db.addMember(m);
     }
+    
+    public void updateMember (Member m) throws SQLException
+    {
+        db.updateMember(m);
+    }
 
     public ArrayList getIds() throws SQLException
     {
