@@ -80,15 +80,16 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void thisMonth()
     {
-        if (Calendar.getInstance().get(Calendar.MONTH) + 1 == 4 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 5
-                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 6 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 7
-                || Calendar.getInstance().get(Calendar.MONTH) + 1 == 8 || Calendar.getInstance().get(Calendar.MONTH) + 1 == 9)
+        //4 is when the summer season starts, 9 is when it ends
+        for (int i = 4; i <= 9; i++)
         {
-            splMonth.setSelectedIndex(Calendar.getInstance().get(Calendar.MONTH) - 3);
-            dayList();
+            if (Calendar.getInstance().get(Calendar.MONTH) + 1 == i)
+            {
+                splMonth.setSelectedIndex(Calendar.getInstance().get(Calendar.MONTH) - 3);
+                dayList();
+            }
         }
     }
-    
 
     private void thisDay()
     {
