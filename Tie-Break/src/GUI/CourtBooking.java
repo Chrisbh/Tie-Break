@@ -75,6 +75,7 @@ public class CourtBooking extends javax.swing.JFrame
                 checkCourts();
             }
         });
+        thisTime();
     }
 
     private void thisMonth()
@@ -87,6 +88,7 @@ public class CourtBooking extends javax.swing.JFrame
             dayList();
         }
     }
+    
 
     private void thisDay()
     {
@@ -103,7 +105,7 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void thisTime()
     {
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 21)
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 21 && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 7)
         {
             cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
         }
