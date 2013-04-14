@@ -148,6 +148,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Sommer kontingent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSummerFeeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnWinterFee">
       <Properties>
@@ -156,6 +159,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Vinter kontingent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnWinterFeeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFees">
       <Properties>
@@ -164,6 +170,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Kontingent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFeesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

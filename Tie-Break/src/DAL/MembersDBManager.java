@@ -5,7 +5,7 @@
 package DAL;
 
 import BE.Member;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import BE.MembershipType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,7 +88,7 @@ public class MembersDBManager extends TieBreakDBManager
         PreparedStatement ps1 = con.prepareStatement(sql1);
         ps.setInt(1, id);
         ps1.setInt(1, id);
-        
+
         int affectedRows = ps.executeUpdate();
         int affectedRows1 = ps1.executeUpdate();
     }
@@ -207,4 +207,5 @@ public class MembersDBManager extends TieBreakDBManager
 
 
     }
+
 }

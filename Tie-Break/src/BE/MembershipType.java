@@ -13,21 +13,23 @@ public class MembershipType
 
     private int id;
     private String membershipName;
+    private int price;
 
-    public MembershipType(int id, String membershipName)
+    public MembershipType(int id, String membershipName, int price)
     {
         this.id = id;
         this.membershipName = membershipName;
+        this.price = price;
     }
 
-    public MembershipType(String membershipName)
+    public MembershipType(String membershipName, int price)
     {
-        this(-1, membershipName);
+        this(-1, membershipName, price);
     }
 
     public MembershipType(int id, MembershipType mt)
     {
-        this(mt.membershipName);
+        this(mt.membershipName, mt.price);
     }
 
     /**
@@ -52,5 +54,21 @@ public class MembershipType
     public void setMembershipName(String membershipName)
     {
         this.membershipName = membershipName;
+    }
+
+    /**
+     * @return the price
+     */
+    public int getPrice()
+    {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(int price)
+    {
+        this.price = price;
     }
 }

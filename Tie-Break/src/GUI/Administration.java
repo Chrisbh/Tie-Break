@@ -103,12 +103,33 @@ public class Administration extends javax.swing.JFrame
 
         btnSummerFee.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         btnSummerFee.setText("Sommer kontingent");
+        btnSummerFee.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnSummerFeeActionPerformed(evt);
+            }
+        });
 
         btnWinterFee.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         btnWinterFee.setText("Vinter kontingent");
+        btnWinterFee.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnWinterFeeActionPerformed(evt);
+            }
+        });
 
         btnFees.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         btnFees.setText("Kontingent");
+        btnFees.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnFeesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,6 +211,24 @@ public class Administration extends javax.swing.JFrame
         dispose();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
+
+    private void btnSummerFeeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSummerFeeActionPerformed
+    {//GEN-HEADEREND:event_btnSummerFeeActionPerformed
+        SummerFee.getInstance().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSummerFeeActionPerformed
+
+    private void btnWinterFeeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnWinterFeeActionPerformed
+    {//GEN-HEADEREND:event_btnWinterFeeActionPerformed
+        WinterFee.getInstance().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnWinterFeeActionPerformed
+
+    private void btnFeesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnFeesActionPerformed
+    {//GEN-HEADEREND:event_btnFeesActionPerformed
+        Fee.getInstance().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnFeesActionPerformed
 
     /**
      * @param args the command line arguments

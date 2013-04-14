@@ -45,13 +45,13 @@ public class MemberManager
     {
         return db.addMember(m);
     }
-    
-    public void updateMember (Member m) throws SQLException
+
+    public void updateMember(Member m) throws SQLException
     {
         db.updateMember(m);
     }
-    
-    public void deleteMember (int id) throws SQLException
+
+    public void deleteMember(int id) throws SQLException
     {
         db.deleteMember(id);
     }
@@ -60,34 +60,36 @@ public class MemberManager
     {
         return db.getIds();
     }
-    
+
     public ArrayList getByName() throws SQLException
     {
         return db.getByName();
     }
-    
+
     public ArrayList getAllMembers() throws SQLException
     {
         return db.getAllMembers();
     }
-    
+
     public Member getMemberByID(int id) throws SQLException
     {
         return db.getMemberByID(id);
     }
-    
+
     public boolean checkUserNameAndPassword(int ID, String Password) throws Exception
     {
         return db.checkUserNameAndPassword(ID, Password);
     }
-    
+
     public void setLoggedIn(int memberID)
     {
         this.memberID = memberID;
     }
-    
+
     public int getLoggedIn()
     {
         return this.memberID;
     }
+
+
 }
