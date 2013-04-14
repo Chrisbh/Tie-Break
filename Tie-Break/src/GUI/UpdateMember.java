@@ -364,8 +364,7 @@ public class UpdateMember extends javax.swing.JFrame
             if (!zipCancelled && !phoneCancelled && !bdCancelled)
             {
                 String name = (String) splMemberID.getSelectedValue();
-                String parts[] = name.split(" : ");
-                int id = Integer.parseInt(parts[0]);
+                int id = Integer.parseInt(name);
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                         == JOptionPane.YES_OPTION)

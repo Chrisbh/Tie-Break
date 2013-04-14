@@ -43,6 +43,30 @@ public class MembershipTypeDBManager extends TieBreakDBManager
         }
     }
 
+    public MembershipType getMemberByID(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT * FROM MembershipType WHERE ID = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String membershipName = rs.getString("MembershipName");
+                int Price = rs.getInt("Price");
+
+
+                MembershipType mt = new MembershipType(id, membershipName, Price);
+
+                return mt;
+            }
+        }
+        return null;
+    }
+
     public void addPrice(MembershipType mt) throws SQLException
     {
         String sql = "UPDATE MembershipType SET Price = ? WHERE ID = ?";
@@ -58,5 +82,25 @@ public class MembershipTypeDBManager extends TieBreakDBManager
         {
             throw new SQLException("Kunne ikke opdatere medlem");
         }
+    }
+
+    public int getIdByName(String name) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT Id FROM MembershipType WHERE membershipName = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                int id = rs.getInt("Id");
+
+                return id;
+            }
+        }
+        return 0;
     }
 }

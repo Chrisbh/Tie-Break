@@ -37,7 +37,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lblSummerPrice" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtSummerPrice" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="txtPrice" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -63,7 +63,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblSummerPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtSummerPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnAdd" linkSize="4" min="-2" max="-2" attributes="0"/>
@@ -92,7 +92,7 @@
         <Property name="text" type="java.lang.String" value="Pris:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSummerPrice">
+    <Component class="javax.swing.JTextField" name="txtPrice">
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>

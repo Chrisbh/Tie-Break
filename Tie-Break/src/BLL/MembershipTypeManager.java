@@ -45,9 +45,19 @@ public class MembershipTypeManager
     {
         db.addPrice(mt);
     }
-    
-        public ArrayList getMTName() throws SQLException
+
+    public ArrayList getMTName() throws SQLException
     {
         return db.getMTName();
+    }
+
+    public MembershipType getMemberByID(int id) throws Exception
+    {
+        return db.getMemberByID(id);
+    }
+
+    public int getIdByName(String name) throws SQLException
+    {
+        return db.getIdByName(name);
     }
 }

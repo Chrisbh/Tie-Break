@@ -4,12 +4,14 @@
  */
 package GUI;
 
+import BE.MembershipType;
 import BLL.MembershipTypeManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -37,6 +39,18 @@ public class Fee extends javax.swing.JFrame
         setTitle("Prissætning af kontingent");
         showMT();
 
+        splMT.addListSelectionListener(new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent lse)
+            {
+                if (!(lse.getValueIsAdjusting() || splMT.isSelectionEmpty()))
+                {
+                    showPrice();
+                }
+            }
+        });
+
     }
 
     public static Fee getInstance()
@@ -60,7 +74,7 @@ public class Fee extends javax.swing.JFrame
 
         lblTitle = new javax.swing.JLabel();
         lblSummerPrice = new javax.swing.JLabel();
-        txtSummerPrice = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         spMembershipType = new javax.swing.JScrollPane();
@@ -111,7 +125,7 @@ public class Fee extends javax.swing.JFrame
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblSummerPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSummerPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +146,7 @@ public class Fee extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSummerPrice)
-                            .addComponent(txtSummerPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdd)
                         .addGap(18, 18, 18)
@@ -212,9 +226,8 @@ public class Fee extends javax.swing.JFrame
         {
             ArrayList<String> mtid = MembershipTypeManager.getInstance().getMTName();
 
-            for (String mt : mtid )
+            for (String mt : mtid)
             {
-
                 membershiptypes.addElement(mt);
             }
             splMT.setModel(membershiptypes);
@@ -224,12 +237,65 @@ public class Fee extends javax.swing.JFrame
             Logger.getLogger(Fee.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    private void showPrice()
+    {
+        try
+        {
+            String mtname = splMT.getSelectedValue().toString();
+            int mtid = mtManager.getInstance().getIdByName(mtname);
+            MembershipType mt = mtManager.getMemberByID(mtid);
+            txtPrice.setText(Integer.toString(mt.getPrice()));
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("ERROR - " + ex);
+        }
+        catch (Exception ex)
+        {
+            System.out.println("ERROR - " + ex);
+        }
+    }
+
     private void setPrice()
     {
-        
+        try
+        {
+            String mtname = splMT.getSelectedValue().toString();
+            int mtid = mtManager.getInstance().getIdByName(mtname);
+            if (JOptionPane.showConfirmDialog(null, "Vil du opdatere prisen", "Advarsel",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION)
+            {
+                try
+                {
+                    MembershipType mt = mtManager.getMemberByID(mtid);
+                    String membershipName = splMT.toString();
+                    int price = Integer.parseInt(txtPrice.getText());
+                    MembershipType x = new MembershipType(mtid, membershipName, price);
+                    try
+                    {
+                        mtManager.addPrice(x);
+                        txtPrice.setText("");
+                        dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("ERROR - " + e);
+                    }
+                    Administration.getInstance().setVisible(true);
+                }
+                catch (Exception ex)
+                {
+                    System.out.println("ERROR - " + ex);
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("ERROR - " + ex);
+        }
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAdd;
     public javax.swing.JButton btnCancel;
@@ -237,6 +303,6 @@ public class Fee extends javax.swing.JFrame
     public javax.swing.JLabel lblTitle;
     public javax.swing.JScrollPane spMembershipType;
     public javax.swing.JList splMT;
-    public javax.swing.JTextField txtSummerPrice;
+    public javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }
