@@ -9,6 +9,7 @@ import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -304,19 +305,25 @@ public class DeleteMember extends javax.swing.JFrame
     @SuppressWarnings("empty-statement")
     public void deleteMember()
     {
-        String name = (String) splMemberID.getSelectedValue();
-        int id = Integer.parseInt(name);
-        try
+        if (JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil slette medlemmet ?", "Advarsel",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                == JOptionPane.YES_OPTION)
         {
-            mManager.deleteMember(id);
-            clearFields();
-            dispose();
-        }
-        catch (Exception e)
-        {
-            System.out.println("ERROR - " + e);
+            String name = (String) splMemberID.getSelectedValue();
+            int id = Integer.parseInt(name);
+            try
+            {
+                mManager.deleteMember(id);
+                clearFields();
+                dispose();
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR - " + e);
+            }
         }
         Administration.getInstance().setVisible(true);
+
 
     }
 
