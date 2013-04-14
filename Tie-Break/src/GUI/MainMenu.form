@@ -47,13 +47,13 @@
               <Component id="lblImage" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAdministration" alignment="3" max="32767" attributes="0"/>
                   <Component id="btnBookCourt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnShowAllMembers" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnShowAllMembers" max="32767" attributes="0"/>
-                  <Component id="btnClose" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnClose" alignment="3" max="32767" attributes="0"/>
+                  <Component id="btnAdministration" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
           </Group>
