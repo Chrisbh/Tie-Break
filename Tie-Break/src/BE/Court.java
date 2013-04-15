@@ -27,6 +27,7 @@ public class Court
     }
 
     /**
+     * Returns the ID of a court
      * @return the id
      */
     public int getId()
@@ -35,6 +36,7 @@ public class Court
     }
 
     /**
+     * Returns the name of a court
      * @return the courtName
      */
     public String getCourtName()
@@ -43,6 +45,7 @@ public class Court
     }
 
     /**
+     * Sets the name of a court 
      * @param courtName the courtName to set
      */
     public void setCourtName(String courtName)
