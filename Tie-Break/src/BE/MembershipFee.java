@@ -4,6 +4,8 @@
  */
 package BE;
 
+import java.util.Calendar;
+
 /**
  *
  * @author ZavezX
@@ -11,35 +13,25 @@ package BE;
 public class MembershipFee
 {
 
-    private int id;
     private int memberId;
-    private int membershipId;
+    private int typeId;
+    private Calendar invoiceSent;
+    private Calendar paymentReceived;
     private boolean isPaid;
 
-    public MembershipFee(int id, int memberId, int membershipId, boolean isPaid)
+    public MembershipFee(int memberId, int typeId, Calendar invoiceSent, Calendar paymentReceived, boolean isPaid)
     {
-        this.id = id;
         this.memberId = memberId;
-        this.membershipId = membershipId;
+        this.typeId = typeId;
         this.isPaid = isPaid;
+        this.invoiceSent = invoiceSent;
+        this.paymentReceived = paymentReceived;
+
     }
 
-    public MembershipFee(int memberId, int membershipId, boolean isPaid)
+    public MembershipFee(MembershipFee mf)
     {
-        this(-1, memberId, membershipId, isPaid);
-    }
-
-    public MembershipFee(int id, MembershipFee m)
-    {
-        this(id, m.memberId, m.membershipId, m.isPaid);
-    }
-
-    /**
-     * @return the id
-     */
-    public int getId()
-    {
-        return id;
+        this(mf.memberId, mf.typeId, mf.invoiceSent, mf.paymentReceived, mf.isPaid);
     }
 
     /**
@@ -51,27 +43,51 @@ public class MembershipFee
     }
 
     /**
-     * @param memberId the memberId to set
+     * @return the typeId
      */
-    public void setMemberId(int memberId)
+    public int getTypeId()
     {
-        this.memberId = memberId;
+        return typeId;
     }
 
     /**
-     * @return the membershipId
+     * @param typeId the typeId to set
      */
-    public int getMembershipId()
+    public void setTypeId(int typeId)
     {
-        return membershipId;
+        this.typeId = typeId;
     }
 
     /**
-     * @param membershipId the membershipId to set
+     * @return the invoiceSent
      */
-    public void setMembershipId(int membershipId)
+    public Calendar getInvoiceSent()
     {
-        this.membershipId = membershipId;
+        return invoiceSent;
+    }
+
+    /**
+     * @param invoiceSent the invoiceSent to set
+     */
+    public void setInvoiceSent(Calendar invoiceSent)
+    {
+        this.invoiceSent = invoiceSent;
+    }
+
+    /**
+     * @return the paymentReceived
+     */
+    public Calendar getPaymentReceived()
+    {
+        return paymentReceived;
+    }
+
+    /**
+     * @param paymentReceived the paymentReceived to set
+     */
+    public void setPaymentReceived(Calendar paymentReceived)
+    {
+        this.paymentReceived = paymentReceived;
     }
 
     /**
@@ -89,4 +105,5 @@ public class MembershipFee
     {
         this.isPaid = isPaid;
     }
+
 }
