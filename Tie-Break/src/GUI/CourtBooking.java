@@ -464,7 +464,6 @@ public class CourtBooking extends javax.swing.JFrame
                             if (r.getReservationTime().getTime().equals(rs.get(i).getReservationTime().getTime()))
                             {
                                 String courtName = BookingManager.getInstance().getNameById(rs.get(i).getCourtId());
-                                courtModel.removeElement(courtName);
                             }
                         }
                     }
