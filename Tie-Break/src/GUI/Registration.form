@@ -35,7 +35,7 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="113" max="32767" attributes="0"/>
                               <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
@@ -58,10 +58,10 @@
                           <Component id="lblZipCodeCity" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPhoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCPR" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBday" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtPhoneNumber" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtAddress" alignment="0" max="32767" attributes="0"/>
@@ -73,19 +73,19 @@
                               <Component id="txtCity" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtBirthDay" min="-2" pref="123" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblCPRStreg" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtCPR" min="-2" pref="93" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="txtFirstName" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtLastName" max="32767" attributes="0"/>
+                              <Component id="txtLastName" pref="114" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtBDate" min="-2" pref="70" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtBMonth" min="-2" pref="70" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtBYear" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -126,10 +126,10 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCPR" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtBirthDay" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCPR" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblCPRStreg" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblBday" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBMonth" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBYear" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -221,18 +221,14 @@
         <Property name="text" type="java.lang.String" value="Tilf&#xf8;jelse af nyt medlem"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblCPR">
+    <Component class="javax.swing.JLabel" name="lblBday">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CPR"/>
+        <Property name="text" type="java.lang.String" value="F&#xf8;dselsdato"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtBirthDay">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtCPR">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblCPRStreg">
+    <Component class="javax.swing.JTextField" name="txtBDate">
       <Properties>
-        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPostNrByAdskiller">
@@ -258,6 +254,16 @@
     <Component class="javax.swing.JPasswordField" name="pfPassword">
     </Component>
     <Component class="javax.swing.JPasswordField" name="pfRepeatPassword">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBMonth">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBYear">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -1,13 +1,15 @@
 package DAL;
 
 import BE.Member;
-import BE.MembershipType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MembersDBManager extends TieBreakDBManager
 {
@@ -41,7 +43,7 @@ public class MembersDBManager extends TieBreakDBManager
             ps.setString(5, m.getCity());
             ps.setString(6, m.getEmail());
             ps.setInt(7, m.getPhoneNumber());
-            ps.setString(8, m.getCpr());
+            ps.setTimestamp(8, new java.sql.Timestamp(m.getBday().getTimeInMillis()));
             ps.setString(9, m.getPassword());
 
             int affectedRows = ps.executeUpdate();
@@ -52,7 +54,7 @@ public class MembersDBManager extends TieBreakDBManager
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
             int id = keys.getInt(1);
-            return new Member(id, m, m.getCpr());
+            return new Member(id, m);
         }
     }
 
@@ -175,10 +177,12 @@ public class MembersDBManager extends TieBreakDBManager
                 String city = rs.getString("City");
                 String email = rs.getString("Email");
                 int phoneNumber = rs.getInt("Phone");
-                String cpr = rs.getString("Cpr");
+                Timestamp bday = rs.getTimestamp("Bday");
+                Calendar time = new GregorianCalendar();
+                time.setTime(bday);
                 String password = rs.getString("Password");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password);
 
 
                 members.add(m);
@@ -212,10 +216,12 @@ public class MembersDBManager extends TieBreakDBManager
                 String city = rs.getString("City");
                 String email = rs.getString("Email");
                 int phoneNumber = rs.getInt("Phone");
-                String cpr = rs.getString("Cpr");
+                Timestamp bday = rs.getTimestamp("Bday");
+                Calendar time = new GregorianCalendar();
+                time.setTime(bday);
                 String password = rs.getString("Password");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password);
 
                 return m;
             }
