@@ -6,6 +6,8 @@ package GUI;
 
 import BE.Member;
 import BLL.MemberManager;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -22,7 +24,6 @@ public class Registration extends javax.swing.JFrame
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
-    private boolean cprCancelled = false;
     private boolean passwordCancelled = false;
     private static Registration instance = null;
 
@@ -71,16 +72,16 @@ public class Registration extends javax.swing.JFrame
         btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        lblCPR = new javax.swing.JLabel();
-        txtBirthDay = new javax.swing.JTextField();
-        txtCPR = new javax.swing.JTextField();
-        lblCPRStreg = new javax.swing.JLabel();
+        lblBday = new javax.swing.JLabel();
+        txtBDate = new javax.swing.JTextField();
         lblPostNrByAdskiller = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
         lblRepeatPassword = new javax.swing.JLabel();
         pfPassword = new javax.swing.JPasswordField();
         pfRepeatPassword = new javax.swing.JPasswordField();
+        txtBMonth = new javax.swing.JTextField();
+        txtBYear = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -124,9 +125,9 @@ public class Registration extends javax.swing.JFrame
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Tilføjelse af nyt medlem");
 
-        lblCPR.setText("CPR");
+        lblBday.setText("Fødselsdato");
 
-        lblCPRStreg.setText("-");
+        txtBDate.setToolTipText("");
 
         lblPostNrByAdskiller.setText("/");
 
@@ -142,6 +143,10 @@ public class Registration extends javax.swing.JFrame
 
         lblRepeatPassword.setText("Gentag kodeord");
 
+        txtBMonth.setToolTipText("");
+
+        txtBYear.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +161,7 @@ public class Registration extends javax.swing.JFrame
                             .addComponent(lblRepeatPassword))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                                 .addComponent(btnAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancel)
@@ -174,9 +179,9 @@ public class Registration extends javax.swing.JFrame
                             .addComponent(lblZipCodeCity)
                             .addComponent(lblEmail)
                             .addComponent(lblPhoneNumber)
-                            .addComponent(lblCPR))
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblBday))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPhoneNumber)
                             .addComponent(txtEmail)
                             .addComponent(txtAddress)
@@ -187,16 +192,16 @@ public class Registration extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCity))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCPRStreg)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLastName)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBDate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBYear)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,10 +233,10 @@ public class Registration extends javax.swing.JFrame
                     .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPR)
-                    .addComponent(txtBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCPR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCPRStreg))
+                    .addComponent(lblBday)
+                    .addComponent(txtBDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
@@ -280,8 +285,8 @@ public class Registration extends javax.swing.JFrame
     {
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
                 && txtAddress.getText().length() != 0 && txtCity.getText().length() != 0
-                && txtEmail.getText().length() != 0 && txtBirthDay.getText().length() != 0
-                && txtCPR.getText().length() != 0 && pfPassword.getText().length() != 0
+                && txtEmail.getText().length() != 0 && txtBDate.getText().length() != 0
+                && pfPassword.getText().length() != 0
                 && pfRepeatPassword.getText().length() != 0)
         {
             Scanner zipCodeSc = new Scanner(txtZipCode.getText());
@@ -336,34 +341,50 @@ public class Registration extends javax.swing.JFrame
             if (!bdCancelled)
             {
                 checkInt(zipCodeSc, phoneSc);
+                int bd = new Scanner(txtBDate.getText()).nextInt();
+                int bm = new Scanner(txtBMonth.getText()).nextInt();
+                int by = new Scanner(txtBYear.getText()).nextInt();
 
-                while (txtBirthDay.getText().length() != 6)
+                while (txtBDate.getText().length() != 2 || bd < 1 || bd > 31)
                 {
-                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 6 cifre i det første af CPR, intast det rigtige!");
+                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 2 cifre i din fødselsdag, eller en rigtig dato - DD, intast det rigtige!");
                     if (corredtedBD == null)
                     {
                         bdCancelled = true;
                         break;
                     }
-                    txtBirthDay.setText(corredtedBD);
+                    txtBDate.setText(corredtedBD);
                     bdCancelled = false;
+                    bd = new Scanner(txtBDate.getText()).nextInt();
                     checkInt(zipCodeSc, phoneSc);
                 }
-            }
 
-            if (!cprCancelled)
-            {
-                checkInt(zipCodeSc, phoneSc);
-                while (txtCPR.getText().length() != 4)
+
+                while (txtBMonth.getText().length() != 2 || bm < 1 || bm > 12)
                 {
-                    String corredtedCPR = JOptionPane.showInputDialog(null, "Der skal være 4 cifre i det sidste af CPR, intast det rigtige!");
-                    if (corredtedCPR == null)
+                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 2 cifre i din fødselsmåned - MM, intast det rigtige!");
+                    if (corredtedBD == null)
                     {
-                        cprCancelled = true;
+                        bdCancelled = true;
                         break;
                     }
-                    txtCPR.setText(corredtedCPR);
-                    cprCancelled = false;
+                    txtBMonth.setText(corredtedBD);
+                    bdCancelled = false;
+                    bm = new Scanner(txtBMonth.getText()).nextInt();
+                    checkInt(zipCodeSc, phoneSc);
+
+                }
+                while (txtBYear.getText().length() != 4 || by > Calendar.getInstance().get(Calendar.YEAR))
+                {
+                    String corredtedBD = JOptionPane.showInputDialog(null, "Der skal være 4 cifre i din fødselsår - YYYY, intast det rigtige!");
+                    if (corredtedBD == null)
+                    {
+                        bdCancelled = true;
+                        break;
+                    }
+                    txtBYear.setText(corredtedBD);
+                    bdCancelled = false;
+                    by = new Scanner(txtBYear.getText()).nextInt();
                     checkInt(zipCodeSc, phoneSc);
                 }
             }
@@ -381,12 +402,14 @@ public class Registration extends javax.swing.JFrame
                 }
             }
 
-            if (!zipCancelled && !phoneCancelled && !bdCancelled && !cprCancelled && !passwordCancelled)
+            if (!zipCancelled && !phoneCancelled && !bdCancelled && !passwordCancelled)
             {
                 if (JOptionPane.showConfirmDialog(null, "Vil du gemme brugeren?", "Advarsel",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                         == JOptionPane.YES_OPTION)
                 {
+                    Calendar bDate = new GregorianCalendar();
+
                     String firstName = txtFirstName.getText();
                     String lastName = txtLastName.getText();
                     String address = txtAddress.getText();
@@ -394,13 +417,17 @@ public class Registration extends javax.swing.JFrame
                     String city = txtCity.getText();
                     String email = txtEmail.getText();
                     int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                    String cpr = txtBirthDay.getText() + "-" + txtCPR.getText();
+                    int bDay = Integer.parseInt(txtBDate.getText());
+                    int bMonth = Integer.parseInt(txtBMonth.getText()) - 1;
+                    int bYear = Integer.parseInt(txtBYear.getText());
+                    bDate.set(bYear, bMonth, bDay, 0, 0, 0);
+                    Calendar bday = bDate;
                     String password = new Scanner(pfPassword.getText()).nextLine();
-                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, cpr, password);
+                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, bday, password);
                     try
                     {
                         mManager.addMember(m);
-                        
+
                         clearFields();
                         dispose();
                     }
@@ -416,7 +443,6 @@ public class Registration extends javax.swing.JFrame
                 zipCancelled = false;
                 phoneCancelled = false;
                 bdCancelled = false;
-                cprCancelled = false;
                 passwordCancelled = false;
             }
         }
@@ -435,8 +461,7 @@ public class Registration extends javax.swing.JFrame
         txtCity.setText("");
         txtEmail.setText("");
         txtPhoneNumber.setText("");
-        txtCPR.setText("");
-        txtBirthDay.setText("");
+        txtBDate.setText("");
         pfPassword.setText("");
         pfRepeatPassword.setText("");
     }
@@ -473,7 +498,7 @@ public class Registration extends javax.swing.JFrame
             phoneCancelled = false;
         }
 
-        Scanner bdSc = new Scanner(txtBirthDay.getText());
+        Scanner bdSc = new Scanner(txtBDate.getText());
         while (!bdSc.hasNextInt())
         {
             String correctedBD = JOptionPane.showInputDialog(null, "Det første af CPR skal være et nummer, intast det rigtige!");
@@ -482,25 +507,10 @@ public class Registration extends javax.swing.JFrame
                 bdCancelled = true;
                 break;
             }
-            txtBirthDay.setText(correctedBD);
+            txtBDate.setText(correctedBD);
 
-            bdSc = new Scanner(txtBirthDay.getText());
+            bdSc = new Scanner(txtBDate.getText());
             bdCancelled = false;
-        }
-
-        Scanner cprSc = new Scanner(txtCPR.getText());
-        while (!cprSc.hasNextInt())
-        {
-            String correctedCPR = JOptionPane.showInputDialog(null, "Det sidste af CPR skal være et nummer, intast det rigtige!");
-            if (correctedCPR == null)
-            {
-                cprCancelled = true;
-                break;
-            }
-            txtCPR.setText(correctedCPR);
-
-            cprSc = new Scanner(txtBirthDay.getText());
-            cprCancelled = false;
         }
     }
 
@@ -537,8 +547,7 @@ public class Registration extends javax.swing.JFrame
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblCPR;
-    private javax.swing.JLabel lblCPRStreg;
+    private javax.swing.JLabel lblBday;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPassword;
@@ -550,8 +559,9 @@ public class Registration extends javax.swing.JFrame
     private javax.swing.JPasswordField pfPassword;
     private javax.swing.JPasswordField pfRepeatPassword;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBirthDay;
-    private javax.swing.JTextField txtCPR;
+    private javax.swing.JTextField txtBDate;
+    private javax.swing.JTextField txtBMonth;
+    private javax.swing.JTextField txtBYear;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;

@@ -1,5 +1,7 @@
 package BE;
 
+import java.util.Calendar;
+
 public class Member
 {
 
@@ -11,7 +13,7 @@ public class Member
     private String city;
     private String email;
     private int phoneNumber;
-    private String cpr;
+    private Calendar bday;
     private String password;
 
     /*
@@ -32,7 +34,7 @@ public class Member
     /*
      * Member constructor containing everything
      */
-    public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, String cpr, String password)
+    public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, Calendar bday, String password)
     {
         this.id = id;
         this.firstName = firstName;
@@ -42,7 +44,7 @@ public class Member
         this.city = city;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.cpr = cpr;
+        this.bday = bday;
         this.password = password;
     }
 
@@ -51,15 +53,15 @@ public class Member
      */
     public Member(String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
-        this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber, "", "");
+        this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber);
     }
 
     /*
      * Member constructor with id, a member object and cpr
      */
-    public Member(int id, Member m, String cpr)
+    public Member(int id, Member m)
     {
-        this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, m.password, cpr);
+        this(id, m.firstName, m.lastName, m.address, m.zipCode, m.city, m.email, m.phoneNumber, m.bday, m.password);
     }
 
     /**
@@ -180,24 +182,6 @@ public class Member
     }
 
     /**
-     * Returns the cpr of a member
-     * @return the cpr
-     */
-    public String getCpr()
-    {
-        return cpr;
-    }
-
-    /**
-     * Sets the cpr of a member
-     * @param cpr the cpr to set
-     */
-    public void setCpr(String cpr)
-    {
-        this.cpr = cpr;
-    }
-
-    /**
      * Returns the last name of a member
      * @return the lastName
      */
@@ -231,5 +215,21 @@ public class Member
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    /**
+     * @return the bday
+     */
+    public Calendar getBday()
+    {
+        return bday;
+    }
+
+    /**
+     * @param bday the bday to set
+     */
+    public void setBday(Calendar bday)
+    {
+        this.bday = bday;
     }
 }
