@@ -88,7 +88,7 @@ public class MainMenu extends javax.swing.JFrame
         });
 
         btnClose.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        btnClose.setText("Afslut program");
+        btnClose.setText("Log ud");
         btnClose.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)

@@ -64,7 +64,7 @@ public class SummerFee extends javax.swing.JFrame
     {
 
         btnBack = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        spMember = new javax.swing.JScrollPane();
         spNames = new javax.swing.JList();
         lblBodyText = new javax.swing.JLabel();
         pnlMemberInfo = new javax.swing.JPanel();
@@ -82,7 +82,7 @@ public class SummerFee extends javax.swing.JFrame
         lblPhoneNumber = new javax.swing.JLabel();
         chkbMonthlyPay = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +96,7 @@ public class SummerFee extends javax.swing.JFrame
         });
 
         spNames.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Medlems ID : Navn"));
-        jScrollPane1.setViewportView(spNames);
+        spMember.setViewportView(spNames);
 
         lblBodyText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBodyText.setText("Tryk på et medlem for mere info");
@@ -174,7 +174,7 @@ public class SummerFee extends javax.swing.JFrame
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Sommer kontingent");
 
-        jButton1.setText("Opdater");
+        btnUpdate.setText("Opdater");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,14 +186,14 @@ public class SummerFee extends javax.swing.JFrame
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(pnlMemberInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(chkbMonthlyPay)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnUpdate)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnBack))))
                             .addGroup(layout.createSequentialGroup()
@@ -219,9 +219,9 @@ public class SummerFee extends javax.swing.JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnBack)
-                                .addComponent(jButton1))
+                                .addComponent(btnUpdate))
                             .addComponent(chkbMonthlyPay)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -231,7 +231,7 @@ public class SummerFee extends javax.swing.JFrame
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBackActionPerformed
     {//GEN-HEADEREND:event_btnBackActionPerformed
         dispose();
-        MainMenu.getInstance().setVisible(true);
+        Administration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     public void allMembers()
@@ -328,10 +328,9 @@ public class SummerFee extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox chkbMonthlyPay;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddresstext;
     private javax.swing.JLabel lblBodyText;
@@ -346,6 +345,7 @@ public class SummerFee extends javax.swing.JFrame
     private javax.swing.JLabel lblZipCity;
     private javax.swing.JLabel lblZipCitytext;
     private javax.swing.JPanel pnlMemberInfo;
+    private javax.swing.JScrollPane spMember;
     private javax.swing.JList spNames;
     // End of variables declaration//GEN-END:variables
 }
