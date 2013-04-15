@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BE;
 
 import java.util.Calendar;
 
-/**
- *
- * @author ZavezX
- */
 public class Reservation
 {
 
@@ -18,32 +10,43 @@ public class Reservation
     private int memberId;
     private Calendar reservationTime;
 
-
+    /*
+     * Constructor for reservation with everything
+     */
     public Reservation(int id, int courtId, int memberId, Calendar reservationTime)
     {
         this.id = id;
         this.courtId = courtId;
         this.memberId = memberId;
         this.reservationTime = reservationTime;
-
     }
-
+    
+    /*
+     * Constructor for reservation without id
+     */
     public Reservation(int courtId, int memberId, Calendar reservationTime)
     {
         this(-1, courtId, memberId, reservationTime);
     }
 
+    /*
+     * Constructor for reservation with id and a reservation object
+     */
     public Reservation(int id, Reservation r)
     {
         this(id, r.courtId, r.memberId, r.reservationTime);
     }
     
+    /*
+     * Constructor with just the reservation time
+     */
     public Reservation(Calendar reservationTime)
     {
         this(-1, -1, -1, reservationTime);
     }
 
     /**
+     * Returns the id of a reservation
      * @return the id
      */
     public int getId()
@@ -52,6 +55,7 @@ public class Reservation
     }
 
     /**
+     * Returns the court ID of a reservation
      * @return the courtId
      */
     public int getCourtId()
@@ -60,6 +64,7 @@ public class Reservation
     }
 
     /**
+     * Sets the court  of a reservation
      * @param courtId the courtId to set
      */
     public void setCourtId(int courtId)
@@ -68,6 +73,7 @@ public class Reservation
     }
 
     /**
+     * Returns the member ID of a reservation
      * @return the memberId
      */
     public int getMemberId()
@@ -76,6 +82,7 @@ public class Reservation
     }
 
     /**
+     * Sets the member ID of a reservation
      * @param memberId the memberId to set
      */
     public void setMemberId(int memberId)
@@ -84,6 +91,7 @@ public class Reservation
     }
 
     /**
+     * Returns the reservation time of a reservation
      * @return the reservationTime
      */
     public Calendar getReservationTime()
@@ -92,6 +100,7 @@ public class Reservation
     }
 
     /**
+     * Sets the reservation time of a reservation
      * @param reservationTime the reservationTime to set
      */
     public void setReservationTime(Calendar reservationTime)
@@ -99,6 +108,10 @@ public class Reservation
         this.reservationTime = reservationTime;
     }
 
+    /*
+     * Checks whether a reservation is equal to another reservation by comparing
+     * when the reservation is reserved and if it collides with an existing reservation
+     */
     @Override
     public boolean equals(Object obj)
     {
