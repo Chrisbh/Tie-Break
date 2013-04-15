@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAL;
 
 import BE.MembershipType;
@@ -12,18 +8,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author Rasmus
- */
 public class MembershipTypeDBManager extends TieBreakDBManager
 {
 
+    /**
+     * Constructor for the membership type db manager
+     * @throws Exception
+     */
     public MembershipTypeDBManager() throws Exception
     {
         super();
     }
 
+    /**
+     * Pulls every membership type name from the database and collects them in an ArrayList
+     * @return An ArrayList of the names of all membership types
+     * @throws SQLException
+     */
     public ArrayList getMTName() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -43,6 +44,12 @@ public class MembershipTypeDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     * Pulls a membership type from the database using the ID
+     * @param id The ID of the membership type
+     * @return A membership type object
+     * @throws SQLException
+     */
     public MembershipType getMemberByID(int id) throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -67,6 +74,11 @@ public class MembershipTypeDBManager extends TieBreakDBManager
         return null;
     }
 
+    /**
+     * Adds a price to the membership type in the database
+     * @param mt Contains membership type ID and the new price
+     * @throws SQLException
+     */
     public void addPrice(MembershipType mt) throws SQLException
     {
         String sql = "UPDATE MembershipType SET Price = ? WHERE ID = ?";
@@ -80,10 +92,16 @@ public class MembershipTypeDBManager extends TieBreakDBManager
         int affectedRows = ps.executeUpdate();
         if (affectedRows == 0)
         {
-            throw new SQLException("Kunne ikke opdatere medlem");
+            throw new SQLException("Kunne ikke opdatere medlemstype");
         }
     }
 
+    /**
+     * Pulls the ID of a membership type using the name
+     * @param name The name of the membership type being pulled
+     * @return The id of the membership type
+     * @throws SQLException
+     */
     public int getIdByName(String name) throws SQLException
     {
         try (Connection con = ds.getConnection())
