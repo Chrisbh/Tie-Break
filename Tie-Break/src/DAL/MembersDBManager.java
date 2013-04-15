@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAL;
 
 import BE.Member;
@@ -13,18 +9,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author Rasmus
- */
 public class MembersDBManager extends TieBreakDBManager
 {
-
+    /**
+     * Constructor for the members db manager class
+     * @throws Exception
+     */
     public MembersDBManager() throws Exception
     {
         super();
     }
 
+    /**
+     * Adds the given member, m, to the database
+     * @param m The member object being added to the database
+     * @return A member object
+     * @throws SQLException
+     */
     public Member addMember(Member m) throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -55,6 +56,11 @@ public class MembersDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     * Updates a member currently in the database by modifying the member object
+     * @param m The modified member object
+     * @throws SQLException
+     */
     public void updateMember(Member m) throws SQLException
     {
         String sql = "UPDATE Members SET FirstName = ?, LastName = ?, Address = ?, ZipCode = ?, City = ?, Email = ?, Phone = ? WHERE ID = ?";
@@ -79,6 +85,11 @@ public class MembersDBManager extends TieBreakDBManager
 
     }
 
+    /**
+     * Deletes a member by selecting the member ID
+     * @param id The ID of the member being deleted
+     * @throws SQLException
+     */
     public void deleteMember(int id) throws SQLException
     {
         String sql = "DELETE FROM RESERVATION WHERE MemberID = ?";
@@ -93,6 +104,11 @@ public class MembersDBManager extends TieBreakDBManager
         int affectedRows1 = ps1.executeUpdate();
     }
 
+    /**
+     * Pulls an ArrayList of all member ID's currently in the database
+     * @return An ArrayLit with all the ID's
+     * @throws SQLException
+     */
     public ArrayList getIds() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -111,6 +127,11 @@ public class MembersDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     * Pulls an ArrayList from the database with both a member ID and the member name
+     * @return An ArrayList with member ID's and their corresponding names
+     * @throws SQLException
+     */
     public ArrayList getByName() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -131,6 +152,11 @@ public class MembersDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     * Pulls an ArrayList from the database with a member object of every single member in the database
+     * @return An ArrayList with with member objects
+     * @throws SQLException
+     */
     public ArrayList getAllMembers() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -161,6 +187,12 @@ public class MembersDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     * Pulls a member from the database by their member ID
+     * @param id The id of the member being pulled
+     * @return A member object with the pulled member 
+     * @throws SQLException
+     */
     public Member getMemberByID(int id) throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -191,6 +223,13 @@ public class MembersDBManager extends TieBreakDBManager
         return null;
     }
 
+    /**
+     * Pulls the ID(username) and password of a member from the database, with the intent of checking these to login
+     * @param ID A member ID 
+     * @param Password A password used together with member ID
+     * @return ID and password, to check when logging in
+     * @throws SQLException
+     */
     public boolean checkUserNameAndPassword(int ID, String Password) throws SQLException
     {
         try (Connection con = ds.getConnection())
