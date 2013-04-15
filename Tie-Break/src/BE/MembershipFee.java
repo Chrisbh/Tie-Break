@@ -16,6 +16,9 @@ public class MembershipFee
     private int membershipId;
     private boolean isPaid;
 
+    /*
+     * Membershipfee constructor with everything
+     */
     public MembershipFee(int id, int memberId, int membershipId, boolean isPaid)
     {
         this.id = id;
@@ -23,18 +26,25 @@ public class MembershipFee
         this.membershipId = membershipId;
         this.isPaid = isPaid;
     }
-
+    
+    /*
+     * Membershipfee without id
+     */
     public MembershipFee(int memberId, int membershipId, boolean isPaid)
     {
         this(-1, memberId, membershipId, isPaid);
     }
 
+    /*
+     * Membershipfee with id, and a membershipfee object
+     */
     public MembershipFee(int id, MembershipFee m)
     {
         this(id, m.memberId, m.membershipId, m.isPaid);
     }
 
     /**
+     * Returns the id of a membershipfee
      * @return the id
      */
     public int getId()
