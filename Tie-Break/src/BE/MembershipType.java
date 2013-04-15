@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BE;
 
-/**
- *
- * @author ZavezX
- */
 public class MembershipType
 {
 
@@ -15,24 +7,34 @@ public class MembershipType
     private String membershipName;
     private int price;
 
+    /*
+     * Constructor for membership type with everything
+     */
     public MembershipType(int id, String membershipName, int price)
     {
         this.id = id;
         this.membershipName = membershipName;
         this.price = price;
     }
-
+    
+    /*
+     * Constructor for membership type without ID
+     */
     public MembershipType(String membershipName, int price)
     {
         this(-1, membershipName, price);
     }
 
+    /*
+     * Constructor for membership type with the ID and a membership type object
+     */
     public MembershipType(int id, MembershipType mt)
     {
         this(mt.membershipName, mt.price);
     }
 
     /**
+     * Returns the id of a membership type
      * @return the id
      */
     public int getId()
@@ -41,6 +43,7 @@ public class MembershipType
     }
 
     /**
+     * Returns the name of a membership type
      * @return the membershipName
      */
     public String getMembershipName()
@@ -49,6 +52,7 @@ public class MembershipType
     }
 
     /**
+     * Sets the name of a membership type
      * @param membershipName the membershipName to set
      */
     public void setMembershipName(String membershipName)
@@ -57,6 +61,7 @@ public class MembershipType
     }
 
     /**
+     * Returns the price of a membership type
      * @return the price
      */
     public int getPrice()
@@ -65,6 +70,7 @@ public class MembershipType
     }
 
     /**
+     * Sets the price of a membership type
      * @param price the price to set
      */
     public void setPrice(int price)
