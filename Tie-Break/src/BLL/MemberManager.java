@@ -90,6 +90,4 @@ public class MemberManager
     {
         return this.memberID;
     }
-
-
 }
