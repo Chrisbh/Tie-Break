@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAL;
 
 import BE.Reservation;
@@ -15,15 +11,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author ZavezX
- */
 public class ReservationDBManager extends TieBreakDBManager
 {
 
     /**
-     *
+     * Constructor of the reservation db manager class
      * @throws Exception
      */
     public ReservationDBManager() throws Exception
@@ -32,9 +24,9 @@ public class ReservationDBManager extends TieBreakDBManager
     }
 
     /**
-     *
-     * @param c
-     * @return
+     * Adds a court reservation to the database
+     * @param r the reservation
+     * @return the reservation with id and the reservation object
      * @throws SQLException
      */
     public Reservation reserveCourt(Reservation r) throws SQLException
@@ -61,6 +53,11 @@ public class ReservationDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<String> getCourtsName() throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -80,6 +77,12 @@ public class ReservationDBManager extends TieBreakDBManager
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     * @throws SQLException
+     */
     public int getIdByName(String name) throws SQLException
     {
         try (Connection con = ds.getConnection())
@@ -100,7 +103,13 @@ public class ReservationDBManager extends TieBreakDBManager
         return 0;
     }
     
-     public String getNameById(int id) throws SQLException
+     /**
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public String getNameById(int id) throws SQLException
     {
         try (Connection con = ds.getConnection())
         {
@@ -120,6 +129,11 @@ public class ReservationDBManager extends TieBreakDBManager
         return null;
     }
      
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Reservation> getReservations() throws SQLException
     {
         try (Connection con = ds.getConnection())
