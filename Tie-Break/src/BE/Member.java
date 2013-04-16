@@ -93,6 +93,7 @@ public class Member
 
     /**
      * Returns the id of a member
+     *
      * @return the id
      */
     public int getId()
@@ -102,6 +103,7 @@ public class Member
 
     /**
      * Returns the first name of a member
+     *
      * @return the firstName
      */
     public String getFirstName()
@@ -111,6 +113,7 @@ public class Member
 
     /**
      * Sets the first name of a member
+     *
      * @param firstName the firstName to set
      */
     public void setFirstName(String firstName)
@@ -120,6 +123,7 @@ public class Member
 
     /**
      * Returns the address of a member
+     *
      * @return the address
      */
     public String getAddress()
@@ -129,6 +133,7 @@ public class Member
 
     /**
      * Sets the address of a member
+     *
      * @param address the address to set
      */
     public void setAddress(String address)
@@ -138,6 +143,7 @@ public class Member
 
     /**
      * Returns the zip code of a member
+     *
      * @return the zipCode
      */
     public int getZipCode()
@@ -147,6 +153,7 @@ public class Member
 
     /**
      * Sets the zip code of a member
+     *
      * @param zipCode the zipCode to set
      */
     public void setZipCode(int zipCode)
@@ -156,6 +163,7 @@ public class Member
 
     /**
      * Returns the city of a member
+     *
      * @return the city
      */
     public String getCity()
@@ -165,6 +173,7 @@ public class Member
 
     /**
      * Sets the city of a member
+     *
      * @param city the city to set
      */
     public void setCity(String city)
@@ -174,6 +183,7 @@ public class Member
 
     /**
      * Returns the email of a member
+     *
      * @return the email
      */
     public String getEmail()
@@ -183,6 +193,7 @@ public class Member
 
     /**
      * Sets the email of a member
+     *
      * @param email the email to set
      */
     public void setEmail(String email)
@@ -192,6 +203,7 @@ public class Member
 
     /**
      * Returns the phone number of a member
+     *
      * @return the phoneNumber
      */
     public int getPhoneNumber()
@@ -201,6 +213,7 @@ public class Member
 
     /**
      * Sets the phone number of a member
+     *
      * @param phoneNumber the phoneNumber to set
      */
     public void setPhoneNumber(int phoneNumber)
@@ -210,6 +223,7 @@ public class Member
 
     /**
      * Returns the last name of a member
+     *
      * @return the lastName
      */
     public String getLastName()
@@ -219,6 +233,7 @@ public class Member
 
     /**
      * Sets the last name of a member
+     *
      * @param lastName the lastName to set
      */
     public void setLastName(String lastName)
@@ -228,6 +243,7 @@ public class Member
 
     /**
      * Returns the password of a member
+     *
      * @return the password
      */
     public String getPassword()
@@ -237,6 +253,7 @@ public class Member
 
     /**
      * Sets the password of a member
+     *
      * @param password the password to set
      */
     public void setPassword(String password)

@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 public class AllMembers extends javax.swing.JFrame
 {
 
+    DefaultListModel model = new DefaultListModel();
     private static AllMembers instance = null;
     private MemberManager mManager;
 
@@ -210,7 +211,6 @@ public class AllMembers extends javax.swing.JFrame
 
     public void allMembers()
     {
-        DefaultListModel model = new DefaultListModel();
         model.clear();
         try
         {
