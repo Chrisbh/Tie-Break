@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Reservation;
@@ -26,11 +22,10 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author Dennis
+ * @author Chris
  */
 public class CourtBooking extends javax.swing.JFrame
 {
-
     private static CourtBooking instance = null;
     private DefaultListModel courtModel = new DefaultListModel();
     private DefaultListModel model = new DefaultListModel();
@@ -38,7 +33,7 @@ public class CourtBooking extends javax.swing.JFrame
     private int age;
 
     /**
-     * Creates new form CourtBooking
+     * Constructor for the courtbooking class
      */
     private CourtBooking()
     {
@@ -51,9 +46,6 @@ public class CourtBooking extends javax.swing.JFrame
         setTitle("Banebooking");
         thisMonth();
         thisDay();
-
-
-
 
         splMonth.addListSelectionListener(
                 new ListSelectionListener()
@@ -90,6 +82,9 @@ public class CourtBooking extends javax.swing.JFrame
         thisTime();
     }
 
+    /*
+     * Finds the currently selected month, used for selecting the right daylist
+     */
     private void thisMonth()
     {
         //4 is when the summer season starts, 9 is when it ends
@@ -103,6 +98,9 @@ public class CourtBooking extends javax.swing.JFrame
         }
     }
 
+    /*
+     * Finds the selected day and shows when a user can book
+     */
     private void thisDay()
     {
         if (age < 18)
@@ -127,7 +125,7 @@ public class CourtBooking extends javax.swing.JFrame
                 splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
             }
         }
-        if (age >= 18 && age < 60 )
+        if (age >= 18 && age < 60)
         {
             if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
             {
@@ -141,6 +139,9 @@ public class CourtBooking extends javax.swing.JFrame
         splDate.ensureIndexIsVisible(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
     }
 
+    /*
+     * Finds the currently selected time
+     */
     private void thisTime()
     {
         if (age < 18)
@@ -178,6 +179,10 @@ public class CourtBooking extends javax.swing.JFrame
         }
     }
 
+    /**
+     * Conversion of the court booking class to a singleton
+     * @return An instance of the court booking class
+     */
     public static CourtBooking getInstance()
     {
         if (instance == null)
@@ -343,52 +348,9 @@ public class CourtBooking extends javax.swing.JFrame
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
 
-    /**
-     * @param args the command line arguments
+    /*
+     * Specifies the number of days in a given month 
      */
-    public static void main(String args[])
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e)
-        {
-            //Do nothing
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new CourtBooking().setVisible(true);
-            }
-        });
-    }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddBooking;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JComboBox cmbxTime;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblCourt;
-    private javax.swing.JLabel lblHeader;
-    private javax.swing.JLabel lblMonth;
-    private javax.swing.JLabel lblTime;
-    private javax.swing.JScrollPane spCourt;
-    private javax.swing.JScrollPane spDay;
-    private javax.swing.JScrollPane spMonth;
-    private javax.swing.JList splCourt;
-    private javax.swing.JList splDate;
-    private javax.swing.JList splMonth;
-    // End of variables declaration//GEN-END:variables
-
     private void dayList()
     {
         int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt();
@@ -421,11 +383,13 @@ public class CourtBooking extends javax.swing.JFrame
         }
     }
 
+    /*
+     * A list of when a user can book depending on the age of the user
+     */
     private void timeList()
     {
 
-
-//        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+        //7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
         if (age < 18)
         {
             for (int i = 7; i <= 16; i++)
@@ -452,9 +416,11 @@ public class CourtBooking extends javax.swing.JFrame
             }
             cmbxTime.setModel(timeModel);
         }
-
     }
 
+    /*
+     * Adds a booking of a court in the database
+     */
     private void addBooking()
     {
         if (splMonth.getSelectedValue() != null && splDate.getSelectedValue() != null && splCourt.getSelectedValue() != null)
@@ -465,9 +431,6 @@ public class CourtBooking extends javax.swing.JFrame
             int month = new Scanner(splMonth.getSelectedValue().toString()).nextInt() - 1;
             int date = new Scanner(splDate.getSelectedValue().toString()).nextInt();
             int time = Integer.parseInt(cmbxTime.getSelectedItem().toString());
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-            int currentDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-            int currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
             booking.set(year, month, date, time, 0, 0);
 
@@ -475,7 +438,6 @@ public class CourtBooking extends javax.swing.JFrame
             {
                 ArrayList ids = MemberManager.getInstance().getIds();
                 int memberId = MemberManager.getInstance().getLoggedIn();
-
 
                 if (JOptionPane.showConfirmDialog(null, "Den valgte dato: " + booking.getTime() + ". Vil du bestille denne tid?", "Reservation",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
@@ -502,9 +464,11 @@ public class CourtBooking extends javax.swing.JFrame
         courtModel.clear();
     }
 
+    /*
+     * Finds the age of a user
+     */
     private void checkBirth()
     {
-
         try
         {
             int memberId = MemberManager.getInstance().getLoggedIn();
@@ -529,14 +493,15 @@ public class CourtBooking extends javax.swing.JFrame
                 }
             }
         }
-        catch (SQLException ex)
+        catch (SQLException e)
         {
-            Logger.getLogger(CourtBooking.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR - " + e.getMessage());
         }
-
-
     }
 
+    /*
+     * Checks if a court is occupied
+     */
     private void checkCourts()
     {
         if (splMonth.getSelectedValue() != null && splDate.getSelectedValue() != null)
@@ -604,4 +569,47 @@ public class CourtBooking extends javax.swing.JFrame
             }
         }
     }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[])
+    {
+        /*
+         * Set system look and feel
+         */
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e)
+        {
+            //Do nothing
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new CourtBooking().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddBooking;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JComboBox cmbxTime;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblCourt;
+    private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblMonth;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JScrollPane spCourt;
+    private javax.swing.JScrollPane spDay;
+    private javax.swing.JScrollPane spMonth;
+    private javax.swing.JList splCourt;
+    private javax.swing.JList splDate;
+    private javax.swing.JList splMonth;
+    // End of variables declaration//GEN-END:variables
 }
