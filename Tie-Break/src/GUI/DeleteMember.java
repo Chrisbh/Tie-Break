@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Member;
@@ -20,16 +16,11 @@ import javax.swing.event.ListSelectionListener;
  */
 public class DeleteMember extends javax.swing.JFrame
 {
-
-    private String name;
     private MemberManager mManager;
-    private boolean zipCancelled = false;
-    private boolean phoneCancelled = false;
-    private boolean bdCancelled = false;
     private static DeleteMember instance = null;
 
     /**
-     * Creates new form DeleteMember
+     * Constructor for the delete member class
      */
     private DeleteMember()
     {
@@ -52,9 +43,12 @@ public class DeleteMember extends javax.swing.JFrame
                 }
             }
         });
-
     }
 
+    /**
+     * Conversion of the delete member class to Singleton
+     * @return An instance of delete member
+     */
     public static DeleteMember getInstance()
     {
         if (instance == null)
@@ -105,15 +99,7 @@ public class DeleteMember extends javax.swing.JFrame
 
         lblEmail.setText("Email");
 
-        lblPhoneNumber.setText("Telefonnr");
-
-        txtLastName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtLastNameActionPerformed(evt);
-            }
-        });
+        lblPhoneNumber.setText("Telefonnr");    
 
         btnDelete.setText("Slet medlem");
         btnDelete.addActionListener(new java.awt.event.ActionListener()
@@ -137,14 +123,6 @@ public class DeleteMember extends javax.swing.JFrame
         lblTitle.setText("Opdatering af medlem");
 
         lblPostNrByAdskiller.setText("/");
-
-        txtFirstName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtFirstNameActionPerformed(evt);
-            }
-        });
 
         lblMemberID.setText("MedlemsID:");
 
@@ -235,18 +213,9 @@ public class DeleteMember extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
-    {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-    }//GEN-LAST:event_txtFirstNameActionPerformed
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
-    {//GEN-HEADEREND:event_txtLastNameActionPerformed
-    }//GEN-LAST:event_txtLastNameActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDeleteActionPerformed
     {//GEN-HEADEREND:event_btnDeleteActionPerformed
         deleteMember();
-
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -256,9 +225,11 @@ public class DeleteMember extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    /*
+     * Modifies the list model to show the member ID's of all members
+     */
     private void ShowMember()
     {
-
         DefaultListModel memberids = new DefaultListModel();
         memberids.clear();
         try
@@ -270,7 +241,6 @@ public class DeleteMember extends javax.swing.JFrame
                 ids.get(i).toString();
                 memberids.addElement(id);
             }
-
         }
         catch (SQLException ex)
         {
@@ -279,6 +249,10 @@ public class DeleteMember extends javax.swing.JFrame
         splMemberID.setModel(memberids);
     }
 
+    /**
+     * Shows all the requested information about a member in text fields on the
+     * gui
+     */
     public void insertMemberToList()
     {
         String name = (String) splMemberID.getSelectedValue();
@@ -299,10 +273,12 @@ public class DeleteMember extends javax.swing.JFrame
         {
             System.out.println("ERROR - " + e.getMessage());
         }
-
     }
 
-    @SuppressWarnings("empty-statement")
+    /**
+     * Deletes a member from the database
+     */
+    //@SuppressWarnings("empty-statement")
     public void deleteMember()
     {
         if (JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil slette medlemmet ?", "Advarsel",
@@ -323,10 +299,11 @@ public class DeleteMember extends javax.swing.JFrame
             }
         }
         Administration.getInstance().setVisible(true);
-
-
     }
 
+    /*
+     * Clears the text fields on the gui
+     */
     private void clearFields()
     {
         txtFirstName.setText("");
@@ -343,10 +320,8 @@ public class DeleteMember extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Set system look and feel
          */
         try
         {
@@ -356,7 +331,6 @@ public class DeleteMember extends javax.swing.JFrame
         {
             //Do nothing
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()

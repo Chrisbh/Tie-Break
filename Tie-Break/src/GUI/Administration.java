@@ -231,7 +231,6 @@ public class Administration extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-
         /*
          * Set system look and feel
          */
