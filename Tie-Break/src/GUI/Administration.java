@@ -206,6 +206,7 @@ public class Administration extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnMainMenuActionPerformed
         dispose();
         MainMenu.getInstance().setVisible(true);
+        AllMembers.getInstance().allMembers();
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnSummerFeeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSummerFeeActionPerformed
