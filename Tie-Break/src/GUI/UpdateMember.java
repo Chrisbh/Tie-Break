@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Member;
@@ -17,14 +13,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Chris
- */
 public class UpdateMember extends javax.swing.JFrame
 {
-
-    private String name;
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
@@ -32,7 +22,7 @@ public class UpdateMember extends javax.swing.JFrame
     private static UpdateMember instance = null;
 
     /**
-     * Creates new form Registration
+     * Constructor for the update member class
      */
     private UpdateMember()
     {
@@ -55,9 +45,12 @@ public class UpdateMember extends javax.swing.JFrame
                 }
             }
         });
-
     }
 
+    /**
+     * Conversion of the update member class to a singleton
+     * @return An instance of the update member class
+     */
     public static UpdateMember getInstance()
     {
         if (instance == null)
@@ -110,14 +103,6 @@ public class UpdateMember extends javax.swing.JFrame
 
         lblPhoneNumber.setText("Telefonnr");
 
-        txtLastName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtLastNameActionPerformed(evt);
-            }
-        });
-
         btnUpdate.setText("Opdater");
         btnUpdate.addActionListener(new java.awt.event.ActionListener()
         {
@@ -140,14 +125,6 @@ public class UpdateMember extends javax.swing.JFrame
         lblTitle.setText("Opdatering af medlem");
 
         lblPostNrByAdskiller.setText("/");
-
-        txtFirstName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtFirstNameActionPerformed(evt);
-            }
-        });
 
         lblMemberID.setText("MedlemsID:");
 
@@ -238,18 +215,9 @@ public class UpdateMember extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
-    {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-    }//GEN-LAST:event_txtFirstNameActionPerformed
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
-    {//GEN-HEADEREND:event_txtLastNameActionPerformed
-    }//GEN-LAST:event_txtLastNameActionPerformed
-
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUpdateActionPerformed
     {//GEN-HEADEREND:event_btnUpdateActionPerformed
         updateMember();
-
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -259,9 +227,11 @@ public class UpdateMember extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    /*
+     * Updates the list model with all current members in the club
+     */
     private void ShowMember()
     {
-
         DefaultListModel memberids = new DefaultListModel();
         memberids.clear();
         try
@@ -273,15 +243,18 @@ public class UpdateMember extends javax.swing.JFrame
                 ids.get(i).toString();
                 memberids.addElement(id);
             }
-
         }
-        catch (SQLException ex)
+        catch (SQLException e)
         {
-            System.out.println("error");;
+            System.out.println("ERROR - " + e.getMessage());
         }
         splMemberID.setModel(memberids);
     }
 
+    /**
+     * Updates all the text fields on the gui with the information requested 
+     * about the selected member
+     */
     public void insertMemberToList()
     {
         String name = (String) splMemberID.getSelectedValue();
@@ -305,7 +278,9 @@ public class UpdateMember extends javax.swing.JFrame
 
     }
 
-    @SuppressWarnings("empty-statement")
+    /**
+     * Updates member information in the database
+     */
     public void updateMember()
     {
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
@@ -314,7 +289,6 @@ public class UpdateMember extends javax.swing.JFrame
         {
             Scanner zipCodeSc = new Scanner(txtZipCode.getText());
             Scanner phoneSc = new Scanner(txtPhoneNumber.getText());
-
             checkInt(zipCodeSc, phoneSc);
 
             if (!zipCancelled)
@@ -330,7 +304,6 @@ public class UpdateMember extends javax.swing.JFrame
                         break;
                     }
                     txtZipCode.setText(correctedZipCode);
-
                     zipCodeSc = new Scanner(txtZipCode.getText());
                     checkInt(zipCodeSc, phoneSc);
                     zipCodeSc = new Scanner(txtZipCode.getText());
@@ -392,9 +365,9 @@ public class UpdateMember extends javax.swing.JFrame
                         }
                         Administration.getInstance().setVisible(true);
                     }
-                    catch (SQLException ex)
+                    catch (SQLException e)
                     {
-                        Logger.getLogger(UpdateMember.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("ERROR - " + e.getMessage());
                     }
                 }
             }
@@ -403,7 +376,6 @@ public class UpdateMember extends javax.swing.JFrame
                 zipCancelled = false;
                 phoneCancelled = false;
                 bdCancelled = false;
-
             }
         }
         else
@@ -412,6 +384,9 @@ public class UpdateMember extends javax.swing.JFrame
         }
     }
 
+    /*
+     * Clears all the text fields on the gui
+     */
     private void clearFields()
     {
         txtFirstName.setText("");
@@ -423,6 +398,9 @@ public class UpdateMember extends javax.swing.JFrame
         txtPhoneNumber.setText("");
     }
 
+    /*
+     * Checks if the text input is a number
+     */
     private void checkInt(Scanner zipCodeSc, Scanner phoneSc)
     {
         zipCodeSc = new Scanner(txtZipCode.getText());
@@ -435,11 +413,9 @@ public class UpdateMember extends javax.swing.JFrame
                 break;
             }
             txtZipCode.setText(correctedZipCode);
-
             zipCodeSc = new Scanner(txtZipCode.getText());
             zipCancelled = false;
         }
-
         phoneSc = new Scanner(txtPhoneNumber.getText());
         while (!phoneSc.hasNextInt())
         {
@@ -450,12 +426,9 @@ public class UpdateMember extends javax.swing.JFrame
                 break;
             }
             txtPhoneNumber.setText(correctedPhone);
-
             phoneSc = new Scanner(txtPhoneNumber.getText());
             phoneCancelled = false;
         }
-
-
     }
 
     /**
@@ -463,10 +436,8 @@ public class UpdateMember extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Get system look and feel
          */
         try
         {
@@ -476,7 +447,6 @@ public class UpdateMember extends javax.swing.JFrame
         {
             //Do nothing
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()

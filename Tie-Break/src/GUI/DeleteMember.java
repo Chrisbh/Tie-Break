@@ -274,7 +274,6 @@ public class DeleteMember extends javax.swing.JFrame
     /**
      * Deletes a member from the database
      */
-    //@SuppressWarnings("empty-statement")
     public void deleteMember()
     {
         if (JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil slette medlemmet ?", "Advarsel",
