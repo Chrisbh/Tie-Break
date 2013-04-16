@@ -12,11 +12,9 @@ public class MembershipFee
     /**
      * Constructor for membership fee with everything
      * @param memberId member id
-     * @param typeId membership tyoe id
+     * @param typeId membership type id
      * @param invoiceSent when the invoice was sent
      * @param paymentReceived when the payment was received
-     * @param isPaid isPaid = false: membership fee has not been paid. isPaid =
-     * true: membership fee has been paid
      */
     public MembershipFee(int memberId, int typeId, Calendar invoiceSent, Calendar paymentReceived)
     {
