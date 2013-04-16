@@ -9,10 +9,15 @@ import BLL.BookingManager;
 import BLL.MemberManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -28,18 +33,25 @@ public class CourtBooking extends javax.swing.JFrame
 
     private static CourtBooking instance = null;
     private DefaultListModel courtModel = new DefaultListModel();
+    private DefaultListModel model = new DefaultListModel();
+    private DefaultComboBoxModel timeModel = new DefaultComboBoxModel();
+    private int age;
 
     /**
      * Creates new form CourtBooking
      */
     private CourtBooking()
     {
+        timeModel.removeAllElements();
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        checkBirth();
+        timeList();
         setTitle("Banebooking");
         thisMonth();
         thisDay();
+
 
 
 
@@ -93,26 +105,76 @@ public class CourtBooking extends javax.swing.JFrame
 
     private void thisDay()
     {
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
+        if (age < 18)
         {
-            splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 16)
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            }
+            else
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
+            }
         }
-        else
+        if (age > 60)
         {
-            splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 13)
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            }
+            else
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
+            }
+        }
+        if (age >= 18 && age < 60 )
+        {
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 21)
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            }
+            else
+            {
+                splDate.setSelectedIndex(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 1);
+            }
         }
         splDate.ensureIndexIsVisible(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
     }
 
     private void thisTime()
     {
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 21 && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 7)
+        if (age < 18)
         {
-            cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 16 && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 7)
+            {
+                cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
+            }
+            else
+            {
+                cmbxTime.setSelectedIndex(0);
+            }
         }
-        else
+        if (age >= 60)
         {
-            cmbxTime.setSelectedIndex(0);
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 13 && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 7)
+            {
+                cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
+            }
+            else
+            {
+                cmbxTime.setSelectedIndex(0);
+            }
+        }
+        if (age >= 18 && age < 60)
+        {
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 21 && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 7)
+            {
+                cmbxTime.setSelectedIndex(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 6);
+            }
+            else
+            {
+                cmbxTime.setSelectedIndex(0);
+            }
         }
     }
 
@@ -156,7 +218,6 @@ public class CourtBooking extends javax.swing.JFrame
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
 
-        cmbxTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21" }));
         cmbxTime.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -228,8 +289,9 @@ public class CourtBooking extends javax.swing.JFrame
                         .addComponent(btnAddBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
-                    .addComponent(lblTime)
-                    .addComponent(cmbxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cmbxTime, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
             .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -272,16 +334,12 @@ public class CourtBooking extends javax.swing.JFrame
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed
         dispose();
-        splDate.clearSelection();
-        courtModel.clear();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddBookingActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddBookingActionPerformed
     {//GEN-HEADEREND:event_btnAddBookingActionPerformed
         addBooking();
-        splDate.clearSelection();
-        courtModel.clear();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_btnAddBookingActionPerformed
 
@@ -337,7 +395,6 @@ public class CourtBooking extends javax.swing.JFrame
 
         if (month == 5 || month == 7 || month == 8)
         {
-            DefaultListModel model = new DefaultListModel();
             for (int i = 1; i <= 31; i++)
             {
                 model.addElement(i);
@@ -347,7 +404,6 @@ public class CourtBooking extends javax.swing.JFrame
 
         if (month == 2)
         {
-            DefaultListModel model = new DefaultListModel();
             for (int i = 1; i <= 28; i++)
             {
                 model.addElement(i);
@@ -357,13 +413,46 @@ public class CourtBooking extends javax.swing.JFrame
 
         if (month == 4 || month == 6 || month == 9)
         {
-            DefaultListModel model = new DefaultListModel();
             for (int i = 1; i <= 30; i++)
             {
                 model.addElement(i);
             }
             splDate.setModel(model);
         }
+    }
+
+    private void timeList()
+    {
+
+
+//        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+        if (age < 18)
+        {
+            for (int i = 7; i <= 16; i++)
+            {
+                timeModel.addElement(i);
+            }
+            cmbxTime.setModel(timeModel);
+        }
+
+        if (age >= 60)
+        {
+            for (int i = 7; i <= 13; i++)
+            {
+                timeModel.addElement(i);
+            }
+            cmbxTime.setModel(timeModel);
+        }
+
+        if (age >= 18 && age < 60)
+        {
+            for (int i = 7; i <= 21; i++)
+            {
+                timeModel.addElement(i);
+            }
+            cmbxTime.setModel(timeModel);
+        }
+
     }
 
     private void addBooking()
@@ -412,13 +501,40 @@ public class CourtBooking extends javax.swing.JFrame
         }
         courtModel.clear();
     }
-    
+
     private void checkBirth()
     {
-        int memberId = MemberManager.getInstance().getLoggedIn();
-        
-         
-       
+
+        try
+        {
+            int memberId = MemberManager.getInstance().getLoggedIn();
+            Calendar mbday = MemberManager.getInstance().getMembersBDayByID(memberId);
+            Date now = new Date();
+            int nowMonth = now.getMonth() + 1;
+            int nowYear = now.getYear() + 1900;
+            int month = mbday.getTime().getMonth() + 1;
+            age = nowYear - (mbday.getTime().getYear() + 1900);
+
+            if (month > nowMonth)
+            {
+                age--;
+            }
+            else if (month == nowMonth)
+            {
+                int nowDay = now.getDate();
+
+                if (mbday.getTime().getDate() > nowDay)
+                {
+                    age--;
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(CourtBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }
 
     private void checkCourts()

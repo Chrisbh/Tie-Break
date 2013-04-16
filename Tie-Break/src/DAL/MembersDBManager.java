@@ -230,6 +230,34 @@ public class MembersDBManager extends TieBreakDBManager
     }
 
     /**
+     * Pulls a members BDay from the database by their member ID
+     * @param id The id of the member being pulled
+     * @return A memberBDay Calendar object with the pulled member 
+     * @throws SQLException
+     */
+    public Calendar getMembersBDayByID(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT Bday FROM Members WHERE ID = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                Timestamp bday = rs.getTimestamp("Bday");
+                Calendar time = new GregorianCalendar();
+                time.setTime(bday);    
+
+                return time;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Pulls the ID(username) and password of a member from the database, with the intent of checking these to login
      * @param ID A member ID 
      * @param Password A password used together with member ID

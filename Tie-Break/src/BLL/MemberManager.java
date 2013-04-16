@@ -4,6 +4,7 @@ import BE.Member;
 import DAL.MembersDBManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MemberManager
 {
@@ -94,7 +95,15 @@ public class MemberManager
     {
         return db.getMemberByID(id);
     }
-
+    
+    /*
+     * Connects the database to the gui allowing the gui to get a members bday using the member ID
+     */
+    public Calendar getMembersBDayByID(int id) throws SQLException
+    {
+        return db.getMembersBDayByID(id);
+    }
+    
     /*
      * Connects the database to the gui allowing the gui to retrieve the id(username) and password of a member
      * This is used during the login to check if the entered login information is correct
