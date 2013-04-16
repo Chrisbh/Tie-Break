@@ -11,7 +11,6 @@ import BLL.MembershipTypeManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,7 @@ public class SummerFee extends javax.swing.JFrame
     private int age;
     private Calendar todayInvoice = new GregorianCalendar();
     private Calendar todayPayment = new GregorianCalendar();
-    private int memberId;
+    private int memberId = 1;
 
     /**
      * Creates new form AllMembers
@@ -60,7 +59,7 @@ public class SummerFee extends javax.swing.JFrame
                 try
                 {
                     Calendar sent = mtManager.getSent(memberId);
-
+                    Calendar paid = mtManager.getPaid(memberId);
 
                     if (sent != null && (Calendar.getInstance().get(Calendar.YEAR) == sent.get(Calendar.YEAR)))
                     {
@@ -73,15 +72,30 @@ public class SummerFee extends javax.swing.JFrame
                         chkbInvoiceSent.setEnabled(true);
                     }
 
-
                     if (sent == null)
                     {
+                        chkbPaid.setSelected(false);
+                        chkbPaid.setEnabled(false);
+                    }
+                    else
+                    {
+                        chkbPaid.setSelected(false);
+                        chkbPaid.setEnabled(true);
+                    }
+
+                    if (paid != null && (Calendar.getInstance().get(Calendar.YEAR) == paid.get(Calendar.YEAR)))
+                    {
+                        chkbPaid.setSelected(true);
                         chkbPaid.setEnabled(false);
                     }
                     else
                     {
                         chkbPaid.setEnabled(true);
+                        chkbPaid.setSelected(false);
+
                     }
+
+
                 }
                 catch (Exception e)
                 {
@@ -393,7 +407,7 @@ public class SummerFee extends javax.swing.JFrame
             Calendar sent = mtManager.getSent(memberId);
             Calendar paid = mtManager.getPaid(memberId);
 
-            if (sent == null)
+            if (sent == null && chkbInvoiceSent.isSelected() && chkbInvoiceSent.isEnabled())
             {
 
                 if (age < 18)
@@ -423,14 +437,10 @@ public class SummerFee extends javax.swing.JFrame
                     Administration.getInstance().setVisible(true);
                 }
             }
-            else
+            if (sent != null && chkbPaid.isSelected() && chkbPaid.isEnabled())
             {
-                JOptionPane.showMessageDialog(null, "MedlemsNr eksisterer allerede i systemet!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-            }
-            if (sent != null)
-            {
+                if (age < 18)
                 {
-
                     typeId = 1;
                     MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
 
@@ -456,16 +466,16 @@ public class SummerFee extends javax.swing.JFrame
                     Administration.getInstance().setVisible(true);
                 }
             }
+            else if (sent != null && (!chkbPaid.isSelected() && chkbPaid.isEnabled()))
+            {
+                JOptionPane.showMessageDialog(null, "MedlemsNr eksisterer allerede i systemet!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+            }
 
         }
         catch (Exception e)
         {
             System.err.println("ERROR - " + e.getMessage());
-            e.printStackTrace();
         }
-
-        dispose();
-
     }
 
     private void checkBirth()
@@ -473,13 +483,12 @@ public class SummerFee extends javax.swing.JFrame
 
         try
         {
-            int memberId = MemberManager.getInstance().getLoggedIn();
             Calendar mbday = MemberManager.getInstance().getMembersBDayByID(memberId);
-            Date now = new Date();
-            int nowMonth = now.getMonth() + 1;
-            int nowYear = now.getYear() + 1900;
-            int month = mbday.getTime().getMonth() + 1;
-            age = nowYear - (mbday.getTime().getYear() + 1900);
+            Calendar now = new GregorianCalendar();
+            int nowMonth = now.get(Calendar.MONTH) + 1;
+            int nowYear = now.get(Calendar.YEAR) + 1900;
+            int month = mbday.get(Calendar.MONTH) + 1;
+            age = nowYear - (mbday.get(Calendar.YEAR) + 1900);
 
             if (month > nowMonth)
             {
@@ -487,9 +496,9 @@ public class SummerFee extends javax.swing.JFrame
             }
             else if (month == nowMonth)
             {
-                int nowDay = now.getDate();
+                int nowDay = now.get(Calendar.DATE);
 
-                if (mbday.getTime().getDate() > nowDay)
+                if (mbday.get(Calendar.DATE) > nowDay)
                 {
                     age--;
                 }

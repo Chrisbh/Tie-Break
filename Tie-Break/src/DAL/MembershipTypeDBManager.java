@@ -218,6 +218,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
                 {
                 time.set(payment.getYear() + 1900, payment.getMonth(), payment.getDate(), payment.getHours(), 0, 0);
                 }
+                else time = null;
                
                 return time;
             }
