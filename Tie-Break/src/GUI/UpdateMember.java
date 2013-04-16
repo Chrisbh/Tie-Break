@@ -248,7 +248,7 @@ public class UpdateMember extends javax.swing.JFrame
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUpdateActionPerformed
     {//GEN-HEADEREND:event_btnUpdateActionPerformed
-        addMember();
+        updateMember();
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -306,7 +306,7 @@ public class UpdateMember extends javax.swing.JFrame
     }
 
     @SuppressWarnings("empty-statement")
-    public void addMember()
+    public void updateMember()
     {
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
                 && txtAddress.getText().length() != 0 && txtCity.getText().length() != 0

@@ -5,9 +5,16 @@
 package GUI;
 
 import BE.Member;
+import BE.MembershipFee;
 import BLL.MemberManager;
+import BLL.MembershipTypeManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
@@ -22,6 +29,11 @@ public class SummerFee extends javax.swing.JFrame
 
     private static SummerFee instance = null;
     private MemberManager mManager;
+    private MembershipTypeManager mtManager;
+    private int age;
+    private Calendar todayInvoice = new GregorianCalendar();
+    private Calendar todayPayment = new GregorianCalendar();
+    private int memberId;
 
     /**
      * Creates new form AllMembers
@@ -31,7 +43,10 @@ public class SummerFee extends javax.swing.JFrame
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        checkBirth();
+        
         mManager = MemberManager.getInstance();
+        mtManager = MembershipTypeManager.getInstance();
         allMembers();
 
         spNames.addListSelectionListener(new ListSelectionListener()
@@ -40,6 +55,7 @@ public class SummerFee extends javax.swing.JFrame
             public void valueChanged(ListSelectionEvent lse)
             {
                 insertMember();
+                
             }
         });
     }
@@ -83,6 +99,7 @@ public class SummerFee extends javax.swing.JFrame
         chkbMonthlyPay = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
+        chkbInvoiceSent = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,12 +186,35 @@ public class SummerFee extends javax.swing.JFrame
         );
 
         chkbMonthlyPay.setText("Betalt månedskontingent");
+        chkbMonthlyPay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chkbMonthlyPayActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Sommer kontingent");
 
         btnUpdate.setText("Opdater");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        chkbInvoiceSent.setText("Sendt Giro");
+        chkbInvoiceSent.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chkbInvoiceSentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,7 +230,9 @@ public class SummerFee extends javax.swing.JFrame
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(pnlMemberInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(chkbInvoiceSent)
+                                        .addGap(18, 18, 18)
                                         .addComponent(chkbMonthlyPay)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnUpdate)
@@ -216,11 +258,11 @@ public class SummerFee extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlMemberInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnBack)
-                                .addComponent(btnUpdate))
-                            .addComponent(chkbMonthlyPay)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBack)
+                            .addComponent(btnUpdate)
+                            .addComponent(chkbMonthlyPay)
+                            .addComponent(chkbInvoiceSent)))
                     .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
@@ -234,7 +276,23 @@ public class SummerFee extends javax.swing.JFrame
         Administration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    public void allMembers()
+    private void chkbInvoiceSentActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkbInvoiceSentActionPerformed
+    {//GEN-HEADEREND:event_chkbInvoiceSentActionPerformed
+        invoiceSent();
+    }//GEN-LAST:event_chkbInvoiceSentActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUpdateActionPerformed
+    {//GEN-HEADEREND:event_btnUpdateActionPerformed
+        updatePayment();
+        Administration.getInstance().setVisible(true);
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void chkbMonthlyPayActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkbMonthlyPayActionPerformed
+    {//GEN-HEADEREND:event_chkbMonthlyPayActionPerformed
+        feePaid();
+    }//GEN-LAST:event_chkbMonthlyPayActionPerformed
+
+    private void allMembers()
     {
         DefaultListModel model = new DefaultListModel();
         model.clear();
@@ -265,6 +323,7 @@ public class SummerFee extends javax.swing.JFrame
         {
             Member m = mManager.getMemberByID(id);
             lblMemberID.setText(Integer.toString(m.getId()));
+            memberId = m.getId();
             lblName.setText(m.getFirstName() + " " + m.getLastName());
             lblAddress.setText(m.getAddress());
             lblZipCity.setText(m.getZipCode() + "  /  " + m.getCity());
@@ -277,7 +336,110 @@ public class SummerFee extends javax.swing.JFrame
         }
 
     }
+    private void invoiceSent()
+    {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DATE);
+        
+        todayInvoice.set(year, month, day, 0, 0);
+    }
+    
+    private void feePaid()
+    {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DATE);
+        
+        todayPayment.set(year, month, day, 0, 0);    
+    }
+    
+    private void updatePayment()
+    {
+        int typeId;
+        
+        if(age < 18)
+        {
+            typeId = 1;
+            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+            try
+            {
+            mtManager.invoiceSent(mf);
+            }
+            catch(Exception e)
+            {
+                System.err.println("ERROR - " + e.getMessage());
+            }
+            
+        }
+        
+        if(age >= 60)
+        {
+            typeId = 3;
+            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+            try
+            {
+            mtManager.invoiceSent(mf);
+            }
+            catch(Exception e)
+            {
+                System.err.println("ERROR - " + e.getMessage());
+            }
+            
+        }
+        
+        if(age >= 18 && age <60)
+        {
+            typeId = 2;
+            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+            try
+            {
+            mtManager.invoiceSent(mf);
+            }
+            catch(Exception e)
+            {
+                System.err.println("ERROR - " + e.getMessage());
+            }
+            
+        }
+    }
+    
+    
+    private void checkBirth()
+    {
 
+        try
+        {
+            int memberId = MemberManager.getInstance().getLoggedIn();
+            Calendar mbday = MemberManager.getInstance().getMembersBDayByID(memberId);
+            Date now = new Date();
+            int nowMonth = now.getMonth() + 1;
+            int nowYear = now.getYear() + 1900;
+            int month = mbday.getTime().getMonth() + 1;
+            age = nowYear - (mbday.getTime().getYear() + 1900);
+
+            if (month > nowMonth)
+            {
+                age--;
+            }
+            else if (month == nowMonth)
+            {
+                int nowDay = now.getDate();
+
+                if (mbday.getTime().getDate() > nowDay)
+                {
+                    age--;
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(CourtBooking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -329,6 +491,7 @@ public class SummerFee extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JCheckBox chkbInvoiceSent;
     private javax.swing.JCheckBox chkbMonthlyPay;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAddress;

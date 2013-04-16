@@ -32,8 +32,10 @@
                               <Component id="spMember" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="pnlMemberInfo" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Component id="pnlMemberInfo" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="chkbInvoiceSent" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="chkbMonthlyPay" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
@@ -69,12 +71,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="pnlMemberInfo" min="-2" pref="188" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="chkbMonthlyPay" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkbMonthlyPay" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkbInvoiceSent" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="spMember" min="-2" pref="217" max="-2" attributes="0"/>
@@ -247,6 +248,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Betalt m&#xe5;nedskontingent"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbMonthlyPayActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -261,6 +265,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Opdater"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkbInvoiceSent">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sendt Giro"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkbInvoiceSentActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.MembershipFee;
 import BE.MembershipType;
 import DAL.MembershipTypeDBManager;
 import java.sql.SQLException;
@@ -69,5 +70,10 @@ public class MembershipTypeManager
     public int getIdByName(String name) throws SQLException
     {
         return db.getIdByName(name);
+    }
+    
+    public MembershipFee invoiceSent(MembershipFee mf) throws Exception
+    {
+        return db.invoiceSent(mf);
     }
 }

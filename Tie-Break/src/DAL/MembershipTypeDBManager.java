@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.MembershipFee;
 import BE.MembershipType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
 
     /**
      * Constructor for the membership type db manager
+     *
      * @throws Exception
      */
     public MembershipTypeDBManager() throws Exception
@@ -21,7 +23,9 @@ public class MembershipTypeDBManager extends TieBreakDBManager
     }
 
     /**
-     * Pulls every membership type name from the database and collects them in an ArrayList
+     * Pulls every membership type name from the database and collects them in
+     * an ArrayList
+     *
      * @return An ArrayList of the names of all membership types
      * @throws SQLException
      */
@@ -46,6 +50,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
 
     /**
      * Pulls a membership type from the database using the ID
+     *
      * @param id The ID of the membership type
      * @return A membership type object
      * @throws SQLException
@@ -76,6 +81,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
 
     /**
      * Adds a price to the membership type in the database
+     *
      * @param mt Contains membership type ID and the new price
      * @throws SQLException
      */
@@ -98,6 +104,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
 
     /**
      * Pulls the ID of a membership type using the name
+     *
      * @param name The name of the membership type being pulled
      * @return The id of the membership type
      * @throws SQLException
@@ -120,5 +127,30 @@ public class MembershipTypeDBManager extends TieBreakDBManager
             }
         }
         return 0;
+    }
+
+    public MembershipFee invoiceSent(MembershipFee mf) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            String sql = "INSERT INTO MembershipFee VALUES (?,?,?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, mf.getMemberId());
+            ps.setInt(2, mf.getTypeId());
+            ps.setTimestamp(3, new java.sql.Timestamp(mf.getInvoiceSent().getTimeInMillis()));
+            ps.setTimestamp(4, null);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0)
+            {
+                throw new SQLException("Kunne ikke tilføje kontingent information!");
+            }
+            ResultSet keys = ps.getGeneratedKeys();
+            keys.next();
+            return new MembershipFee(mf.getMemberId(), mf.getTypeId(), mf.getInvoiceSent());
+        }
+
+
     }
 }
