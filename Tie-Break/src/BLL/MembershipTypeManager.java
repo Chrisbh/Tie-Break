@@ -27,7 +27,7 @@ public class MembershipTypeManager
 
     /**
      * Conversion of MembershipType manager using a singleton pattern
-     * @return An instance of the membershiptype manager class
+     * @return An instance of the membership type manager class
      */
     public static MembershipTypeManager getInstance()
     {

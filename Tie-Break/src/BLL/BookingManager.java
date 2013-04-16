@@ -1,6 +1,5 @@
 package BLL;
 
-import BE.Court;
 import BE.Reservation;
 import DAL.ReservationDBManager;
 import java.sql.SQLException;
