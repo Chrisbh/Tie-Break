@@ -16,8 +16,16 @@ public class Member
     private Calendar bday;
     private String password;
 
-    /*
+    /**
      * Member constructor without cpr and password
+     * @param id member ID
+     * @param firstName member first name
+     * @param lastName member last name
+     * @param address member address
+     * @param zipCode member zip code
+     * @param city member city
+     * @param email member email
+     * @param phoneNumber member phone number
      */
     public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
@@ -31,8 +39,18 @@ public class Member
         this.phoneNumber = phoneNumber;
     }
 
-    /*
+    /**
      * Member constructor containing everything
+     * @param id member id
+     * @param firstName member first name
+     * @param lastName member last name
+     * @param address member address
+     * @param zipCode member zip code
+     * @param city member city
+     * @param email member email
+     * @param phoneNumber member phone number
+     * @param bday member birthdate
+     * @param password member password
      */
     public Member(int id, String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber, Calendar bday, String password)
     {
@@ -48,16 +66,25 @@ public class Member
         this.password = password;
     }
 
-    /*
+    /**
      * Member constructor without id, cpr and password
+     * @param firstName member first name
+     * @param lastName member last name
+     * @param address member address
+     * @param zipCode member zip code
+     * @param city member city
+     * @param email member email
+     * @param phoneNumber member phone number
      */
     public Member(String firstName, String lastName, String address, int zipCode, String city, String email, int phoneNumber)
     {
         this(-1, firstName, lastName, address, zipCode, city, email, phoneNumber);
     }
 
-    /*
+    /**
      * Member constructor with id, a member object and cpr
+     * @param id member id
+     * @param m a given member object
      */
     public Member(int id, Member m)
     {

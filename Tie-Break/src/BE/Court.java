@@ -36,7 +36,7 @@ public class Court
     }
 
     /**
-     * Sets the name of a court 
+     * Sets the name of a court
      * @param courtName the courtName to set
      */
     public void setCourtName(String courtName)
