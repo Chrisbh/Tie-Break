@@ -169,7 +169,11 @@ public class MembershipTypeDBManager extends TieBreakDBManager
                 Timestamp invoice = rs.getTimestamp("InvoiceSent");
                 
                 Calendar time = new GregorianCalendar();
+                if(invoice != null)
+                {
                 time.set(invoice.getYear() + 1900, invoice.getMonth(), invoice.getDate(), invoice.getHours(), 0, 0);
+                }
+                else time = null;
 
                 return time;
             }
