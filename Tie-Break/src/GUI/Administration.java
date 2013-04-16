@@ -1,21 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import javax.swing.UIManager;
 
-/**
- *
- * @author Chris
- */
 public class Administration extends javax.swing.JFrame
 {
     private static Administration instance = null;
 
     /**
-     * Creates new form Administration
+     * Constructor of administration
      */
     private Administration()
     {
@@ -24,7 +16,11 @@ public class Administration extends javax.swing.JFrame
         setTitle("Administration");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
+
+    /**
+     * Conversion of administration using a singleton pattern
+     * @return An instance of the Administration class
+     */
     public static Administration getInstance()
     {
         if (instance == null)
@@ -237,7 +233,7 @@ public class Administration extends javax.swing.JFrame
     {
 
         /*
-         * Get system look and feel
+         * Set system look and feel
          */
         try
         {

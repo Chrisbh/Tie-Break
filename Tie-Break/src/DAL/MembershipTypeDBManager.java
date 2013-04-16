@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class MembershipTypeDBManager extends TieBreakDBManager
 {
-
     /**
      * Constructor for the membership type db manager
      *
@@ -25,7 +24,6 @@ public class MembershipTypeDBManager extends TieBreakDBManager
     /**
      * Pulls every membership type name from the database and collects them in
      * an ArrayList
-     *
      * @return An ArrayList of the names of all membership types
      * @throws SQLException
      */

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Member;
@@ -9,23 +5,19 @@ import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Chris
- */
 public class AllMembers extends javax.swing.JFrame
 {
-
     DefaultListModel model = new DefaultListModel();
     private static AllMembers instance = null;
     private MemberManager mManager;
 
     /**
-     * Creates new form AllMembers
+     * Constructor for the allmembers class
      */
     private AllMembers()
     {
@@ -40,11 +32,16 @@ public class AllMembers extends javax.swing.JFrame
             @Override
             public void valueChanged(ListSelectionEvent lse)
             {
-                insertMember();
+                DisplayMemberInformation();
             }
         });
     }
 
+    
+    /**
+     * Conversion of the allmembers class to singleton
+     * @return An instrance of the allmembers class
+     */
     public static AllMembers getInstance()
     {
         if (instance == null)
@@ -209,6 +206,9 @@ public class AllMembers extends javax.swing.JFrame
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Sets the listmodel with the ID and name of all members
+     */
     public void allMembers()
     {
         model.clear();
@@ -230,7 +230,10 @@ public class AllMembers extends javax.swing.JFrame
         spNames.setModel(model);
     }
 
-    public void insertMember()
+    /**
+     * Shows the requested info about a member
+     */
+    public void DisplayMemberInformation()
     {
         String name = (String) spNames.getSelectedValue();
         String parts[] = name.split(" : ");
@@ -249,7 +252,6 @@ public class AllMembers extends javax.swing.JFrame
         {
             System.out.println("ERROR - " + e.getMessage());
         }
-
     }
 
     /**
@@ -257,39 +259,17 @@ public class AllMembers extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Set system look and feel
          */
         try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch (ClassNotFoundException ex)
+        catch (Exception e)
         {
-            java.util.logging.Logger.getLogger(AllMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            //Do nothing
         }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(AllMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(AllMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(AllMembers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()

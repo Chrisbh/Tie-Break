@@ -13,7 +13,6 @@ import java.util.GregorianCalendar;
 
 public class ReservationDBManager extends TieBreakDBManager
 {
-
     /**
      * Constructor of the reservation db manager class
      * @throws Exception
@@ -102,8 +101,8 @@ public class ReservationDBManager extends TieBreakDBManager
         }
         return 0;
     }
-    
-     /**
+
+    /**
      * Pulls the name of a court using the court ID
      * @param id The ID of the court the name is being pulled from
      * @return Name of a court
@@ -128,7 +127,7 @@ public class ReservationDBManager extends TieBreakDBManager
         }
         return null;
     }
-     
+
     /**
      * Pulls an ArrayList of every court reservation in the database
      * @return All court reservations in an ArrayList
@@ -147,12 +146,12 @@ public class ReservationDBManager extends TieBreakDBManager
                 int courtId = rs.getInt("CourtID");
                 int memberId = rs.getInt("MemberId");
                 Timestamp rd = rs.getTimestamp("ReservationDate");
-                
+
                 Calendar time = new GregorianCalendar();
                 time.set(rd.getYear() + 1900, rd.getMonth(), rd.getDate(), rd.getHours(), 0, 0);
-                
+
                 Reservation res = new Reservation(courtId, memberId, time);
-                
+
                 reservations.add(res);
             }
             return reservations;

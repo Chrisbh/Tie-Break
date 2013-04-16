@@ -4,14 +4,19 @@ import java.util.Calendar;
 
 public class MembershipFee
 {
-
     private int memberId;
     private int typeId;
     private Calendar invoiceSent;
     private Calendar paymentReceived;
 
-    /*
+    /**
      * Constructor for membership fee with everything
+     * @param memberId member id
+     * @param typeId membership tyoe id
+     * @param invoiceSent when the invoice was sent
+     * @param paymentReceived when the payment was received
+     * @param isPaid isPaid = false: membership fee has not been paid. isPaid =
+     * true: membership fee has been paid
      */
     public MembershipFee(int memberId, int typeId, Calendar invoiceSent, Calendar paymentReceived)
     {
@@ -21,8 +26,9 @@ public class MembershipFee
         this.paymentReceived = paymentReceived;
     }
 
-    /*
+    /**
      * Constructor for membership fee with just a membership fee object
+     * @param mf A given membership fee
      */
     public MembershipFee(int id, int typeId, Calendar invoiceSent)
     {
@@ -91,5 +97,4 @@ public class MembershipFee
     {
         this.paymentReceived = paymentReceived;
     }
-
 }
