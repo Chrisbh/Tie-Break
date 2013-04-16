@@ -1,21 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import javax.swing.UIManager;
 
-/**
- *
- * @author Chris
- */
 public class MainMenu extends javax.swing.JFrame
 {
     private static MainMenu instance = null;
 
     /**
-     * Creates new form MainMenu
+     * Constructor for the main menu class
      */
     private MainMenu()
     {
@@ -24,7 +16,11 @@ public class MainMenu extends javax.swing.JFrame
         setTitle("Main Menu");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
+
+    /**
+     * Conversion of the main menu class to a singleton
+     * @return An instance of the main menu class
+     */
     public static MainMenu getInstance()
     {
         if (instance == null)
@@ -161,7 +157,6 @@ public class MainMenu extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-
         /*
          * Get system look and feel
          */
