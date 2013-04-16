@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.MembershipType;
@@ -12,23 +8,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Rasmus
- */
 public class Fee extends javax.swing.JFrame
 {
-
     private static Fee instance = null;
     private MembershipTypeManager mtManager;
     private DefaultListModel membershiptypes = new DefaultListModel();
 
     /**
-     * Creates new form Fee
+     * Constructor for the Fee class
      */
     public Fee()
     {
@@ -50,9 +42,12 @@ public class Fee extends javax.swing.JFrame
                 }
             }
         });
-
     }
 
+    /**
+     * Conversion of the Fee class to simpleton
+     * @return An instance of the Fee class
+     */
     public static Fee getInstance()
     {
         if (instance == null)
@@ -176,39 +171,17 @@ public class Fee extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Set system look and feel
          */
         try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch (ClassNotFoundException ex)
+        catch (Exception e)
         {
-            java.util.logging.Logger.getLogger(Fee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            //Do nothing
         }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(Fee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(Fee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(Fee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
@@ -220,6 +193,9 @@ public class Fee extends javax.swing.JFrame
         });
     }
 
+    /*
+     * Shows the different membership types in the listmodel
+     */
     private void showMT()
     {
         try
@@ -232,12 +208,15 @@ public class Fee extends javax.swing.JFrame
             }
             splMT.setModel(membershiptypes);
         }
-        catch (SQLException ex)
+        catch (SQLException e)
         {
-            Logger.getLogger(Fee.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR - " + e.getMessage());
         }
     }
 
+    /*
+     * Shows the price of a membership type
+     */
     private void showPrice()
     {
         try
@@ -257,6 +236,9 @@ public class Fee extends javax.swing.JFrame
         }
     }
 
+    /*
+     * Sets the price of a membership type
+     */
     private void setPrice()
     {
         try
