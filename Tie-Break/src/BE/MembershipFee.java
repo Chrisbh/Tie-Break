@@ -11,8 +11,14 @@ public class MembershipFee
     private Calendar paymentReceived;
     private boolean isPaid;
 
-    /*
+    /**
      * Constructor for membership fee with everything
+     * @param memberId member id
+     * @param typeId membership tyoe id
+     * @param invoiceSent when the invoice was sent
+     * @param paymentReceived when the payment was received
+     * @param isPaid isPaid = false: membership fee has not been paid. isPaid =
+     * true: membership fee has been paid
      */
     public MembershipFee(int memberId, int typeId, Calendar invoiceSent, Calendar paymentReceived, boolean isPaid)
     {
@@ -23,8 +29,9 @@ public class MembershipFee
         this.paymentReceived = paymentReceived;
     }
 
-    /*
+    /**
      * Constructor for membership fee with just a membership fee object
+     * @param mf A given membership fee
      */
     public MembershipFee(MembershipFee mf)
     {
@@ -104,12 +111,12 @@ public class MembershipFee
     }
 
     /**
-     * Sets the boolean to either true or false depending on if the membership has been paid
+     * Sets the boolean to either true or false depending on if the membership
+     * has been paid
      * @param isPaid the isPaid to set
      */
     public void setIsPaid(boolean isPaid)
     {
         this.isPaid = isPaid;
     }
-
 }
