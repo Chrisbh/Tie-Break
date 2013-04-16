@@ -18,10 +18,6 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Chris
- */
 public class CourtBooking extends javax.swing.JFrame
 {
     private static CourtBooking instance = null;

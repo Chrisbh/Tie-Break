@@ -36,7 +36,6 @@ public class AllMembers extends javax.swing.JFrame
             }
         });
     }
-
     
     /**
      * Conversion of the allmembers class to singleton
