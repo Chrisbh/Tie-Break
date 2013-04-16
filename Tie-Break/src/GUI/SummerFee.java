@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,7 +45,8 @@ public class SummerFee extends javax.swing.JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         checkBirth();
-        
+
+
         mManager = MemberManager.getInstance();
         mtManager = MembershipTypeManager.getInstance();
         allMembers();
@@ -55,7 +57,36 @@ public class SummerFee extends javax.swing.JFrame
             public void valueChanged(ListSelectionEvent lse)
             {
                 insertMember();
-                
+                try
+                {
+                    Calendar sent = mtManager.getSent(memberId);
+
+                    
+                    if (sent != null && (Calendar.getInstance().get(Calendar.YEAR) == sent.get(Calendar.YEAR)))
+                    {
+                        chkbInvoiceSent.setSelected(true);
+                        chkbInvoiceSent.setEnabled(false);
+                    }
+                    else
+                    {
+                        chkbInvoiceSent.setSelected(false);
+                        chkbInvoiceSent.setEnabled(true);
+                    }
+
+
+                    if(sent == null)
+                    {
+                        chkbPaid.setEnabled(false);
+                    }
+                    else
+                    {
+                        chkbPaid.setEnabled(true);
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.err.println("Error - " + e.getMessage());
+                }
             }
         });
     }
@@ -96,7 +127,7 @@ public class SummerFee extends javax.swing.JFrame
         lblZipCity = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
-        chkbMonthlyPay = new javax.swing.JCheckBox();
+        chkbPaid = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         chkbInvoiceSent = new javax.swing.JCheckBox();
@@ -185,12 +216,12 @@ public class SummerFee extends javax.swing.JFrame
                 .addGap(72, 72, 72))
         );
 
-        chkbMonthlyPay.setText("Betalt månedskontingent");
-        chkbMonthlyPay.addActionListener(new java.awt.event.ActionListener()
+        chkbPaid.setText("Betalt månedskontingent");
+        chkbPaid.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                chkbMonthlyPayActionPerformed(evt);
+                chkbPaidActionPerformed(evt);
             }
         });
 
@@ -233,7 +264,7 @@ public class SummerFee extends javax.swing.JFrame
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(chkbInvoiceSent)
                                         .addGap(18, 18, 18)
-                                        .addComponent(chkbMonthlyPay)
+                                        .addComponent(chkbPaid)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnUpdate)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,7 +292,7 @@ public class SummerFee extends javax.swing.JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBack)
                             .addComponent(btnUpdate)
-                            .addComponent(chkbMonthlyPay)
+                            .addComponent(chkbPaid)
                             .addComponent(chkbInvoiceSent)))
                     .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
@@ -284,13 +315,12 @@ public class SummerFee extends javax.swing.JFrame
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUpdateActionPerformed
     {//GEN-HEADEREND:event_btnUpdateActionPerformed
         updatePayment();
-        Administration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void chkbMonthlyPayActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkbMonthlyPayActionPerformed
-    {//GEN-HEADEREND:event_chkbMonthlyPayActionPerformed
+    private void chkbPaidActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkbPaidActionPerformed
+    {//GEN-HEADEREND:event_chkbPaidActionPerformed
         feePaid();
-    }//GEN-LAST:event_chkbMonthlyPayActionPerformed
+    }//GEN-LAST:event_chkbPaidActionPerformed
 
     private void allMembers()
     {
@@ -322,8 +352,8 @@ public class SummerFee extends javax.swing.JFrame
         try
         {
             Member m = mManager.getMemberByID(id);
-            lblMemberID.setText(Integer.toString(m.getId()));
-            memberId = m.getId();
+            lblMemberID.setText(Integer.toString(id));
+            memberId = id;
             lblName.setText(m.getFirstName() + " " + m.getLastName());
             lblAddress.setText(m.getAddress());
             lblZipCity.setText(m.getZipCode() + "  /  " + m.getCity());
@@ -336,75 +366,104 @@ public class SummerFee extends javax.swing.JFrame
         }
 
     }
+
     private void invoiceSent()
     {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DATE);
-        
+
         todayInvoice.set(year, month, day, 0, 0);
     }
-    
+
     private void feePaid()
     {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DATE);
-        
-        todayPayment.set(year, month, day, 0, 0);    
+
+        todayPayment.set(year, month, day, 0, 0);
     }
-    
+
     private void updatePayment()
     {
+
         int typeId;
-        
-        if(age < 18)
+        try
         {
-            typeId = 1;
-            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-            try
+            Calendar sent = mtManager.getSent(memberId);
+            Calendar paid = mtManager.getPaid(memberId);
+
+            if (sent == null)
             {
-            mtManager.invoiceSent(mf);
+
+                if (age < 18)
+                {
+                    typeId = 1;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.invoiceSent(mf);
+                    Administration.getInstance().setVisible(true);
+                }
+
+                if (age >= 60)
+                {
+                    typeId = 3;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.invoiceSent(mf);
+                    Administration.getInstance().setVisible(true);
+                }
+
+                if (age >= 18 && age < 60)
+                {
+                    typeId = 2;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.invoiceSent(mf);
+                    Administration.getInstance().setVisible(true);
+                }
             }
-            catch(Exception e)
+            if (chkbInvoiceSent.isEnabled() == false)
             {
-                System.err.println("ERROR - " + e.getMessage());
+                typeId = 1;
+                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                mtManager.paymentReceived(memberId, todayPayment);
+                Administration.getInstance().setVisible(true);
             }
-            
+
+            if (age >= 60)
+            {
+                typeId = 3;
+                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                mtManager.paymentReceived(memberId, todayPayment);
+                Administration.getInstance().setVisible(true);
+            }
+
+            if (age >= 18 && age < 60)
+            {
+                typeId = 2;
+                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                mtManager.paymentReceived(memberId, todayPayment);
+                Administration.getInstance().setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "MedlemsNr eksisterer allerede i systemet!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-        
-        if(age >= 60)
+        catch (Exception e)
         {
-            typeId = 3;
-            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-            try
-            {
-            mtManager.invoiceSent(mf);
-            }
-            catch(Exception e)
-            {
-                System.err.println("ERROR - " + e.getMessage());
-            }
-            
+            System.err.println("ERROR - " + e.getMessage());
+            e.printStackTrace();
         }
-        
-        if(age >= 18 && age <60)
-        {
-            typeId = 2;
-            MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-            try
-            {
-            mtManager.invoiceSent(mf);
-            }
-            catch(Exception e)
-            {
-                System.err.println("ERROR - " + e.getMessage());
-            }
-            
-        }
+        dispose();
+
     }
-    
-    
+
     private void checkBirth()
     {
 
@@ -439,7 +498,7 @@ public class SummerFee extends javax.swing.JFrame
 
 
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -492,7 +551,7 @@ public class SummerFee extends javax.swing.JFrame
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox chkbInvoiceSent;
-    private javax.swing.JCheckBox chkbMonthlyPay;
+    private javax.swing.JCheckBox chkbPaid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddresstext;

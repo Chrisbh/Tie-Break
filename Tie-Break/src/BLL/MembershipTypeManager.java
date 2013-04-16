@@ -5,6 +5,7 @@ import BE.MembershipType;
 import DAL.MembershipTypeDBManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MembershipTypeManager
 {
@@ -88,5 +89,20 @@ public class MembershipTypeManager
     public MembershipFee invoiceSent(MembershipFee mf) throws Exception
     {
         return db.invoiceSent(mf);
+    }
+    
+    public void paymentReceived (int memberId, Calendar paymentReceived) throws Exception
+    {
+        db.paymentRecieved(memberId, paymentReceived);
+    }
+    
+    public Calendar getSent(int memberId) throws Exception
+    {
+        return db.getSent(memberId);
+    }
+    
+    public Calendar getPaid(int memberId) throws Exception
+    {
+        return db.getPaid(memberId);
     }
 }

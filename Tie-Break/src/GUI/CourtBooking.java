@@ -444,6 +444,7 @@ public class CourtBooking extends javax.swing.JFrame
                     BookingManager.getInstance().reserveCourt(r);
 
                     booking.clear();
+                    dispose();
                 }
             }
             catch (Exception e)

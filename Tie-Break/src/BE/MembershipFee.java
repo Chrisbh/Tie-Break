@@ -28,11 +28,11 @@ public class MembershipFee
      * Constructor for membership fee with just a membership fee object
      * @param mf A given membership fee
      */
-    public MembershipFee(int id, int typeId, Calendar invoiceSent)
+    public MembershipFee(int memberId, int typeId, Calendar invoiceSent)
     {
-        this(id, typeId, invoiceSent, null);
+        this(memberId, typeId, invoiceSent, null);
     }
-
+    
     /**
      * Returns the member id of the member fee
      * @return the memberId

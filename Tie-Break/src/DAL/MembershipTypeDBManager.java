@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.Member;
 import BE.MembershipFee;
 import BE.MembershipType;
 import java.sql.Connection;
@@ -7,7 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MembershipTypeDBManager extends TieBreakDBManager
 {
@@ -148,7 +152,76 @@ public class MembershipTypeDBManager extends TieBreakDBManager
             keys.next();
             return new MembershipFee(mf.getMemberId(), mf.getTypeId(), mf.getInvoiceSent());
         }
+    }
+    
+    public Calendar getSent(int memberId) throws SQLException
+    {
+         try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT * FROM MembershipFee WHERE MemberId = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, memberId);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                Timestamp invoice = rs.getTimestamp("InvoiceSent");
+                
+                Calendar time = new GregorianCalendar();
+                time.set(invoice.getYear() + 1900, invoice.getMonth(), invoice.getDate(), invoice.getHours(), 0, 0);
+
+                return time;
+            }
+        }
+        return null;
+    }
+    
+    public void paymentRecieved (int memberId, Calendar paymentReceived) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            String sql = "UPDATE MembershipFee SET PaymentReceived = ? WHERE MemberID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setTimestamp(1, new java.sql.Timestamp(paymentReceived.getTimeInMillis()));
+            ps.setInt(2, memberId);
+            
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0)
+            {
+                throw new SQLException("Kunne ikke tilføje kontingent information!");
+            }
+            ResultSet keys = ps.getGeneratedKeys();
+            keys.next();
+        }
 
 
+    }
+    
+    public Calendar getPaid(int memberId) throws SQLException
+    {
+         try (Connection con = ds.getConnection())
+        {
+            Statement st = con.createStatement();
+            String sql = ("SELECT * FROM MembershipFee WHERE MemberId = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, memberId);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                Timestamp payment = rs.getTimestamp("PaymentReceived");
+                
+                Calendar time = new GregorianCalendar();
+                if(payment != null)
+                {
+                time.set(payment.getYear() + 1900, payment.getMonth(), payment.getDate(), payment.getHours(), 0, 0);
+                }
+               
+                return time;
+            }
+        }
+        return null;
     }
 }
