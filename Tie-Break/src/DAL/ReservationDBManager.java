@@ -54,8 +54,8 @@ public class ReservationDBManager extends TieBreakDBManager
     }
 
     /**
-     *
-     * @return
+     * Pulls an ArrayList of the names of every court
+     * @return An ArrayList with names
      * @throws SQLException
      */
     public ArrayList<String> getCourtsName() throws SQLException
@@ -78,9 +78,9 @@ public class ReservationDBManager extends TieBreakDBManager
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Pulls the ID of a court using the court name
+     * @param name The name of the court the ID is being pulled from
+     * @return ID of a court
      * @throws SQLException
      */
     public int getIdByName(String name) throws SQLException
@@ -104,9 +104,9 @@ public class ReservationDBManager extends TieBreakDBManager
     }
     
      /**
-     *
-     * @param id
-     * @return
+     * Pulls the name of a court using the court ID
+     * @param id The ID of the court the name is being pulled from
+     * @return Name of a court
      * @throws SQLException
      */
     public String getNameById(int id) throws SQLException
@@ -130,8 +130,8 @@ public class ReservationDBManager extends TieBreakDBManager
     }
      
     /**
-     *
-     * @return
+     * Pulls an ArrayList of every court reservation in the database
+     * @return All court reservations in an ArrayList
      * @throws SQLException
      */
     public ArrayList<Reservation> getReservations() throws SQLException

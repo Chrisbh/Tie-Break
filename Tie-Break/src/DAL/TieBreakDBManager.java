@@ -1,27 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.io.FileReader;
 import java.util.Properties;
 
-/**
- *
- * @author Chris
- */
 public class TieBreakDBManager
 {
 
+
     /**
-     *
+     * Establishes the connection to the database for all DAL classes
+     * SQLServerDataSource is from the sqljdbc4 library
      */
     protected SQLServerDataSource ds;
 
+   
     /**
-     *
+     * Constructor of the tie break db manager
+     * This makes the connection between the DAL and the database
+     * It is used in every DAL class
      * @throws Exception
      */
     public TieBreakDBManager() throws Exception
