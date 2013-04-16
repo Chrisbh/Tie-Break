@@ -10,8 +10,12 @@ public class Reservation
     private int memberId;
     private Calendar reservationTime;
 
-    /*
+    /**
      * Constructor for reservation with everything
+     * @param id reservation ID
+     * @param courtId court ID
+     * @param memberId member ID
+     * @param reservationTime the time reserved
      */
     public Reservation(int id, int courtId, int memberId, Calendar reservationTime)
     {
@@ -20,25 +24,31 @@ public class Reservation
         this.memberId = memberId;
         this.reservationTime = reservationTime;
     }
-    
-    /*
+
+    /**
      * Constructor for reservation without id
+     * @param courtId court ID
+     * @param memberId member ID
+     * @param reservationTime the time reserved
      */
     public Reservation(int courtId, int memberId, Calendar reservationTime)
     {
         this(-1, courtId, memberId, reservationTime);
     }
 
-    /*
+    /**
      * Constructor for reservation with id and a reservation object
+     * @param id reservation ID
+     * @param r a given reservation object
      */
     public Reservation(int id, Reservation r)
     {
         this(id, r.courtId, r.memberId, r.reservationTime);
     }
-    
-    /*
+
+    /**
      * Constructor with just the reservation time
+     * @param reservationTime the time reserved
      */
     public Reservation(Calendar reservationTime)
     {
@@ -64,7 +74,7 @@ public class Reservation
     }
 
     /**
-     * Sets the court  of a reservation
+     * Sets the court of a reservation
      * @param courtId the courtId to set
      */
     public void setCourtId(int courtId)
@@ -115,9 +125,12 @@ public class Reservation
     @Override
     public boolean equals(Object obj)
     {
-        if (! (obj instanceof Reservation)) return false;
+        if (!(obj instanceof Reservation))
+        {
+            return false;
+        }
         Reservation r = (Reservation) obj;
         return this.reservationTime.getTime().equals(r.reservationTime.getTime());
-                
+
     }
 }
