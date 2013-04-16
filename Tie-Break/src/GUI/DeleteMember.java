@@ -10,10 +10,6 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Chris
- */
 public class DeleteMember extends javax.swing.JFrame
 {
     private MemberManager mManager;
