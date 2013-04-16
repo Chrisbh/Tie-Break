@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Member;
@@ -9,22 +5,18 @@ import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Chris
- */
 public class WinterFee extends javax.swing.JFrame
 {
-
     private static WinterFee instance = null;
     private MemberManager mManager;
 
     /**
-     * Creates new form AllMembers
+     * Constructor for the winter fee class
      */
     private WinterFee()
     {
@@ -44,6 +36,10 @@ public class WinterFee extends javax.swing.JFrame
         });
     }
 
+    /**
+     * Conversion of the winter fee class to a singleton
+     * @return An instance of the winter fee class
+     */
     public static WinterFee getInstance()
     {
         if (instance == null)
@@ -208,6 +204,10 @@ public class WinterFee extends javax.swing.JFrame
         Administration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    /**
+     * Updates the list model in winter fee to show all members currently 
+     * in the club
+     */
     public void allMembers()
     {
         DefaultListModel model = new DefaultListModel();
@@ -230,6 +230,9 @@ public class WinterFee extends javax.swing.JFrame
         spNames.setModel(model);
     }
 
+    /**
+     * Provides the member information requested by the text fields on the gui
+     */
     public void insertMember()
     {
         String name = (String) spNames.getSelectedValue();
@@ -249,7 +252,6 @@ public class WinterFee extends javax.swing.JFrame
         {
             System.out.println("ERROR - " + e.getMessage());
         }
-
     }
 
     /**
@@ -257,39 +259,17 @@ public class WinterFee extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Get system look and feel
          */
         try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch (ClassNotFoundException ex)
+        catch (Exception e)
         {
-            java.util.logging.Logger.getLogger(WinterFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            //Do nothing
         }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(WinterFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(WinterFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(WinterFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
