@@ -394,7 +394,6 @@ public class Registration extends javax.swing.JFrame
                     Calendar bday = bDate;
                     String password = new Scanner(pfPassword.getText()).nextLine();
                     Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, bday, password);
-                    
                     try
                     {
                         mManager.addMember(m);
