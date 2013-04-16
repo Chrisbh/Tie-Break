@@ -217,14 +217,6 @@ public class CourtBooking extends javax.swing.JFrame
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Bookning af Baner");
 
-        cmbxTime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                cmbxTimeActionPerformed(evt);
-            }
-        });
-
         lblTime.setText("Tidsrum");
 
         btnAddBooking.setText("Tilføj booking");
@@ -324,11 +316,6 @@ public class CourtBooking extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmbxTimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cmbxTimeActionPerformed
-    {//GEN-HEADEREND:event_cmbxTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbxTimeActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
     {//GEN-HEADEREND:event_btnCancelActionPerformed

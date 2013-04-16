@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BLL.MemberManager;
@@ -9,19 +5,14 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-/**
- *
- * @author Chris
- */
 public class Login extends javax.swing.JFrame
 {
-
     private static Login instance = null;
     private MemberManager mManager;
     private boolean MemberNrCancelled = false;
 
     /**
-     * Creates new form Login
+     * Constructor for the login class  
      */
     public Login()
     {
@@ -31,7 +22,11 @@ public class Login extends javax.swing.JFrame
         setTitle("Log ind");
         getRootPane().setDefaultButton(btnLogIn);
     }
-    
+
+    /**
+     * Conversion of the login class to a singleton
+     * @return An instance of the login class
+     */
     public static Login getInstance()
     {
         if (instance == null)
@@ -61,14 +56,6 @@ public class Login extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblMemberNr.setText("Medlemsnummer:");
-
-        txtMemberNr.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtMemberNrActionPerformed(evt);
-            }
-        });
 
         lblPassword.setText("Adgangskode:");
 
@@ -127,21 +114,96 @@ public class Login extends javax.swing.JFrame
         txtPassword.setText("");
     }//GEN-LAST:event_btnLogInActionPerformed
 
-    private void txtMemberNrActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtMemberNrActionPerformed
-    {//GEN-HEADEREND:event_txtMemberNrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMemberNrActionPerformed
+    /**
+     * Checks whether the entered username and password matches with a user in the database
+     */
+    public void LoginCheck()
+    {
+        if (txtMemberNr.getText().length() != 0 && txtPassword.getText().length() != 0)
+        {
+            Scanner MemberNrSC = new Scanner(txtMemberNr.getText());
+            checkInt(MemberNrSC);
+            int MemberID = new Scanner(txtMemberNr.getText()).nextInt();
+            String Password = new Scanner(txtPassword.getText()).nextLine();
+
+            if (!MemberNrCancelled)
+            {
+                MemberNrSC = new Scanner(txtMemberNr.getText());
+                int lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
+                while (lengthMember < 1)
+                {
+                    String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være tal og minimum ét tal");
+                    if (correctedMemberNr == null)
+                    {
+                        MemberNrCancelled = true;
+                        break;
+                    }
+                    txtMemberNr.setText(correctedMemberNr);
+
+                    MemberNrSC = new Scanner(txtMemberNr.getText());
+                    checkInt(MemberNrSC);
+                    MemberNrSC = new Scanner(txtMemberNr.getText());
+                    lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
+                }
+            }
+            else
+            {
+                MemberNrCancelled = false;
+            }
+            try
+            {
+                if (mManager.checkUserNameAndPassword(MemberID, Password) == true)
+                {
+                    MainMenu.getInstance().setVisible(true);
+                    this.setVisible(false);
+                    MemberManager.getInstance().setLoggedIn(MemberID);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Indtastede medlemdsoplysninger er forkerte, prøv igen!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.out.println("ERROR" + ex);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     /**
+     * Checks if the entered username is a number as it is required
+     * @param MemberNrSC A scanner containing the entered number
+     */
+    public void checkInt(Scanner MemberNrSC)
+    {
+        MemberNrSC = new Scanner(txtMemberNr.getText());
+        while (!MemberNrSC.hasNextInt())
+        {
+            String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være et nummer, indtast det rigtige");
+            if (correctedMemberNr == null)
+            {
+                MemberNrCancelled = true;
+                break;
+            }
+            txtMemberNr.setText(correctedMemberNr);
+
+            MemberNrSC = new Scanner(txtMemberNr.getText());
+            MemberNrCancelled = false;
+        }
+    }
+    
+    /**
      * @param args the command line arguments
+     * @throws Exception  
      */
     public static void main(String args[]) throws Exception
     {
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Set system look and feel
          */
         try
         {
@@ -151,7 +213,6 @@ public class Login extends javax.swing.JFrame
         {
             //Do nothing
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
@@ -170,84 +231,4 @@ public class Login extends javax.swing.JFrame
     private javax.swing.JTextField txtMemberNr;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
-
-    public void LoginCheck()
-    {
-        if (txtMemberNr.getText().length() != 0 && txtPassword.getText().length() != 0)
-        {
-            Scanner MemberNrSC = new Scanner(txtMemberNr.getText());
-            checkInt(MemberNrSC);
-            int MemberID = new Scanner(txtMemberNr.getText()).nextInt();
-            String Password = new Scanner(txtPassword.getText()).nextLine();
-
-            if(!MemberNrCancelled)
-            {
-                MemberNrSC = new Scanner(txtMemberNr.getText());
-                int lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
-                while(lengthMember < 1)
-                {
-                    String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være tal og minimum ét tal");
-                    if(correctedMemberNr == null)
-                    {
-                        MemberNrCancelled = true;
-                        break;
-                    }
-                    txtMemberNr.setText(correctedMemberNr);
-                    
-                    MemberNrSC = new Scanner(txtMemberNr.getText());
-                    checkInt(MemberNrSC);
-                    MemberNrSC = new Scanner(txtMemberNr.getText());
-                    lengthMember = String.valueOf(MemberNrSC.nextInt()).length();
-                }
-            }
-            else
-            {
-                MemberNrCancelled = false;
-            }
-
-            try
-            {
-                if (mManager.checkUserNameAndPassword(MemberID, Password) == true)
-                {
-                    MainMenu.getInstance().setVisible(true);
-                    this.setVisible(false);
-                    MemberManager.getInstance().setLoggedIn(MemberID);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Indtastede medlemdsoplysninger er forkerte, prøv igen!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.out.println("ERROR" + ex);
-            }
-
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-
-    }
-
-    public void checkInt(Scanner MemberNrSC)
-    {
-        MemberNrSC = new Scanner(txtMemberNr.getText());
-        while (!MemberNrSC.hasNextInt())
-        {
-            String correctedMemberNr = JOptionPane.showInputDialog(null, "Medlemsnummer skal være et nummer, indtast det rigtige");
-            if (correctedMemberNr == null)
-            {
-                MemberNrCancelled = true;
-                break;
-            }
-            txtMemberNr.setText(correctedMemberNr);
-
-            MemberNrSC = new Scanner(txtMemberNr.getText());
-            MemberNrCancelled = false;
-
-        }
-    }
 }
