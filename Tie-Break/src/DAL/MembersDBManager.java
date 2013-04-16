@@ -84,7 +84,6 @@ public class MembersDBManager extends TieBreakDBManager
         {
             throw new SQLException("Kunne ikke opdatere medlem");
         }
-
     }
 
     /**
@@ -130,7 +129,8 @@ public class MembersDBManager extends TieBreakDBManager
     }
 
     /**
-     * Pulls an ArrayList from the database with both a member ID and the member name
+     * Pulls an ArrayList from the database with both a member ID and the member
+     * name
      * @return An ArrayList with member ID's and their corresponding names
      * @throws SQLException
      */
@@ -155,7 +155,8 @@ public class MembersDBManager extends TieBreakDBManager
     }
 
     /**
-     * Pulls an ArrayList from the database with a member object of every single member in the database
+     * Pulls an ArrayList from the database with a member object of every single
+     * member in the database
      * @return An ArrayList with with member objects
      * @throws SQLException
      */
@@ -194,7 +195,7 @@ public class MembersDBManager extends TieBreakDBManager
     /**
      * Pulls a member from the database by their member ID
      * @param id The id of the member being pulled
-     * @return A member object with the pulled member 
+     * @return A member object with the pulled member
      * @throws SQLException
      */
     public Member getMemberByID(int id) throws SQLException
@@ -232,7 +233,7 @@ public class MembersDBManager extends TieBreakDBManager
     /**
      * Pulls a members BDay from the database by their member ID
      * @param id The id of the member being pulled
-     * @return A memberBDay Calendar object with the pulled member 
+     * @return A memberBDay Calendar object with the pulled member
      * @throws SQLException
      */
     public Calendar getMembersBDayByID(int id) throws SQLException
@@ -249,17 +250,18 @@ public class MembersDBManager extends TieBreakDBManager
             {
                 Timestamp bday = rs.getTimestamp("Bday");
                 Calendar time = new GregorianCalendar();
-                time.setTime(bday);    
+                time.setTime(bday);
 
                 return time;
             }
         }
         return null;
     }
-    
+
     /**
-     * Pulls the ID(username) and password of a member from the database, with the intent of checking these to login
-     * @param ID A member ID 
+     * Pulls the ID(username) and password of a member from the database, with
+     * the intent of checking these to login
+     * @param ID A member ID
      * @param Password A password used together with member ID
      * @return ID and password, to check when logging in
      * @throws SQLException
@@ -277,8 +279,5 @@ public class MembersDBManager extends TieBreakDBManager
             return (rs.next());
 
         }
-
-
     }
-
 }

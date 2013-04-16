@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 public class Reservation
 {
-
     private int id;
     private int courtId;
     private int memberId;
@@ -131,6 +130,5 @@ public class Reservation
         }
         Reservation r = (Reservation) obj;
         return this.reservationTime.getTime().equals(r.reservationTime.getTime());
-
     }
 }

@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 public class MembershipFee
 {
-
     private int memberId;
     private int typeId;
     private Calendar invoiceSent;
@@ -102,7 +101,8 @@ public class MembershipFee
     }
 
     /**
-     * Returns a boolean. False if the membership fee has not been paid, true if it has been paid
+     * Returns a boolean. False if the membership fee has not been paid, true if
+     * it has been paid
      * @return the isPaid
      */
     public boolean isIsPaid()

@@ -2,7 +2,6 @@ package BE;
 
 public class MembershipType
 {
-
     private int id;
     private String membershipName;
     private int price;

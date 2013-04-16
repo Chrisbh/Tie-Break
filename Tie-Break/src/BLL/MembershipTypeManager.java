@@ -39,8 +39,9 @@ public class MembershipTypeManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to add a price to a membership type
-     * @param mt a given membershiptype object
+     * Connects the database to the gui allowing the gui to add a price to a
+     * membership type
+     * @param mt a given membership type object
      * @throws Exception
      */
     public void addPrice(MembershipType mt) throws Exception
@@ -49,7 +50,8 @@ public class MembershipTypeManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve a list of the names of all the membership types
+     * Connects the database to the gui allowing the gui to retrieve a list of
+     * the names of all the membership types
      * @return the name of a membership type
      * @throws SQLException
      */
@@ -59,7 +61,8 @@ public class MembershipTypeManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve a membership type specified by the ID
+     * Connects the database to the gui allowing the gui to retrieve a
+     * membership type specified by the ID
      * @param id the ID of membership type
      * @return a membership type object with the given ID
      * @throws Exception
@@ -70,7 +73,8 @@ public class MembershipTypeManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve the ID of a membership type by checking the name of the membership type
+     * Connects the database to the gui allowing the gui to retrieve the ID of a
+     * membership type by checking the name of the membership type
      * @param name the name of a membership type
      * @return the ID of a membership type with the given name
      * @throws SQLException

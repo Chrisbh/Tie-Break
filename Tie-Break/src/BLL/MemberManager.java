@@ -53,7 +53,7 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to update a member 
+     * Connects the database to the gui allowing the gui to update a member
      * @param m a member object
      * @throws SQLException
      */
@@ -93,8 +93,9 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve a list of all members in the club, 
-     * with all the information the club has about the member
+     * Connects the database to the gui allowing the gui to retrieve a list of
+     * all members in the club, with all the information the club has about the
+     * member
      * @return ArrayList with all information about every member
      * @throws SQLException
      */
@@ -104,7 +105,8 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to get a member using the member ID
+     * Connects the database to the gui allowing the gui to get a member using
+     * the member ID
      * @param id the ID of the member being pulled
      * @return a member object
      * @throws SQLException
@@ -115,7 +117,8 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to get a members bday using the member ID
+     * Connects the database to the gui allowing the gui to get a members bday
+     * using the member ID
      * @param id the ID of the member being pulled
      * @return the birthday of a specific member
      * @throws SQLException
@@ -126,8 +129,9 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve the id(username) and password of a member
-     * This is used during the login to check if the entered login information is correct
+     * Connects the database to the gui allowing the gui to retrieve the
+     * id(username) and password of a member This is used during the login to
+     * check if the entered login information is correct
      * @param ID username for the login
      * @param Password password for the login
      * @return username and password used for logging in
@@ -139,7 +143,8 @@ public class MemberManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to set whether a member has logged in or not
+     * Connects the database to the gui allowing the gui to set whether a member
+     * has logged in or not
      * @param memberID ID of the member getting their logged in state changed
      */
     public void setLoggedIn(int memberID)

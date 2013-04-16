@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class BookingManager
 {
-
     private ReservationDBManager db = null;
     private static BookingManager instance = null;
 
@@ -41,7 +40,8 @@ public class BookingManager
     }
 
     /**
-     * Connects the database to the gui allowing a reservation to be send between them
+     * Connects the database to the gui allowing a reservation to be send
+     * between them
      * @param r a reservation of a court
      * @return a reservation
      * @throws Exception
@@ -52,7 +52,8 @@ public class BookingManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve a list of all the court names
+     * Connects the database to the gui allowing the gui to retrieve a list of
+     * all the court names
      * @return an ArrayList with all court names
      * @throws SQLException
      */
@@ -62,7 +63,8 @@ public class BookingManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve the id of a court using the court name
+     * Connects the database to the gui allowing the gui to retrieve the id of a
+     * court using the court name
      * @param name the name used to get the ID
      * @return a reservation ID
      * @throws SQLException
@@ -73,7 +75,8 @@ public class BookingManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve the id of a court using the court name
+     * Connects the database to the gui allowing the gui to retrieve the id of a
+     * court using the court name
      * @param id the ID used to get the name
      * @return a reservation name
      * @throws SQLException
@@ -84,7 +87,8 @@ public class BookingManager
     }
 
     /**
-     * Connects the database to the gui allowing the gui to retrieve all reservations currently made
+     * Connects the database to the gui allowing the gui to retrieve all
+     * reservations currently made
      * @return an Arraylist with all reservations
      * @throws SQLException
      */
