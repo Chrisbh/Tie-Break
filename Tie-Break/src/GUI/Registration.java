@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.Member;
@@ -12,14 +8,8 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-/**
- *
- * @author Chris
- */
 public class Registration extends javax.swing.JFrame
 {
-
-    private String name;
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
@@ -28,7 +18,7 @@ public class Registration extends javax.swing.JFrame
     private static Registration instance = null;
 
     /**
-     * Creates new form Registration
+     * Constructor for the registration class
      */
     private Registration()
     {
@@ -39,6 +29,10 @@ public class Registration extends javax.swing.JFrame
         setTitle("Registrering af medlem");
     }
 
+    /**
+     * Conversion of the registration class to a singleton
+     * @return An instance of the registration class
+     */
     public static Registration getInstance()
     {
         if (instance == null)
@@ -96,14 +90,6 @@ public class Registration extends javax.swing.JFrame
 
         lblPhoneNumber.setText("Telefonnr");
 
-        txtLastName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtLastNameActionPerformed(evt);
-            }
-        });
-
         btnAdd.setText("Tilføj");
         btnAdd.addActionListener(new java.awt.event.ActionListener()
         {
@@ -130,14 +116,6 @@ public class Registration extends javax.swing.JFrame
         txtBDate.setToolTipText("");
 
         lblPostNrByAdskiller.setText("/");
-
-        txtFirstName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                txtFirstNameActionPerformed(evt);
-            }
-        });
 
         lblPassword.setText("Kodeord");
 
@@ -259,18 +237,9 @@ public class Registration extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtFirstNameActionPerformed
-    {//GEN-HEADEREND:event_txtFirstNameActionPerformed
-    }//GEN-LAST:event_txtFirstNameActionPerformed
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtLastNameActionPerformed
-    {//GEN-HEADEREND:event_txtLastNameActionPerformed
-    }//GEN-LAST:event_txtLastNameActionPerformed
-
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
         addMember();
-
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCancelActionPerformed
@@ -280,7 +249,9 @@ public class Registration extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    @SuppressWarnings("empty-statement")
+    /**
+     * Adds a member to the database
+     */
     public void addMember()
     {
         if (txtFirstName.getText().length() != 0 && txtLastName.getText().length() != 0
@@ -307,7 +278,6 @@ public class Registration extends javax.swing.JFrame
                         break;
                     }
                     txtZipCode.setText(correctedZipCode);
-
                     zipCodeSc = new Scanner(txtZipCode.getText());
                     checkInt(zipCodeSc, phoneSc);
                     zipCodeSc = new Scanner(txtZipCode.getText());
@@ -427,7 +397,6 @@ public class Registration extends javax.swing.JFrame
                     try
                     {
                         mManager.addMember(m);
-
                         clearFields();
                         dispose();
                     }
@@ -452,6 +421,9 @@ public class Registration extends javax.swing.JFrame
         }
     }
 
+    /*
+     * Clears the text fields on the gui
+     */
     private void clearFields()
     {
         txtFirstName.setText("");
@@ -466,6 +438,9 @@ public class Registration extends javax.swing.JFrame
         pfRepeatPassword.setText("");
     }
 
+    /*
+     * Checks if the entered text is a number
+     */
     private void checkInt(Scanner zipCodeSc, Scanner phoneSc)
     {
         zipCodeSc = new Scanner(txtZipCode.getText());
@@ -519,10 +494,8 @@ public class Registration extends javax.swing.JFrame
      */
     public static void main(String args[])
     {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * Get system look and feel
          */
         try
         {
@@ -532,7 +505,6 @@ public class Registration extends javax.swing.JFrame
         {
             //Do nothing
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
