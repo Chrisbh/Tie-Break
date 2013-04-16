@@ -7,10 +7,9 @@ public class Court
     private String courtName;
 
     /**
-     * Constructor for Court
-     *
-     * @param id
-     * @param courtName
+     * Constructor of the Court class
+     * @param id The court ID
+     * @param courtName The name of a court
      */
     public Court(int id, String courtName)
     {
