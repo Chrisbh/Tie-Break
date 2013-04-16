@@ -7,8 +7,11 @@ public class MembershipType
     private String membershipName;
     private int price;
 
-    /*
+    /**
      * Constructor for membership type with everything
+     * @param id membership type ID
+     * @param membershipName name of the membership
+     * @param price price of the membership
      */
     public MembershipType(int id, String membershipName, int price)
     {
@@ -16,17 +19,21 @@ public class MembershipType
         this.membershipName = membershipName;
         this.price = price;
     }
-    
-    /*
+
+    /**
      * Constructor for membership type without ID
+     * @param membershipName name of the membership
+     * @param price price of the membership
      */
     public MembershipType(String membershipName, int price)
     {
         this(-1, membershipName, price);
     }
 
-    /*
+    /**
      * Constructor for membership type with the ID and a membership type object
+     * @param id membership type ID
+     * @param mt a given membership type object
      */
     public MembershipType(int id, MembershipType mt)
     {
