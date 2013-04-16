@@ -72,27 +72,20 @@ public class SummerFee extends javax.swing.JFrame
                         chkbInvoiceSent.setEnabled(true);
                     }
 
-                    if (sent == null)
-                    {
-                        chkbPaid.setSelected(false);
-                        chkbPaid.setEnabled(false);
-                    }
-                    else
-                    {
-                        chkbPaid.setSelected(false);
-                        chkbPaid.setEnabled(true);
-                    }
-
                     if (paid != null && (Calendar.getInstance().get(Calendar.YEAR) == paid.get(Calendar.YEAR)))
                     {
                         chkbPaid.setSelected(true);
                         chkbPaid.setEnabled(false);
                     }
+                    else if(sent== null)
+                    {
+                        chkbPaid.setEnabled(false);
+                        chkbPaid.setSelected(false);
+                    }
                     else
                     {
                         chkbPaid.setEnabled(true);
                         chkbPaid.setSelected(false);
-
                     }
 
 
