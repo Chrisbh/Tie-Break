@@ -311,6 +311,7 @@ public class SummerFee extends javax.swing.JFrame
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBackActionPerformed
     {//GEN-HEADEREND:event_btnBackActionPerformed
         dispose();
+        spNames.clearSelection();
         Administration.getInstance().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -352,10 +353,14 @@ public class SummerFee extends javax.swing.JFrame
     }
 
     public void insertMember()
-    {
+    {   
+        int id = 1;
         String name = (String) spNames.getSelectedValue();
+        if(name != null)
+        {
         String parts[] = name.split(" : ");
-        int id = Integer.parseInt(parts[0]);
+        id = Integer.parseInt(parts[0]);
+        }
         try
         {
             Member m = mManager.getMemberByID(id);

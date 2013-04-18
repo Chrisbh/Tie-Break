@@ -202,6 +202,7 @@ public class AllMembers extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         dispose();
+        spNames.clearSelection();
         MainMenu.getInstance().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -234,9 +235,14 @@ public class AllMembers extends javax.swing.JFrame
      */
     public void DisplayMemberInformation()
     {
+        int id = 1;
         String name = (String) spNames.getSelectedValue();
+        if(name !=null)
+        {
         String parts[] = name.split(" : ");
-        int id = Integer.parseInt(parts[0]);
+        id = Integer.parseInt(parts[0]);
+        }
+        
         try
         {
             Member m = mManager.getMemberByID(id);
