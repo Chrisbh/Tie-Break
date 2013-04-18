@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class WinterFee extends javax.swing.JFrame
 {
+
     private static WinterFee instance = null;
     private MemberManager mManager;
 
@@ -38,6 +39,7 @@ public class WinterFee extends javax.swing.JFrame
 
     /**
      * Conversion of the winter fee class to a singleton
+     *
      * @return An instance of the winter fee class
      */
     public static WinterFee getInstance()
@@ -205,8 +207,8 @@ public class WinterFee extends javax.swing.JFrame
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
-     * Updates the list model in winter fee to show all members currently 
-     * in the club
+     * Updates the list model in winter fee to show all members currently in the
+     * club
      */
     public void allMembers()
     {
@@ -235,9 +237,13 @@ public class WinterFee extends javax.swing.JFrame
      */
     public void insertMember()
     {
+        int id = 1;
         String name = (String) spNames.getSelectedValue();
-        String parts[] = name.split(" : ");
-        int id = Integer.parseInt(parts[0]);
+        if (name != null)
+        {
+            String parts[] = name.split(" : ");
+            id = Integer.parseInt(parts[0]);
+        }
         try
         {
             Member m = mManager.getMemberByID(id);

@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class DeleteMember extends javax.swing.JFrame
 {
+
     private MemberManager mManager;
     private static DeleteMember instance = null;
 
@@ -43,6 +44,7 @@ public class DeleteMember extends javax.swing.JFrame
 
     /**
      * Conversion of the delete member class to Singleton
+     *
      * @return An instance of delete member
      */
     public static DeleteMember getInstance()

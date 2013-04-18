@@ -77,7 +77,7 @@ public class SummerFee extends javax.swing.JFrame
                         chkbPaid.setSelected(true);
                         chkbPaid.setEnabled(false);
                     }
-                    else if(sent== null)
+                    else if (sent == null)
                     {
                         chkbPaid.setEnabled(false);
                         chkbPaid.setSelected(false);
@@ -353,13 +353,13 @@ public class SummerFee extends javax.swing.JFrame
     }
 
     public void insertMember()
-    {   
+    {
         int id = 1;
         String name = (String) spNames.getSelectedValue();
-        if(name != null)
+        if (name != null)
         {
-        String parts[] = name.split(" : ");
-        id = Integer.parseInt(parts[0]);
+            String parts[] = name.split(" : ");
+            id = Integer.parseInt(parts[0]);
         }
         try
         {
