@@ -10,11 +10,14 @@ import javax.swing.UIManager;
 
 public class Registration extends javax.swing.JFrame
 {
+
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
     private boolean passwordCancelled = false;
+    private boolean Elite = false;
+    private boolean Coach = false;
     private static Registration instance = null;
 
     /**
@@ -31,6 +34,7 @@ public class Registration extends javax.swing.JFrame
 
     /**
      * Conversion of the registration class to a singleton
+     *
      * @return An instance of the registration class
      */
     public static Registration getInstance()
@@ -76,6 +80,8 @@ public class Registration extends javax.swing.JFrame
         pfRepeatPassword = new javax.swing.JPasswordField();
         txtBMonth = new javax.swing.JTextField();
         txtBYear = new javax.swing.JTextField();
+        chbkCoach = new javax.swing.JCheckBox();
+        chbkElite = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -124,6 +130,24 @@ public class Registration extends javax.swing.JFrame
         txtBMonth.setToolTipText("");
 
         txtBYear.setToolTipText("");
+
+        chbkCoach.setText("Træner");
+        chbkCoach.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chbkCoachActionPerformed(evt);
+            }
+        });
+
+        chbkElite.setText("Elite");
+        chbkElite.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chbkEliteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,6 +204,12 @@ public class Registration extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBYear)))
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(chbkElite)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbkCoach)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,23 +245,22 @@ public class Registration extends javax.swing.JFrame
                     .addComponent(txtBDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(btnCancel))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPassword)
-                            .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRepeatPassword)
-                            .addComponent(pfRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword)
+                    .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRepeatPassword)
+                    .addComponent(pfRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chbkCoach)
+                    .addComponent(chbkElite))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(btnCancel)))
         );
 
         pack();
@@ -248,6 +277,16 @@ public class Registration extends javax.swing.JFrame
         Administration.getInstance().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void chbkEliteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbkEliteActionPerformed
+    {//GEN-HEADEREND:event_chbkEliteActionPerformed
+        Elite = true;
+    }//GEN-LAST:event_chbkEliteActionPerformed
+
+    private void chbkCoachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbkCoachActionPerformed
+    {//GEN-HEADEREND:event_chbkCoachActionPerformed
+        Coach = true;
+    }//GEN-LAST:event_chbkCoachActionPerformed
 
     /**
      * Adds a member to the database
@@ -393,7 +432,7 @@ public class Registration extends javax.swing.JFrame
                     bDate.set(bYear, bMonth, bDay, 0, 0, 0);
                     Calendar bday = bDate;
                     String password = new Scanner(pfPassword.getText()).nextLine();
-                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, bday, password);
+                    Member m = new Member(zipCode, firstName, lastName, address, zipCode, city, email, phoneNumber, bday, password, Elite, Coach);
                     try
                     {
                         mManager.addMember(m);
@@ -518,6 +557,8 @@ public class Registration extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JCheckBox chbkCoach;
+    private javax.swing.JCheckBox chbkElite;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblBday;
     private javax.swing.JLabel lblEmail;

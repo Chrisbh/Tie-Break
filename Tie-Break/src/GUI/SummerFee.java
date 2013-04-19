@@ -134,6 +134,7 @@ public class SummerFee extends javax.swing.JFrame
         lblZipCity = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
+        lblCoach = new javax.swing.JLabel();
         chkbPaid = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
@@ -170,6 +171,8 @@ public class SummerFee extends javax.swing.JFrame
 
         lblPhoneNumbertext.setText("Telefonnr:");
 
+        lblCoach.setText("Træner :");
+
         javax.swing.GroupLayout pnlMemberInfoLayout = new javax.swing.GroupLayout(pnlMemberInfo);
         pnlMemberInfo.setLayout(pnlMemberInfoLayout);
         pnlMemberInfoLayout.setHorizontalGroup(
@@ -177,20 +180,23 @@ public class SummerFee extends javax.swing.JFrame
             .addGroup(pnlMemberInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlMemberInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMemberIDtext)
-                    .addComponent(lblNametext)
-                    .addComponent(lblPhoneNumbertext)
-                    .addComponent(lblAddresstext)
-                    .addComponent(lblZipCitytext)
-                    .addComponent(lblEmailtext))
-                .addGap(18, 18, 18)
-                .addGroup(pnlMemberInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEmail)
-                    .addComponent(lblZipCity)
-                    .addComponent(lblAddress)
-                    .addComponent(lblMemberID)
-                    .addComponent(lblName)
-                    .addComponent(lblPhoneNumber))
+                    .addGroup(pnlMemberInfoLayout.createSequentialGroup()
+                        .addGroup(pnlMemberInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMemberIDtext)
+                            .addComponent(lblNametext)
+                            .addComponent(lblPhoneNumbertext)
+                            .addComponent(lblAddresstext)
+                            .addComponent(lblZipCitytext)
+                            .addComponent(lblEmailtext))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMemberInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmail)
+                            .addComponent(lblZipCity)
+                            .addComponent(lblAddress)
+                            .addComponent(lblMemberID)
+                            .addComponent(lblName)
+                            .addComponent(lblPhoneNumber)))
+                    .addComponent(lblCoach))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMemberInfoLayout.setVerticalGroup(
@@ -220,7 +226,9 @@ public class SummerFee extends javax.swing.JFrame
                 .addGroup(pnlMemberInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPhoneNumbertext)
                     .addComponent(lblPhoneNumber))
-                .addGap(72, 72, 72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCoach)
+                .addGap(49, 49, 49))
         );
 
         chkbPaid.setText("Betalt månedskontingent");
@@ -292,17 +300,19 @@ public class SummerFee extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBodyText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlMemberInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(pnlMemberInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBack)
                             .addComponent(btnUpdate)
                             .addComponent(chkbPaid)
                             .addComponent(chkbInvoiceSent)))
-                    .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(spMember, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -567,6 +577,7 @@ public class SummerFee extends javax.swing.JFrame
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddresstext;
     private javax.swing.JLabel lblBodyText;
+    private javax.swing.JLabel lblCoach;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailtext;
     private javax.swing.JLabel lblMemberID;

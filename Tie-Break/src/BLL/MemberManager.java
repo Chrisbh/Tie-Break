@@ -160,4 +160,14 @@ public class MemberManager
     {
         return this.memberID;
     }
+    
+    public boolean getElite(int id) throws Exception
+    {
+        return db.getElite(id);
+    }
+    
+    public boolean getCoach(int id) throws Exception
+    {
+        return db.getCoach(id);
+    }
 }

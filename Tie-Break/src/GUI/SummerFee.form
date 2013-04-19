@@ -67,10 +67,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblBodyText" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="pnlMemberInfo" min="-2" pref="188" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlMemberInfo" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -78,9 +78,12 @@
                           <Component id="chkbInvoiceSent" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="spMember" min="-2" pref="217" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Component id="spMember" min="-2" pref="243" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -141,21 +144,26 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblMemberIDtext" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblNametext" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPhoneNumbertext" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAddresstext" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblZipCitytext" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblEmailtext" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblZipCity" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAddress" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblMemberID" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPhoneNumber" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblMemberIDtext" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNametext" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPhoneNumbertext" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblAddresstext" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblZipCitytext" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEmailtext" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblZipCity" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblAddress" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMemberID" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPhoneNumber" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="lblCoach" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -194,7 +202,9 @@
                       <Component id="lblPhoneNumbertext" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblCoach" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -241,6 +251,11 @@
         <Component class="javax.swing.JLabel" name="lblEmail">
         </Component>
         <Component class="javax.swing.JLabel" name="lblPhoneNumber">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCoach">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tr&#xe6;ner :"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

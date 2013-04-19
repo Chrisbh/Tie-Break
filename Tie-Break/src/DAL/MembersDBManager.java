@@ -13,8 +13,10 @@ import java.util.GregorianCalendar;
 
 public class MembersDBManager extends TieBreakDBManager
 {
+
     /**
      * Constructor for the members db manager class
+     *
      * @throws Exception
      */
     public MembersDBManager() throws Exception
@@ -24,6 +26,7 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Adds the given member, m, to the database
+     *
      * @param m The member object being added to the database
      * @return A member object
      * @throws SQLException
@@ -33,7 +36,7 @@ public class MembersDBManager extends TieBreakDBManager
         try (Connection con = ds.getConnection())
         {
 
-            String sql = "INSERT INTO Members VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Members VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getFirstName());
@@ -45,6 +48,8 @@ public class MembersDBManager extends TieBreakDBManager
             ps.setInt(7, m.getPhoneNumber());
             ps.setTimestamp(8, new java.sql.Timestamp(m.getBday().getTimeInMillis()));
             ps.setString(9, m.getPassword());
+            ps.setBoolean(10, m.isElite());
+            ps.setBoolean(11, m.isCoach());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
@@ -60,12 +65,13 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Updates a member currently in the database by modifying the member object
+     *
      * @param m The modified member object
      * @throws SQLException
      */
     public void updateMember(Member m) throws SQLException
     {
-        String sql = "UPDATE Members SET FirstName = ?, LastName = ?, Address = ?, ZipCode = ?, City = ?, Email = ?, Phone = ? WHERE ID = ?";
+        String sql = "UPDATE Members SET FirstName = ?, LastName = ?, Address = ?, ZipCode = ?, City = ?, Email = ?, Phone = ?, BDay = ?, Password = ?, Elite = ?, Coach = ? WHERE ID = ?";
         Connection con = ds.getConnection();
 
 
@@ -77,7 +83,11 @@ public class MembersDBManager extends TieBreakDBManager
         ps.setString(5, m.getCity());
         ps.setString(6, m.getEmail());
         ps.setInt(7, m.getPhoneNumber());
-        ps.setInt(8, m.getId());
+        ps.setTimestamp(8, new java.sql.Timestamp(m.getBday().getTimeInMillis()));
+        ps.setString(9, m.getPassword());
+        ps.setBoolean(10, m.isElite());
+        ps.setBoolean(11, m.isCoach());
+        ps.setInt(12, m.getId());
 
         int affectedRows = ps.executeUpdate();
         if (affectedRows == 0)
@@ -88,6 +98,7 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Deletes a member by selecting the member ID
+     *
      * @param id The ID of the member being deleted
      * @throws SQLException
      */
@@ -107,6 +118,7 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Pulls an ArrayList of all member ID's currently in the database
+     *
      * @return An ArrayLit with all the ID's
      * @throws SQLException
      */
@@ -131,6 +143,7 @@ public class MembersDBManager extends TieBreakDBManager
     /**
      * Pulls an ArrayList from the database with both a member ID and the member
      * name
+     *
      * @return An ArrayList with member ID's and their corresponding names
      * @throws SQLException
      */
@@ -157,6 +170,7 @@ public class MembersDBManager extends TieBreakDBManager
     /**
      * Pulls an ArrayList from the database with a member object of every single
      * member in the database
+     *
      * @return An ArrayList with with member objects
      * @throws SQLException
      */
@@ -182,8 +196,10 @@ public class MembersDBManager extends TieBreakDBManager
                 Calendar time = new GregorianCalendar();
                 time.setTime(bday);
                 String password = rs.getString("Password");
+                boolean elite = rs.getBoolean("elite");
+                boolean coach = rs.getBoolean("coach");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password, elite, coach);
 
 
                 members.add(m);
@@ -194,6 +210,7 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Pulls a member from the database by their member ID
+     *
      * @param id The id of the member being pulled
      * @return A member object with the pulled member
      * @throws SQLException
@@ -221,8 +238,10 @@ public class MembersDBManager extends TieBreakDBManager
                 Calendar time = new GregorianCalendar();
                 time.setTime(bday);
                 String password = rs.getString("Password");
+                boolean elite = rs.getBoolean("elite");
+                boolean coach = rs.getBoolean("coach");
 
-                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password);
+                Member m = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, time, password, elite, coach);
 
                 return m;
             }
@@ -232,6 +251,7 @@ public class MembersDBManager extends TieBreakDBManager
 
     /**
      * Pulls a members BDay from the database by their member ID
+     *
      * @param id The id of the member being pulled
      * @return A memberBDay Calendar object with the pulled member
      * @throws SQLException
@@ -261,6 +281,7 @@ public class MembersDBManager extends TieBreakDBManager
     /**
      * Pulls the ID(username) and password of a member from the database, with
      * the intent of checking these to login
+     *
      * @param ID A member ID
      * @param Password A password used together with member ID
      * @return ID and password, to check when logging in
@@ -278,6 +299,47 @@ public class MembersDBManager extends TieBreakDBManager
             ResultSet rs = ps.executeQuery();
             return (rs.next());
 
+        }
+    }
+
+    public boolean getElite(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            String sql = "SELECT Elite FROM Members WHERE ID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getBoolean(1);
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+    }
+
+    public boolean getCoach(int id) throws SQLException
+    {
+        try (Connection con = ds.getConnection())
+        {
+            String sql = "SELECT Coach FROM Members WHERE ID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getBoolean(1);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

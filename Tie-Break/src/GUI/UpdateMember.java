@@ -4,9 +4,8 @@ import BE.Member;
 import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -15,11 +14,16 @@ import javax.swing.event.ListSelectionListener;
 
 public class UpdateMember extends javax.swing.JFrame
 {
+
+    private Member m;
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
+    private boolean isElite = false;
+    private boolean isCoach = false;
     private static UpdateMember instance = null;
+    private int memberId = 1;
 
     /**
      * Constructor for the update member class
@@ -39,16 +43,34 @@ public class UpdateMember extends javax.swing.JFrame
             @Override
             public void valueChanged(ListSelectionEvent lse)
             {
-                if (!(lse.getValueIsAdjusting() || splMemberID.isSelectionEmpty()))
+                insertMemberToList();
+                try
                 {
-                    insertMemberToList();
+                    isElite = mManager.getElite(memberId);
+                    isCoach = mManager.getCoach(memberId);
+
+                    if (isElite != false || isCoach != false)
+                    {
+                        chbxElite.setSelected(true);
+                    }
+                    else
+                    {
+                        chbxCoach.setSelected(false);
+                        chbxElite.setSelected(false);
+                    }
                 }
+                catch (Exception e)
+                {
+                    System.err.println("Error - " + e.getMessage());
+                }
+
             }
         });
     }
 
     /**
      * Conversion of the update member class to a singleton
+     *
      * @return An instance of the update member class
      */
     public static UpdateMember getInstance()
@@ -89,6 +111,12 @@ public class UpdateMember extends javax.swing.JFrame
         lblMemberID = new javax.swing.JLabel();
         spMemberID = new javax.swing.JScrollPane();
         splMemberID = new javax.swing.JList();
+        chbxCoach = new javax.swing.JCheckBox();
+        chbxElite = new javax.swing.JCheckBox();
+        txtPass = new javax.swing.JTextField();
+        lbPass = new javax.swing.JLabel();
+        txtBday = new javax.swing.JTextField();
+        lblBday = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -130,6 +158,30 @@ public class UpdateMember extends javax.swing.JFrame
 
         spMemberID.setViewportView(splMemberID);
 
+        chbxCoach.setText("Træner");
+        chbxCoach.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chbxCoachActionPerformed(evt);
+            }
+        });
+
+        chbxElite.setText("Elite");
+        chbxElite.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                chbxEliteActionPerformed(evt);
+            }
+        });
+
+        lbPass.setText("Kodeord");
+
+        txtBday.setEnabled(false);
+
+        lblBday.setText("Fødselsdag");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,11 +190,6 @@ public class UpdateMember extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblName)
@@ -150,10 +197,12 @@ public class UpdateMember extends javax.swing.JFrame
                             .addComponent(lblZipCodeCity)
                             .addComponent(lblEmail)
                             .addComponent(lblPhoneNumber)
-                            .addComponent(lblMemberID))
+                            .addComponent(lblMemberID)
+                            .addComponent(lbPass)
+                            .addComponent(lblBday))
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(txtPass)
                             .addComponent(txtPhoneNumber)
                             .addComponent(txtEmail)
                             .addComponent(txtAddress)
@@ -163,11 +212,23 @@ public class UpdateMember extends javax.swing.JFrame
                                 .addComponent(lblPostNrByAdskiller)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCity))
+                            .addComponent(spMemberID)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(txtLastName))
+                            .addComponent(txtBday)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(chbxElite)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chbxCoach)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,11 +238,9 @@ public class UpdateMember extends javax.swing.JFrame
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMemberID)
-                        .addGap(0, 51, Short.MAX_VALUE))
-                    .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(lblMemberID)
+                    .addComponent(spMemberID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,9 +266,21 @@ public class UpdateMember extends javax.swing.JFrame
                     .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnCancel))
-                .addContainerGap())
+                    .addComponent(txtBday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBday))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPass))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chbxCoach)
+                    .addComponent(chbxElite))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnUpdate))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -226,6 +297,16 @@ public class UpdateMember extends javax.swing.JFrame
         Administration.getInstance().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void chbxEliteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbxEliteActionPerformed
+    {//GEN-HEADEREND:event_chbxEliteActionPerformed
+        isElite = true;
+    }//GEN-LAST:event_chbxEliteActionPerformed
+
+    private void chbxCoachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbxCoachActionPerformed
+    {//GEN-HEADEREND:event_chbxCoachActionPerformed
+        isCoach = true;
+    }//GEN-LAST:event_chbxCoachActionPerformed
 
     /*
      * Updates the list model with all current members in the club
@@ -252,7 +333,7 @@ public class UpdateMember extends javax.swing.JFrame
     }
 
     /**
-     * Updates all the text fields on the gui with the information requested 
+     * Updates all the text fields on the gui with the information requested
      * about the selected member
      */
     public void insertMemberToList()
@@ -263,6 +344,7 @@ public class UpdateMember extends javax.swing.JFrame
         try
         {
             Member m = mManager.getMemberByID(id);
+            memberId = id;
             txtFirstName.setText(m.getFirstName());
             txtLastName.setText(m.getLastName());
             txtAddress.setText(m.getAddress());
@@ -270,6 +352,8 @@ public class UpdateMember extends javax.swing.JFrame
             txtCity.setText(m.getCity());
             txtEmail.setText(m.getEmail());
             txtPhoneNumber.setText(Integer.toString(m.getPhoneNumber()));
+            txtBday.setText(m.getBday().getTime().toString());
+            txtPass.setText(m.getPassword());
         }
         catch (SQLException e)
         {
@@ -352,22 +436,21 @@ public class UpdateMember extends javax.swing.JFrame
                         String city = txtCity.getText();
                         String email = txtEmail.getText();
                         int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                        Member x = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber);
-                        try
-                        {
-                            mManager.updateMember(x);
-                            clearFields();
-                            dispose();
-                        }
-                        catch (Exception e)
-                        {
-                            System.out.println("ERROR - " + e);
-                        }
+                        Calendar bDay = m.getBday();
+                        String password = txtPass.getText();
+                        Member x = new Member(id, firstName, lastName, address, zipCode, city, email, phoneNumber, bDay, password, isElite, isCoach);
+
+                        mManager.updateMember(x);
+                        clearFields();
+                        dispose();
+
+
                         Administration.getInstance().setVisible(true);
                     }
                     catch (SQLException e)
                     {
                         System.out.println("ERROR - " + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             }
@@ -396,6 +479,8 @@ public class UpdateMember extends javax.swing.JFrame
         txtCity.setText("");
         txtEmail.setText("");
         txtPhoneNumber.setText("");
+        txtBday.setText("");
+        txtPass.setText("");
     }
 
     /*
@@ -460,7 +545,11 @@ public class UpdateMember extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JCheckBox chbxCoach;
+    private javax.swing.JCheckBox chbxElite;
+    private javax.swing.JLabel lbPass;
     private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblBday;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblMemberID;
     private javax.swing.JLabel lblName;
@@ -471,10 +560,12 @@ public class UpdateMember extends javax.swing.JFrame
     private javax.swing.JScrollPane spMemberID;
     private javax.swing.JList splMemberID;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtBday;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
