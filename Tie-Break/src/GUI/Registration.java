@@ -10,7 +10,6 @@ import javax.swing.UIManager;
 
 public class Registration extends javax.swing.JFrame
 {
-
     private MemberManager mManager;
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
@@ -284,11 +283,21 @@ public class Registration extends javax.swing.JFrame
         checkBirth();
         if (age > 60)
         {
-            Elite = false;
+            if (!chbkElite.isSelected())
+            {
+                Elite = false;
+            }
         }
         else
         {
-            Elite = true;
+            if (chbkElite.isSelected())
+            {
+                Elite = true;
+            }
+            else
+            {
+                Elite = false;
+            }
         }
     }//GEN-LAST:event_chbkEliteActionPerformed
 
@@ -297,11 +306,21 @@ public class Registration extends javax.swing.JFrame
         checkBirth();
         if (age < 18)
         {
-            Coach = false;
+            if (!chbkCoach.isSelected())
+            {
+                Coach = false;
+            }
         }
         else
         {
-            Coach = true;
+            if (chbkCoach.isSelected())
+            {
+                Coach = true;
+            }
+            else
+            {
+                Coach = false;
+            }
         }
     }//GEN-LAST:event_chbkCoachActionPerformed
 
@@ -475,6 +494,10 @@ public class Registration extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(null, "Alle felter skal udfyldes!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
         }
+        chbkCoach.setSelected(false);
+        chbkElite.setSelected(false);
+        Elite = false;
+        Coach = false;
     }
 
     /*
@@ -555,8 +578,8 @@ public class Registration extends javax.swing.JFrame
         int nowMonth = now.get(Calendar.MONTH) + 1;
         int nowYear = now.get(Calendar.YEAR) + 1900;
         int month = (Integer.parseInt(txtBMonth.getText()) - 1);
-        age = nowYear - (Integer.parseInt(txtBYear.getText())+1900);
-        
+        age = nowYear - (Integer.parseInt(txtBYear.getText()) + 1900);
+
 
         if (month > nowMonth)
         {
