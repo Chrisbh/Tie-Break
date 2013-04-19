@@ -5,7 +5,10 @@ import BLL.MemberManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -20,10 +23,11 @@ public class UpdateMember extends javax.swing.JFrame
     private boolean zipCancelled = false;
     private boolean phoneCancelled = false;
     private boolean bdCancelled = false;
-    private boolean isElite = false;
-    private boolean isCoach = false;
+    private boolean isElite;
+    private boolean isCoach;
     private static UpdateMember instance = null;
     private int memberId = 1;
+    private int age;
 
     /**
      * Constructor for the update member class
@@ -36,6 +40,7 @@ public class UpdateMember extends javax.swing.JFrame
         mManager = MemberManager.getInstance();
         setTitle("Opdatering af medlem");
         ShowMember();
+        checkBirth();
 
         splMemberID.addListSelectionListener(
                 new ListSelectionListener()
@@ -44,19 +49,43 @@ public class UpdateMember extends javax.swing.JFrame
             public void valueChanged(ListSelectionEvent lse)
             {
                 insertMemberToList();
+                checkBirth();
                 try
                 {
                     isElite = mManager.getElite(memberId);
                     isCoach = mManager.getCoach(memberId);
 
-                    if (isElite != false || isCoach != false)
+                    if (age < 18)
+                    {
+                        chbxCoach.setEnabled(false);
+                    }
+                    else
+                    {
+                        chbxCoach.setEnabled(true);
+                    }
+                    if (age > 60)
+                    {
+                        chbxElite.setEnabled(false);
+                    }
+                    else
+                    {
+                        chbxElite.setEnabled(true);
+                    }
+                    if (isElite)
                     {
                         chbxElite.setSelected(true);
                     }
                     else
                     {
-                        chbxCoach.setSelected(false);
                         chbxElite.setSelected(false);
+                    }
+                    if (isCoach)
+                    {
+                        chbxCoach.setSelected(true);
+                    }
+                    else
+                    {
+                        chbxCoach.setSelected(false);
                     }
                 }
                 catch (Exception e)
@@ -300,12 +329,26 @@ public class UpdateMember extends javax.swing.JFrame
 
     private void chbxEliteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbxEliteActionPerformed
     {//GEN-HEADEREND:event_chbxEliteActionPerformed
-        isElite = true;
+        if (chbxElite.isSelected())
+        {
+            isElite = true;
+        }
+        else
+        {
+            isElite = false;
+        }
     }//GEN-LAST:event_chbxEliteActionPerformed
 
     private void chbxCoachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbxCoachActionPerformed
     {//GEN-HEADEREND:event_chbxCoachActionPerformed
-        isCoach = true;
+        if (chbxCoach.isSelected())
+        {
+            isCoach = true;
+        }
+        else
+        {
+            isCoach = false;
+        }
     }//GEN-LAST:event_chbxCoachActionPerformed
 
     /*
@@ -513,6 +556,38 @@ public class UpdateMember extends javax.swing.JFrame
             txtPhoneNumber.setText(correctedPhone);
             phoneSc = new Scanner(txtPhoneNumber.getText());
             phoneCancelled = false;
+        }
+    }
+
+    private void checkBirth()
+    {
+
+        try
+        {
+            Calendar mbday = MemberManager.getInstance().getMembersBDayByID(memberId);
+            Calendar now = new GregorianCalendar();
+            int nowMonth = now.get(Calendar.MONTH) + 1;
+            int nowYear = now.get(Calendar.YEAR) + 1900;
+            int month = mbday.get(Calendar.MONTH) + 1;
+            age = nowYear - (mbday.get(Calendar.YEAR) + 1900);
+
+            if (month > nowMonth)
+            {
+                age--;
+            }
+            else if (month == nowMonth)
+            {
+                int nowDay = now.get(Calendar.DATE);
+
+                if (mbday.get(Calendar.DATE) > nowDay)
+                {
+                    age--;
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(CourtBooking.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

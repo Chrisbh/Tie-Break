@@ -1,6 +1,5 @@
 package DAL;
 
-import BE.Member;
 import BE.MembershipFee;
 import BE.MembershipType;
 import java.sql.Connection;
@@ -135,13 +134,14 @@ public class MembershipTypeDBManager extends TieBreakDBManager
     {
         try (Connection con = ds.getConnection())
         {
-            String sql = "INSERT INTO MembershipFee VALUES (?,?,?,?)";
+            String sql = "INSERT INTO MembershipFee VALUES (?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, mf.getMemberId());
             ps.setInt(2, mf.getTypeId());
-            ps.setTimestamp(3, new java.sql.Timestamp(mf.getInvoiceSent().getTimeInMillis()));
-            ps.setTimestamp(4, null);
+            ps.setInt(3, mf.getAmount());
+            ps.setTimestamp(4, new java.sql.Timestamp(mf.getInvoiceSent().getTimeInMillis()));
+            ps.setTimestamp(5, null);
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0)
@@ -150,7 +150,7 @@ public class MembershipTypeDBManager extends TieBreakDBManager
             }
             ResultSet keys = ps.getGeneratedKeys();
             keys.next();
-            return new MembershipFee(mf.getMemberId(), mf.getTypeId(), mf.getInvoiceSent());
+            return new MembershipFee(mf.getMemberId(), mf.getTypeId(),mf.getAmount(), mf.getInvoiceSent());
         }
     }
     

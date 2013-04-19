@@ -19,6 +19,7 @@ public class Registration extends javax.swing.JFrame
     private boolean Elite = false;
     private boolean Coach = false;
     private static Registration instance = null;
+    private int age;
 
     /**
      * Constructor for the registration class
@@ -280,12 +281,28 @@ public class Registration extends javax.swing.JFrame
 
     private void chbkEliteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbkEliteActionPerformed
     {//GEN-HEADEREND:event_chbkEliteActionPerformed
-        Elite = true;
+        checkBirth();
+        if (age > 60)
+        {
+            Elite = false;
+        }
+        else
+        {
+            Elite = true;
+        }
     }//GEN-LAST:event_chbkEliteActionPerformed
 
     private void chbkCoachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbkCoachActionPerformed
     {//GEN-HEADEREND:event_chbkCoachActionPerformed
-        Coach = true;
+        checkBirth();
+        if (age < 18)
+        {
+            Coach = false;
+        }
+        else
+        {
+            Coach = true;
+        }
     }//GEN-LAST:event_chbkCoachActionPerformed
 
     /**
@@ -473,8 +490,12 @@ public class Registration extends javax.swing.JFrame
         txtEmail.setText("");
         txtPhoneNumber.setText("");
         txtBDate.setText("");
+        txtBMonth.setText("");
+        txtBYear.setText("");
         pfPassword.setText("");
         pfRepeatPassword.setText("");
+        chbkCoach.setSelected(false);
+        chbkElite.setSelected(false);
     }
 
     /*
@@ -526,6 +547,31 @@ public class Registration extends javax.swing.JFrame
             bdSc = new Scanner(txtBDate.getText());
             bdCancelled = false;
         }
+    }
+
+    private void checkBirth()
+    {
+        Calendar now = new GregorianCalendar();
+        int nowMonth = now.get(Calendar.MONTH) + 1;
+        int nowYear = now.get(Calendar.YEAR) + 1900;
+        int month = (Integer.parseInt(txtBMonth.getText()) - 1);
+        age = nowYear - (Integer.parseInt(txtBYear.getText())+1900);
+        
+
+        if (month > nowMonth)
+        {
+            age--;
+        }
+        else if (month == nowMonth)
+        {
+            int nowDay = now.get(Calendar.DATE);
+
+            if (Integer.parseInt(txtBYear.getText()) > nowDay)
+            {
+                age--;
+            }
+        }
+
     }
 
     /**

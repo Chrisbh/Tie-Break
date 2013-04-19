@@ -28,6 +28,8 @@ public class SummerFee extends javax.swing.JFrame
 {
 
     private static SummerFee instance = null;
+    private Member m;
+    private MembershipFee mf;
     private MemberManager mManager;
     private MembershipTypeManager mtManager;
     private int age;
@@ -56,6 +58,7 @@ public class SummerFee extends javax.swing.JFrame
             public void valueChanged(ListSelectionEvent lse)
             {
                 insertMember();
+                checkBirth();
                 try
                 {
                     Calendar sent = mtManager.getSent(memberId);
@@ -364,6 +367,7 @@ public class SummerFee extends javax.swing.JFrame
 
     public void insertMember()
     {
+        System.out.println(age);
         int id = 1;
         String name = (String) spNames.getSelectedValue();
         if (name != null)
@@ -410,18 +414,30 @@ public class SummerFee extends javax.swing.JFrame
     private void updatePayment()
     {
         int typeId;
+        int amount;
         try
         {
             Calendar sent = mtManager.getSent(memberId);
-            Calendar paid = mtManager.getPaid(memberId);
+            boolean isElite = mManager.getElite(memberId);
+            boolean isCoach = mManager.getCoach(memberId);
 
             if (sent == null && chkbInvoiceSent.isSelected() && chkbInvoiceSent.isEnabled())
             {
 
                 if (age < 18)
                 {
-                    typeId = 1;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    if (isElite)
+                    {
+                        typeId = 1;
+                        amount = 450 + 600;
+                    }
+                    else
+                    {
+                        typeId = 1;
+                        amount = 450;
+                    }
+
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.invoiceSent(mf);
                     Administration.getInstance().setVisible(true);
@@ -429,8 +445,17 @@ public class SummerFee extends javax.swing.JFrame
 
                 if (age >= 60)
                 {
-                    typeId = 3;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    if (!isCoach)
+                    {
+                        typeId = 3;
+                        amount = 500;
+                    }
+                    else
+                    {
+                        typeId = 3;
+                        amount = 0;
+                    }
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.invoiceSent(mf);
                     Administration.getInstance().setVisible(true);
@@ -438,8 +463,26 @@ public class SummerFee extends javax.swing.JFrame
 
                 if (age >= 18 && age < 60)
                 {
-                    typeId = 2;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    if (!isCoach)
+                    {
+                        if (isElite)
+                        {
+                            typeId = 2;
+                            amount = 900 + 600;
+                        }
+                        else
+                        {
+                            typeId = 2;
+                            amount = 900;
+                        }
+                    }
+                    else
+                    {
+                        typeId = 2;
+                        amount = 0;
+                    }
+
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.invoiceSent(mf);
                     Administration.getInstance().setVisible(true);
@@ -450,7 +493,9 @@ public class SummerFee extends javax.swing.JFrame
                 if (age < 18)
                 {
                     typeId = 1;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    amount = 450;
+
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.paymentReceived(memberId, todayPayment);
                     Administration.getInstance().setVisible(true);
@@ -458,8 +503,11 @@ public class SummerFee extends javax.swing.JFrame
 
                 if (age >= 60)
                 {
+
                     typeId = 3;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    amount = 500;
+
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.paymentReceived(memberId, todayPayment);
                     Administration.getInstance().setVisible(true);
@@ -468,7 +516,9 @@ public class SummerFee extends javax.swing.JFrame
                 if (age >= 18 && age < 60)
                 {
                     typeId = 2;
-                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+                    amount = 900;
+
+                    MembershipFee mf = new MembershipFee(memberId, typeId, amount, todayInvoice);
 
                     mtManager.paymentReceived(memberId, todayPayment);
                     Administration.getInstance().setVisible(true);
@@ -482,8 +532,9 @@ public class SummerFee extends javax.swing.JFrame
         }
         catch (Exception e)
         {
-            System.err.println("ERROR - " + e.getMessage());
+            e.printStackTrace();
         }
+        dispose();
     }
 
     private void checkBirth()
