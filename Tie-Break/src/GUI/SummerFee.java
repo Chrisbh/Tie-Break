@@ -367,7 +367,6 @@ public class SummerFee extends javax.swing.JFrame
 
     public void insertMember()
     {
-        System.out.println(age);
         int id = 1;
         String name = (String) spNames.getSelectedValue();
         if (name != null)
@@ -567,8 +566,6 @@ public class SummerFee extends javax.swing.JFrame
         {
             Logger.getLogger(CourtBooking.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
 
     /**
