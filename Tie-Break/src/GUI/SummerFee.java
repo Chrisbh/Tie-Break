@@ -61,7 +61,7 @@ public class SummerFee extends javax.swing.JFrame
                 {
                     Calendar sent = mtManager.getSent(memberId);
 
-                    
+
                     if (sent != null && (Calendar.getInstance().get(Calendar.YEAR) == sent.get(Calendar.YEAR)))
                     {
                         chkbInvoiceSent.setSelected(true);
@@ -74,7 +74,7 @@ public class SummerFee extends javax.swing.JFrame
                     }
 
 
-                    if(sent == null)
+                    if (sent == null)
                     {
                         chkbPaid.setEnabled(false);
                     }
@@ -387,7 +387,6 @@ public class SummerFee extends javax.swing.JFrame
 
     private void updatePayment()
     {
-
         int typeId;
         try
         {
@@ -424,42 +423,47 @@ public class SummerFee extends javax.swing.JFrame
                     Administration.getInstance().setVisible(true);
                 }
             }
-            if (chkbInvoiceSent.isEnabled() == false)
-            {
-                typeId = 1;
-                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-
-                mtManager.paymentReceived(memberId, todayPayment);
-                Administration.getInstance().setVisible(true);
-            }
-
-            if (age >= 60)
-            {
-                typeId = 3;
-                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-
-                mtManager.paymentReceived(memberId, todayPayment);
-                Administration.getInstance().setVisible(true);
-            }
-
-            if (age >= 18 && age < 60)
-            {
-                typeId = 2;
-                MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
-
-                mtManager.paymentReceived(memberId, todayPayment);
-                Administration.getInstance().setVisible(true);
-            }
             else
             {
                 JOptionPane.showMessageDialog(null, "MedlemsNr eksisterer allerede i systemet!", "Advarsel", JOptionPane.INFORMATION_MESSAGE);
             }
+            if (sent != null)
+            {
+                {
+
+                    typeId = 1;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.paymentReceived(memberId, todayPayment);
+                    Administration.getInstance().setVisible(true);
+                }
+
+                if (age >= 60)
+                {
+                    typeId = 3;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.paymentReceived(memberId, todayPayment);
+                    Administration.getInstance().setVisible(true);
+                }
+
+                if (age >= 18 && age < 60)
+                {
+                    typeId = 2;
+                    MembershipFee mf = new MembershipFee(memberId, typeId, todayInvoice);
+
+                    mtManager.paymentReceived(memberId, todayPayment);
+                    Administration.getInstance().setVisible(true);
+                }
+            }
+
         }
         catch (Exception e)
         {
             System.err.println("ERROR - " + e.getMessage());
             e.printStackTrace();
         }
+
         dispose();
 
     }
